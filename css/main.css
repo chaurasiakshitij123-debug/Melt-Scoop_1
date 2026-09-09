@@ -1,0 +1,299 @@
+/* Melt & Scoop™ - Main Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Canvas & Base Neutrals */
+  --bg-cream: #FFF9F2;
+  --bg-cream-soft: #FAF3E8;
+  --bg-cream-card: #FFFFFF;
+  --bg-cream-dark: #F2E5D5;
+  --bg-cream-melt: #FFF4E5;
+
+  /* Primary Brand Accents */
+  --brand-pink: #FF5E7E;
+  --brand-pink-hover: #E84B6B;
+  --brand-pink-light: #FFEBF0;
+  --brand-pink-shadow: rgba(255, 94, 126, 0.25);
+
+  /* Deep Brand Tones */
+  --brand-brown: #321D17;
+  --brand-brown-medium: #543329;
+  --brand-brown-light: #734F43;
+
+  /* Flavor Accent Colors */
+  --flavor-vanilla: #E5A823;
+  --flavor-vanilla-bg: #FEF8E8;
+  --flavor-strawberry: #FF5E7E;
+  --flavor-strawberry-bg: #FFEBF0;
+  --flavor-chocolate: #48271F;
+  --flavor-chocolate-bg: #F4E8E3;
+  --flavor-pistachio: #6E9E53;
+  --flavor-pistachio-bg: #EAF4E4;
+  --flavor-mango: #F59E0B;
+  --flavor-mango-bg: #FEF3C7;
+  --flavor-coffee: #764A38;
+  --flavor-coffee-bg: #F5ECE8;
+
+  /* Typography Colors */
+  --text-main: #2A1713;
+  --text-muted: #78645E;
+  --text-light: #9B8883;
+
+  /* UI Borders & Shadows */
+  --border-subtle: rgba(50, 29, 23, 0.08);
+  --border-medium: rgba(50, 29, 23, 0.15);
+  --shadow-sm: 0 4px 12px rgba(50, 29, 23, 0.05);
+  --shadow-md: 0 12px 30px -6px rgba(50, 29, 23, 0.08);
+  --shadow-lg: 0 24px 50px -12px rgba(50, 29, 23, 0.14);
+  --shadow-float: 0 30px 60px -15px rgba(50, 29, 23, 0.2);
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --container-max: 1280px;
+  --header-height: 86px;
+  --header-height-compact: 68px;
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.35s var(--ease-smooth);
+  --transition-spring: 0.5s var(--ease-spring);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cream);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-cream-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: #E8D7C5;
+  border-radius: 999px;
+  border: 2px solid var(--bg-cream-soft);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-pink);
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-main);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  touch-action: manipulation;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Utility Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: var(--brand-pink);
+  color: #FFFFFF;
+  box-shadow: 0 10px 24px var(--brand-pink-shadow);
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-pink-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px var(--brand-pink-shadow);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--text-main);
+  border: 1.5px solid var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-cream-soft);
+  border-color: var(--brand-brown);
+  transform: translateY(-2px);
+}
+
+.btn-dark {
+  background-color: var(--brand-brown);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-dark:hover {
+  background-color: var(--brand-brown-medium);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Pill Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.badge-pink {
+  background-color: var(--brand-pink-light);
+  color: var(--brand-pink);
+}
+
+.badge-cream {
+  background-color: #FFFFFF;
+  color: var(--brand-brown);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Section Header Typography */
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 56px auto;
+}
+
+.section-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-pink);
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  color: var(--text-main);
+  margin-bottom: 16px;
+  line-height: 1.12;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Section Wrapper */
+.section-pad {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section-pad {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+}

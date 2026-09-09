@@ -1,0 +1,240 @@
+/* Melt & Scoop™ - Animations & Micro-Interactions */
+
+@keyframes spinInfinite {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinInfiniteReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes strawberryFloat1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-10px, -18px, 0) rotate(8deg);
+  }
+}
+
+@keyframes strawberryFloat2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(12px, -14px, 0) rotate(-10deg);
+  }
+}
+
+@keyframes strawberryFloat3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-8px, -12px, 0) rotate(6deg);
+  }
+}
+
+@keyframes meltBlobPulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    border-radius: 54% 46% 62% 38% / 42% 58% 42% 58%;
+  }
+  50% {
+    transform: scale(1.05) rotate(3deg);
+    border-radius: 60% 40% 50% 50% / 52% 45% 55% 48%;
+  }
+}
+
+@keyframes floatMedium {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes blobWobble {
+  0%, 100% {
+    border-radius: 62% 38% 70% 30% / 45% 58% 42% 55%;
+  }
+  33% {
+    border-radius: 40% 60% 35% 65% / 60% 30% 70% 40%;
+  }
+  66% {
+    border-radius: 70% 30% 55% 45% / 30% 65% 35% 70%;
+  }
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.45) rotate(8deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes heartBurst {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.4);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hero Liquid Transitions */
+.flavor-enter {
+  animation: flavorSlideIn 0.65s var(--ease-spring) forwards;
+}
+
+.flavor-exit {
+  animation: flavorSlideOut 0.4s var(--ease-smooth) forwards;
+}
+
+@keyframes flavorSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(40px) rotate(-8deg);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04) translateY(-8px) rotate(2deg);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes flavorSlideOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.75) translateY(-30px) rotate(10deg);
+    filter: blur(8px);
+  }
+}
+
+/* Flying Scoop to Cart Item */
+.flying-scoop {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  background-size: cover;
+  background-position: center;
+  transition: all 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* Utility Animation Classes */
+.animate-spin-slow {
+  animation: spinInfinite 20s linear infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: floatMedium 4.5s ease-in-out infinite;
+}
+
+.animate-wobble {
+  animation: blobWobble 9s ease-in-out infinite alternate;
+}
+
+.badge-pop {
+  animation: badgePop 0.4s var(--ease-spring);
+}
+
+.heart-active {
+  color: var(--brand-pink) !important;
+  fill: var(--brand-pink) !important;
+  animation: heartBurst 0.45s var(--ease-spring);
+}
+
+/* Reveal On Scroll Slide-Up Utility (Triggers before reaching section) */
+.reveal-slide-up {
+  opacity: 0;
+  transform: translateY(55px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-slide-up.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+.stagger-5 { transition-delay: 0.40s; }
+.stagger-6 { transition-delay: 0.48s; }
+
+/* Header Reveal Animation */
+@keyframes headerSlideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.site-header {
+  animation: headerSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
