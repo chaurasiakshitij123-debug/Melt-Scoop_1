@@ -1,140 +1,13 @@
 /* Melt & Scoop™ - Shop Catalog & Product Controller */
 
 const PRODUCTS_DATA = [
-  // --- 1. VANILLA CATEGORY (4 Products) ---
-  {
-    id: 'prod-van-tahitian',
-    name: 'Tahitian Vanilla Bean',
-    category: 'Vanilla',
-    flavorTag: 'vanilla',
-    price: 189,
-    rating: 4.9,
-    reviewsCount: 310,
-    isNew: false,
-    image: 'assets/images/vanilla.png',
-    tastingNotes: 'Floral orchid vanilla · Golden sweet butter · Real bean specks',
-    description: 'Our signature staple. Churned with real Madagascar and Tahitian vanilla bean caviar and unpasteurized organic sweet cream.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '220 kcal', fat: '12g', sugar: '17g', protein: '4g' }
-  },
-  {
-    id: 'prod-van-honeycomb',
-    name: 'Madagascar Honeycomb Crunch',
-    category: 'Vanilla',
-    flavorTag: 'vanilla',
-    price: 219,
-    rating: 4.9,
-    reviewsCount: 195,
-    isNew: true,
-    image: 'assets/images/vanilla.png',
-    tastingNotes: 'Wildflower honey toffee · Crunchy honeycomb · Creamy vanilla',
-    description: 'Golden honeycomb sponge toffee folded generously into double-fold Bourbon vanilla bean cream.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '235 kcal', fat: '13g', sugar: '21g', protein: '4g' }
-  },
-  {
-    id: 'prod-van-bourbon',
-    name: 'Smoked Bourbon Vanilla',
-    category: 'Vanilla',
-    flavorTag: 'vanilla',
-    price: 239,
-    rating: 4.8,
-    reviewsCount: 142,
-    isNew: false,
-    image: 'assets/images/vanilla.png',
-    tastingNotes: 'Charred oak essence · Kentucky bourbon aroma · Velvety cream',
-    description: 'Aged Kentucky bourbon extract with a hint of toasted French oak smoked cream and real vanilla bean.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '230 kcal', fat: '12g', sugar: '18g', protein: '4g' }
-  },
-  {
-    id: 'prod-van-chai',
-    name: 'Cardamom Spiced Vanilla Silk',
-    category: 'Vanilla',
-    flavorTag: 'vanilla',
-    price: 209,
-    rating: 4.9,
-    reviewsCount: 118,
-    isNew: true,
-    image: 'assets/images/vanilla.png',
-    tastingNotes: 'Green cardamom pods · Cinnamon bark hint · Silky vanilla whole milk',
-    description: 'Whole green cardamom seeds crushed and slow-steeped in whole cream, accented with pure Tahitian vanilla pods.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '215 kcal', fat: '11g', sugar: '16g', protein: '4g' }
-  },
-
-  // --- 2. STRAWBERRY CATEGORY (4 Products) ---
-  {
-    id: 'prod-straw-bliss',
-    name: 'Strawberry Bliss',
-    category: 'Strawberry',
-    flavorTag: 'strawberry',
-    price: 199,
-    rating: 5.0,
-    reviewsCount: 280,
-    isNew: false,
-    image: 'assets/images/strawberry.png',
-    tastingNotes: 'Fresh alpine strawberry · Sweet cream · Real berry ribbons',
-    description: 'Bursting with hand-picked alpine strawberries folded into freshly churned whole cream, with sweet glazed berry chunks in every spoonful.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '210 kcal', fat: '11g', sugar: '18g', protein: '4g' }
-  },
-  {
-    id: 'prod-straw-balsamic',
-    name: 'Roasted Strawberry Balsamic',
-    category: 'Strawberry',
-    flavorTag: 'strawberry',
-    price: 239,
-    rating: 4.9,
-    reviewsCount: 164,
-    isNew: false,
-    image: 'assets/images/strawberry.png',
-    tastingNotes: 'Slow-roasted berries · 12-year Modena balsamic drizzle · Black pepper hint',
-    description: 'Oven-roasted ripe strawberries glazed with aged Italian balsamic vinegar to create a rich sweet-tart gourmet masterpiece.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '205 kcal', fat: '10g', sugar: '19g', protein: '3g' }
-  },
-  {
-    id: 'prod-straw-cheesecake',
-    name: 'Wild Strawberry Cheesecake',
-    category: 'Strawberry',
-    flavorTag: 'strawberry',
-    price: 249,
-    rating: 4.9,
-    reviewsCount: 220,
-    isNew: true,
-    image: 'assets/images/strawberry.png',
-    tastingNotes: 'Graham crust crunch · Tangy mascarpone cream · Wild berry compote',
-    description: 'Rich cultured cream cheese and mascarpone gelato laced with wild strawberry compote and buttery graham crumble.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '255 kcal', fat: '14g', sugar: '20g', protein: '5g' }
-  },
-  {
-    id: 'prod-straw-sorbet',
-    name: 'Strawberry Hibiscus Rose Sorbet',
-    category: 'Strawberry',
-    flavorTag: 'strawberry',
-    price: 199,
-    rating: 4.8,
-    reviewsCount: 135,
-    isNew: true,
-    image: 'assets/images/strawberry.png',
-    tastingNotes: 'Red hibiscus brew · Hand-mashed berries · Delicate rose finish',
-    description: 'A dairy-free, vibrant crimson sorbet brewed from Egyptian red hibiscus petals and fresh crushed strawberries.',
-    dietary: ['Vegan', 'Dairy-Free', 'Gluten-Free'],
-    nutrition: { calories: '160 kcal', fat: '0.2g', sugar: '21g', protein: '1g' }
-  },
-
-  // --- 3. CHOCOLATE CATEGORY (4 Products) ---
   {
     id: 'prod-choc-truffle',
     name: 'Belgian Dark Truffle',
-    category: 'Chocolate',
-    flavorTag: 'chocolate',
     price: 249,
     rating: 5.0,
     reviewsCount: 340,
-    isNew: false,
+    badge: '👑 Bestseller',
     image: 'assets/images/chocolate.png',
     tastingNotes: 'Decadent 70% dark cocoa · Chocolate shavings · Molten ganache fudge',
     description: 'An unapologetically intense dark chocolate experience crafted with single-origin Callebaut Belgian cocoa and ribbons of molten ganache.',
@@ -142,61 +15,38 @@ const PRODUCTS_DATA = [
     nutrition: { calories: '260 kcal', fat: '15g', sugar: '19g', protein: '5g' }
   },
   {
-    id: 'prod-choc-caramel',
-    name: 'Salted Caramel Cocoa Fudge',
-    category: 'Chocolate',
-    flavorTag: 'chocolate',
-    price: 259,
+    id: 'prod-van-tahitian',
+    name: 'Tahitian Vanilla Bean',
+    price: 189,
     rating: 4.9,
-    reviewsCount: 275,
-    isNew: false,
-    image: 'assets/images/chocolate.png',
-    tastingNotes: 'Fleur de sel caramel · Dutch processed chocolate · Molten fudge swirl',
-    description: 'Buttery sea-salt caramel sauce swirled into dark Dutch cocoa ice cream with chewy dark chocolate fudge clusters.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '270 kcal', fat: '16g', sugar: '22g', protein: '5g' }
+    reviewsCount: 310,
+    badge: '✨ Classic',
+    image: 'assets/images/vanilla.png',
+    tastingNotes: 'Floral orchid vanilla · Golden sweet butter · Real bean specks',
+    description: 'Our signature staple. Churned with real Madagascar and Tahitian vanilla bean caviar and unpasteurized organic sweet cream.',
+    dietary: ['Gluten-Free', 'Vegetarian'],
+    nutrition: { calories: '220 kcal', fat: '12g', sugar: '17g', protein: '4g' }
   },
   {
-    id: 'prod-choc-brownie',
-    name: 'Midnight Cocoa Brownie Chunk',
-    category: 'Chocolate',
-    flavorTag: 'chocolate',
-    price: 269,
-    rating: 4.9,
-    reviewsCount: 210,
-    isNew: true,
-    image: 'assets/images/chocolate.png',
-    tastingNotes: '80% Valrhona black cocoa · Fudgy baked brownie squares · Dark chocolate chunks',
-    description: 'Deep, bittersweet midnight black cocoa gelato packed with house-baked dark fudge brownie bites.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '280 kcal', fat: '17g', sugar: '23g', protein: '6g' }
+    id: 'prod-straw-bliss',
+    name: 'Strawberry Bliss',
+    price: 199,
+    rating: 5.0,
+    reviewsCount: 280,
+    badge: '🍓 Pure Fruit',
+    image: 'assets/images/strawberry.png',
+    tastingNotes: 'Fresh alpine strawberry · Sweet cream · Real berry ribbons',
+    description: 'Bursting with hand-picked alpine strawberries folded into freshly churned whole cream, with sweet glazed berry chunks in every spoonful.',
+    dietary: ['Gluten-Free', 'Vegetarian'],
+    nutrition: { calories: '210 kcal', fat: '11g', sugar: '18g', protein: '4g' }
   },
-  {
-    id: 'prod-choc-gianduja',
-    name: 'Roasted Hazelnut Gianduja',
-    category: 'Chocolate',
-    flavorTag: 'chocolate',
-    price: 259,
-    rating: 4.8,
-    reviewsCount: 188,
-    isNew: false,
-    image: 'assets/images/chocolate.png',
-    tastingNotes: 'Piedmont roasted hazelnuts · Milk chocolate cream · Praline crunch',
-    description: 'Authentic Italian Gianduja pairing stone-ground Piedmontese hazelnut paste with silky Swiss milk chocolate.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '265 kcal', fat: '16g', sugar: '20g', protein: '5g' }
-  },
-
-  // --- 4. PISTACHIO CATEGORY (4 Products) ---
   {
     id: 'prod-pist-sicilian',
     name: 'Sicilian Pistachio Crunch',
-    category: 'Pistachio',
-    flavorTag: 'pistachio',
     price: 269,
     rating: 5.0,
     reviewsCount: 290,
-    isNew: false,
+    badge: '⭐ Chef Pick',
     image: 'assets/images/pistachio.png',
     tastingNotes: 'Roasted Bronte pistachios · Sea salt cream · Velvety gelato',
     description: 'Authentic Sicilian gelato made from roasted emerald Bronte pistachios, folded into rich grass-fed cream with roasted nutty bits.',
@@ -204,61 +54,12 @@ const PRODUCTS_DATA = [
     nutrition: { calories: '240 kcal', fat: '14g', sugar: '16g', protein: '6g' }
   },
   {
-    id: 'prod-pist-kulfi',
-    name: 'Rosewater Pistachio Kulfi',
-    category: 'Pistachio',
-    flavorTag: 'pistachio',
-    price: 249,
-    rating: 4.9,
-    reviewsCount: 172,
-    isNew: true,
-    image: 'assets/images/pistachio.png',
-    tastingNotes: 'Damascus rosewater · Crushed green pistachios · Saffron milk reduction',
-    description: 'Traditional slow-simmered rabri kulfi modernized into gelato, with pure saffron strands and rosewater.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '230 kcal', fat: '13g', sugar: '18g', protein: '5g' }
-  },
-  {
-    id: 'prod-pist-whitechoc',
-    name: 'White Chocolate Pistachio Cloud',
-    category: 'Pistachio',
-    flavorTag: 'pistachio',
-    price: 259,
-    rating: 4.8,
-    reviewsCount: 145,
-    isNew: false,
-    image: 'assets/images/pistachio.png',
-    tastingNotes: 'Ivory cocoa butter · Roasted pistachio swirl · Creamy sweetness',
-    description: 'Melted Belgian white chocolate folded into pistachio butter with fine crushed pistachio praline.',
-    dietary: ['Vegetarian'],
-    nutrition: { calories: '255 kcal', fat: '15g', sugar: '20g', protein: '5g' }
-  },
-  {
-    id: 'prod-pist-praline',
-    name: 'Salted Pistachio Praline Gelato',
-    category: 'Pistachio',
-    flavorTag: 'pistachio',
-    price: 269,
-    rating: 4.9,
-    reviewsCount: 198,
-    isNew: true,
-    image: 'assets/images/pistachio.png',
-    tastingNotes: 'Crunchy pistachio brittle · Maldon sea salt · Dark caramel swirls',
-    description: 'Crushed pistachio praline brittle tossed in caramel ripples through rich roasted pistachio cream.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '250 kcal', fat: '15g', sugar: '19g', protein: '6g' }
-  },
-
-  // --- 5. MANGO CATEGORY (4 Products) ---
-  {
     id: 'prod-mango-velvet',
     name: 'Alphonso Mango Velvet',
-    category: 'Mango',
-    flavorTag: 'mango',
     price: 219,
     rating: 4.9,
     reviewsCount: 260,
-    isNew: false,
+    badge: '🥭 Seasonal',
     image: 'assets/images/mango.png',
     tastingNotes: 'Ratnagiri Alphonso pulp · Silky sorbet · Sun-drenched nectar',
     description: '100% pure Ratnagiri Alphonso mangoes turned into a refreshing, silky dairy-free sorbet. Like biting into a chilled, ripe summer mango.',
@@ -266,49 +67,30 @@ const PRODUCTS_DATA = [
     nutrition: { calories: '170 kcal', fat: '0.5g', sugar: '22g', protein: '1g' }
   },
   {
-    id: 'prod-mango-chili',
-    name: 'Spiced Alphonso Mango Chili',
-    category: 'Mango',
-    flavorTag: 'mango',
-    price: 209,
-    rating: 4.8,
-    reviewsCount: 130,
-    isNew: true,
-    image: 'assets/images/mango.png',
-    tastingNotes: 'Golden mango nectar · Kashmiri red chili sparkle · Fresh lime zest',
-    description: 'Juicy mango sorbet with a lively touch of sun-dried Kashmiri chili flakes and freshly squeezed lime.',
-    dietary: ['Vegan', 'Dairy-Free', 'Gluten-Free'],
-    nutrition: { calories: '165 kcal', fat: '0.3g', sugar: '21g', protein: '1g' }
-  },
-  {
-    id: 'prod-mango-passion',
-    name: 'Mango Passionfruit Swirl',
-    category: 'Mango',
-    flavorTag: 'mango',
-    price: 229,
+    id: 'prod-choc-caramel',
+    name: 'Salted Caramel Cocoa Fudge',
+    price: 259,
     rating: 4.9,
-    reviewsCount: 185,
-    isNew: false,
-    image: 'assets/images/mango.png',
-    tastingNotes: 'Tart yellow passionfruit · Sweet mango puree · Tropical sorbet twist',
-    description: 'Tangy passionfruit coulis twisted through creamy Alphonso mango gelato for a sunny, refreshing tropical escape.',
-    dietary: ['Dairy-Free', 'Vegan', 'Gluten-Free'],
-    nutrition: { calories: '175 kcal', fat: '0.4g', sugar: '23g', protein: '1g' }
+    reviewsCount: 275,
+    badge: '🔥 Fan Fav',
+    image: 'assets/images/chocolate.png',
+    tastingNotes: 'Fleur de sel caramel · Dutch processed chocolate · Molten fudge swirl',
+    description: 'Buttery sea-salt caramel sauce swirled into dark Dutch cocoa ice cream with chewy dark chocolate fudge clusters.',
+    dietary: ['Vegetarian'],
+    nutrition: { calories: '270 kcal', fat: '16g', sugar: '22g', protein: '5g' }
   },
   {
-    id: 'prod-mango-cardamom',
-    name: 'Alphonso Cream Cloud & Cardamom',
-    category: 'Mango',
-    flavorTag: 'mango',
-    price: 239,
-    rating: 5.0,
-    reviewsCount: 215,
-    isNew: true,
-    image: 'assets/images/mango.png',
-    tastingNotes: 'Sweet whole cream · Alphonso nectar glaze · Aromatic cardamom essence',
-    description: 'The royal combination of sweet Ratnagiri mango puree gently churned into grass-fed double cream with green cardamom.',
-    dietary: ['Gluten-Free', 'Vegetarian'],
-    nutrition: { calories: '225 kcal', fat: '12g', sugar: '20g', protein: '4g' }
+    id: 'prod-straw-cheesecake',
+    name: 'Wild Strawberry Cheesecake',
+    price: 249,
+    rating: 4.9,
+    reviewsCount: 220,
+    badge: '✨ New',
+    image: 'assets/images/strawberry.png',
+    tastingNotes: 'Graham crust crunch · Tangy mascarpone cream · Wild berry compote',
+    description: 'Rich cultured cream cheese and mascarpone gelato laced with wild strawberry compote and buttery graham crumble.',
+    dietary: ['Vegetarian'],
+    nutrition: { calories: '255 kcal', fat: '14g', sugar: '20g', protein: '5g' }
   }
 ];
 
@@ -393,11 +175,6 @@ class ShopManager {
   getFilteredAndSortedProducts() {
     let items = [...this.products];
 
-    // Filter by flavor tag
-    if (this.activeFilter && this.activeFilter !== 'all') {
-      items = items.filter(p => p.flavorTag === this.activeFilter);
-    }
-
     // Sort items
     if (this.activeSort === 'price-asc') {
       items.sort((a, b) => a.price - b.price);
@@ -445,8 +222,7 @@ class ShopManager {
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">${product.category}</span>
-              ${product.isNew ? '<span class="badge-new-tag">✨ New</span>' : ''}
+              <span class="badge-signature-tag">${product.badge || '✨ Artisanal'}</span>
             </div>
 
             <div class="product-header-row">
@@ -550,7 +326,7 @@ class ShopManager {
             <img src="${p.image}" alt="${p.name}" class="quick-view-img">
           </div>
           <div class="quick-view-info">
-            <div class="badge badge-pink" style="margin-bottom:10px;">${p.category}</div>
+            <div class="badge badge-pink" style="margin-bottom:10px;">${p.badge || '✨ Artisanal Scoop'}</div>
             <h2 class="quick-view-title">${p.name}</h2>
             <div class="quick-view-rating-row">
               <span style="color:#F59E0B;">★★★★★</span>

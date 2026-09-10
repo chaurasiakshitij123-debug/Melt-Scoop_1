@@ -505,13 +505,33 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: radial-gradient(circle at 50% 45%, #FFF0F4 0%, #FFF9F2 70%);
+  background-color: #FFF9F2;
   overflow: hidden;
   width: 100%;
-  transition: background 0.8s ease;
+  transition: background-color 0.85s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dynamic ambient radial glow */
+/* Seamless Crossfading Background Layers for Hero Section */
+.hero-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.hero-bg-layer.is-active {
+  opacity: 1;
+}
+
+/* Dynamic ambient radial glow with seamless crossfade */
 .hero-ambient-glow {
   position: absolute;
   top: 48%;
@@ -520,56 +540,71 @@
   width: 820px;
   height: 820px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 94, 126, 0.22) 0%, rgba(255, 240, 244, 0) 70%);
   filter: blur(60px);
   pointer-events: none;
   z-index: 1;
-  transition: background 0.8s ease;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr 0.85fr;
-  align-items: center;
-  gap: 30px;
+.hero-ambient-glow.is-active {
+  opacity: 1;
+}
+
+.hero-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
   position: relative;
   z-index: 5;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Left Hero Content: Oversized Editorial Typography */
-.hero-content {
-  max-width: 440px;
+/* Tier 1: Purple Box (Badge, Editorial Title & Subtitle across top) */
+.hero-top-container {
+  text-align: center;
+  max-width: 980px;
+  margin: 0 auto 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   z-index: 6;
 }
 
 .hero-badge {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   background: #FFFFFF;
-  border: 1.5px solid rgba(255, 94, 126, 0.2);
+  border: 1.5px solid rgba(255, 94, 126, 0.25);
   box-shadow: 0 4px 14px rgba(255, 94, 126, 0.12);
-  padding: 8px 18px;
+  padding: 7px 18px;
   color: var(--brand-pink);
   font-weight: 800;
   display: inline-flex;
+  border-radius: var(--radius-pill);
 }
 
 .hero-editorial-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 6.5vw, 5.2rem);
-  line-height: 0.95;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 1.0;
   color: var(--text-main);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-weight: 900;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   display: flex;
-  flex-direction: column;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .hero-editorial-title .title-word {
-  display: block;
+  display: inline-block;
 }
 
 .hero-editorial-title .title-highlight {
@@ -579,18 +614,91 @@
 }
 
 .hero-subtitle {
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   line-height: 1.55;
   color: var(--text-muted);
-  margin-bottom: 30px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.hero-actions {
+/* Tier 2: Lower 3-Column Row (Left Actions, Center Zoomed Cone, Right Purchase) */
+.hero-main-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 24px;
+  margin-top: 8px;
+  z-index: 5;
+}
+
+/* Left Green Box: Shop & Build CTAs */
+.hero-left-actions-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 6;
+}
+
+.hero-actions-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 94, 126, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px;
+  box-shadow: 0 16px 36px -10px rgba(50, 20, 25, 0.08);
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-actions-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-pink);
+}
+
+.hero-actions-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.hero-actions-buttons .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  padding: 13px 20px;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+}
+
+.hero-actions-perks {
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding-top: 6px;
+  border-top: 1px dashed rgba(61, 35, 29, 0.12);
+}
+
+.hero-perk-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-pink);
+  flex-shrink: 0;
 }
 
 /* Horizontal "Choose Your Scoop" Flavor Selector */
@@ -661,15 +769,65 @@
   transform: scale(1.35);
 }
 
-/* Center Hero Showcase Stage: Dominant 35-40% Viewport Composition */
-.hero-stage {
+/* Center Hero Showcase Stage: Zoomed-In Composition with Flanking Navigation */
+.hero-center-stage {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
+  z-index: 5;
+}
+
+/* Flanking Arrow Buttons to Cycle Flavors */
+.hero-arrow-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 94, 126, 0.32);
+  color: var(--brand-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -4px rgba(50, 20, 25, 0.12);
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.hero-arrow-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--brand-pink);
+  color: var(--brand-pink);
+  transform: scale(1.14);
+  box-shadow: 0 12px 28px -4px rgba(255, 94, 126, 0.38);
+}
+
+.hero-arrow-btn:active {
+  transform: scale(0.94);
+}
+
+.hero-arrow-prev:hover {
+  transform: scale(1.14) translateX(-3px);
+}
+
+.hero-arrow-next:hover {
+  transform: scale(1.14) translateX(3px);
+}
+
+.hero-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   perspective: 1200px;
-  min-height: 580px;
-  width: 100%;
+  min-height: 640px;
+  width: min(520px, 38vw);
+  overflow: hidden;
 }
 
 /* Subtle Minimalist Decorative Halo Ring (Zero text, zero background shapes) */
@@ -678,8 +836,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(500px, 80vw);
-  height: min(500px, 80vw);
+  width: min(560px, 78vw);
+  height: min(560px, 78vw);
   border-radius: 50%;
   border: 1.5px dashed rgba(72, 39, 31, 0.12);
   pointer-events: none;
@@ -688,14 +846,14 @@
   transition: border-color 0.6s ease;
 }
 
-/* Central Isolated Oversized Ice Cream Frame */
+/* Central Isolated Zoomed-In Ice Cream Frame (25% Bigger & Anchored on Top) */
 .icecream-display-frame {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  height: 600px;
+  max-width: 520px;
+  height: 660px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   transform-style: preserve-3d;
   transition: transform 0.15s ease-out;
@@ -707,22 +865,32 @@
 .icecream-hero-img {
   width: 100%;
   height: 100%;
-  max-height: 600px;
+  max-height: 660px;
   object-fit: contain;
   background: transparent;
   border: none;
   border-radius: 0;
-  filter: drop-shadow(0 26px 40px rgba(50, 20, 25, 0.22));
+  transform-origin: top center;
+  transform: scale(1.25);
+  filter: drop-shadow(0 32px 48px rgba(50, 20, 25, 0.22));
   cursor: grab;
   user-select: none;
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .icecream-hero-img:hover {
-  transform: scale(1.03) translateY(-10px);
+  transform: scale(1.28) translateY(-6px);
 }
 
-/* Right Column: Product Information Card */
+/* Right Green Box: Product Information Card */
+.hero-right-purchase-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 6;
+}
+
 .hero-product-card {
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
@@ -732,7 +900,7 @@
   padding: 28px 24px;
   box-shadow: 0 20px 45px -12px rgba(50, 29, 23, 0.12);
   width: 100%;
-  max-width: 340px;
+  max-width: 330px;
   z-index: 10;
   transition: transform 0.35s ease, opacity 0.35s ease, border-color 0.4s ease;
 }
@@ -895,6 +1063,38 @@
   margin-bottom: 36px;
   padding-bottom: 20px;
   border-bottom: 1.5px dashed var(--border-subtle);
+}
+
+.shop-flavor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.counter-badge {
+  background: var(--brand-pink-light, #FFF0F4);
+  color: var(--brand-pink, #FF5E7E);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: 1px solid rgba(255, 94, 126, 0.25);
+  box-shadow: 0 2px 8px rgba(255, 94, 126, 0.1);
+}
+
+.counter-note {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.badge-signature-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--brand-pink);
+  background: var(--brand-pink-light);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
 }
 
 .shop-filter-tabs {
@@ -3005,59 +3205,74 @@
 
 /* 2. Tablets & Small Desktops (<= 860px) */
 @media (max-width: 860px) {
-  /* Hero Section Stacking */
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 28px;
-  }
-  .hero-content {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .hero-editorial-title {
-    align-items: center;
-  }
-  .hero-actions {
-    justify-content: center;
-  }
-  .hero-flavor-picker {
+  /* Hero Section Responsive Stacking */
+  .hero-main-row {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 24px;
+    width: 100%;
   }
-  .flavor-selector-wrapper {
-    justify-content: center;
+  .hero-top-container {
     max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    margin-bottom: 6px;
   }
-  .flavor-selector-wrapper::-webkit-scrollbar {
-    display: none;
+  .hero-editorial-title {
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    gap: 8px;
+  }
+  .hero-center-stage {
+    order: 1;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-arrow-btn {
+    width: 44px;
+    height: 44px;
   }
   .hero-stage {
-    min-height: 420px;
-    height: 420px;
-    margin-top: 10px;
-  }
-  .icecream-display-frame {
-    max-width: 340px;
-    height: 420px;
-    margin: 0 auto;
-  }
-  .icecream-hero-img {
-    max-height: 420px;
-  }
-  .hero-product-card {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin: 18px auto 0 auto;
     width: 100%;
     max-width: 380px;
-    text-align: left;
+    min-height: 480px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .icecream-display-frame {
+    max-width: 380px;
+    height: 500px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .icecream-hero-img {
+    max-height: 500px;
+    transform-origin: top center;
+    transform: scale(1.18);
+  }
+  .hero-right-purchase-box {
+    order: 2;
+    align-items: center;
+    width: 100%;
+  }
+  .hero-right-purchase-box .hero-product-card {
+    max-width: 380px;
     padding: 22px 20px;
+  }
+  .hero-left-actions-box {
+    order: 3;
+    align-items: center;
+    width: 100%;
+  }
+  .hero-actions-card {
+    max-width: 380px;
+  }
+  .hero-actions-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .hero-actions-buttons .btn {
+    flex: 1 1 140px;
   }
 
   /* Shop Toolbar */

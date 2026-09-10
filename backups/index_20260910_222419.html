@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MELT & SCOOP™ — Artisanal Creamery & Sweet Cravings</title>
+  <meta name="description" content="Artisanal, ultra-creamy, small-batch ice cream crafted with grass-fed dairy, single-origin vanilla, and hand-picked fruits. Delivered frozen to your doorstep in sub-zero dry ice.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍦</text></svg>">
+  <link rel="stylesheet" href="css/main.css?v=m1">
+  <link rel="stylesheet" href="css/components.css?v=m1">
+  <link rel="stylesheet" href="css/animations.css?v=m1">
+  <link rel="stylesheet" href="css/editor.css?v=m1">
+</head>
+<body>
+
+  <!-- ========================================================================
+       01 — HEADER / NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <!-- Left: Geometric Modern Brand Logo -->
+      <a href="#heroSection" class="header-left-logo" aria-label="MELT & SCOOP Home">
+        <span>MELT & SCOOP</span><span class="header-logo-accent">.</span>
+      </a>
+
+      <!-- Center: Navigation Links -->
+      <nav class="header-center-nav" aria-label="Main Navigation">
+        <a href="#heroSection" class="header-nav-link active">Home</a>
+        <a href="#bestsellersSection" class="header-nav-link">Shop</a>
+        <a href="#boxBuilderSection" class="header-nav-link">Build A Box</a>
+        <a href="#storySection" class="header-nav-link">About Us</a>
+        <a href="#storeSection" class="header-nav-link">Locations</a>
+        <a href="#footerContact" class="header-nav-link">Contact</a>
+      </nav>
+
+      <!-- Right: ENG switch, Social Outline Icons, Search, Cart Pill -->
+      <div class="header-right-utils">
+        <span class="header-lang-switch" title="Language: English">ENG</span>
+
+        <div class="header-social-links">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="header-social-circle" aria-label="Facebook">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="header-social-circle" aria-label="Instagram">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+
+        <button class="header-search-btn" id="headerSearchBtn" title="Search Scoops" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <button class="header-cart-pill open-cart-btn cart-btn" id="headerCartBtn" aria-label="Shopping Cart">
+          <span>Cart</span>
+          <span class="header-cart-badge cart-count" id="headerCartCount">0</span>
+        </button>
+
+        <!-- Mobile Hamburger Menu Button (visible on mobile/tablet <= 860px) -->
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Open Navigation Menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer & Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+  <aside class="mobile-menu-drawer" id="mobileMenuDrawer" aria-label="Mobile Navigation Drawer">
+    <div class="mobile-drawer-header">
+      <a href="#heroSection" class="mobile-drawer-logo" onclick="window.closeMobileMenu()">
+        <span>MELT & SCOOP</span><span class="header-logo-accent">.</span>
+      </a>
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Navigation Menu">✕</button>
+    </div>
+    <nav class="mobile-drawer-nav">
+      <a href="#heroSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">🍦</span>
+        <span>Home</span>
+      </a>
+      <a href="#bestsellersSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">🍨</span>
+        <span>Shop 20 Scoops</span>
+      </a>
+      <a href="#boxBuilderSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">📦</span>
+        <span>Build A Box</span>
+      </a>
+      <a href="#storySection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">✨</span>
+        <span>Our Story</span>
+      </a>
+      <a href="#storeSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">📍</span>
+        <span>Parlor Locations</span>
+      </a>
+      <a href="#footerContact" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">💌</span>
+        <span>Contact & Hours</span>
+      </a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <div class="mobile-drawer-quick-actions">
+        <button class="btn btn-secondary mobile-quick-btn" onclick="window.closeMobileMenu(); document.getElementById('headerSearchBtn').click();">
+          🔍 Search Scoops
+        </button>
+        <button class="btn btn-primary mobile-quick-btn open-cart-btn" onclick="window.closeMobileMenu();">
+          🛒 Open Cart (<span class="cart-count">0</span>)
+        </button>
+      </div>
+      <div class="mobile-drawer-socials">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-pill" title="Facebook">📘</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-pill" title="Instagram">📷</a>
+        <a href="#" class="footer-social-pill" title="TikTok">🎵</a>
+      </div>
+      <div class="mobile-drawer-meta">
+        Freshly slow-churned daily · 100% Pasture-Raised Cream
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       02 — HERO — IMMERSIVE STRAWBERRY ICE CREAM EXPERIENCE
+       ======================================================================== -->
+  <section class="hero-section" id="heroSection">
+    <!-- Sprinkles Interactive Canvas -->
+    <canvas id="sprinklesCanvas"></canvas>
+
+    <!-- Dynamic Radial Ambient Glow -->
+    <div class="hero-ambient-glow" id="heroAmbientGlow"></div>
+
+    <div class="container hero-grid">
+      <!-- Left Column: Oversized Editorial Typography -->
+      <div class="hero-content">
+        <div class="badge badge-pink hero-badge">
+          <span>✨ 100% Artisanal Churned</span>
+        </div>
+        <h1 class="hero-editorial-title">
+          <span class="title-word">SCOOPS</span>
+          <span class="title-word">OF</span>
+          <span class="title-word title-highlight">HAPPINESS.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Creamy, dreamy ice cream made for your happiest cravings. Handcrafted daily in micro-batches with pure grass-fed dairy and uncompromised ingredients.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#bestsellersSection" class="btn btn-primary">
+            SHOP ICE CREAM →
+          </a>
+          <a href="#boxBuilderSection" class="btn btn-secondary">
+            BUILD YOUR BOX 🎁
+          </a>
+        </div>
+
+        <!-- Horizontal "Choose Your Scoop" Flavor Selector -->
+        <div class="hero-flavor-picker">
+          <div class="hero-flavor-label">
+            <span>CHOOSE YOUR SCOOP</span>
+          </div>
+          <div class="flavor-selector-wrapper">
+            <button class="flavor-pill" data-flavor="vanilla">
+              <span class="flavor-dot" style="background-color: #E5A823;"></span>
+              Vanilla
+            </button>
+            <button class="flavor-pill" data-flavor="strawberry">
+              <span class="flavor-dot" style="background-color: #FF5E7E;"></span>
+              Strawberry
+            </button>
+            <button class="flavor-pill active" data-flavor="chocolate">
+              <span class="flavor-dot" style="background-color: #48271F;"></span>
+              Chocolate
+            </button>
+            <button class="flavor-pill" data-flavor="pistachio">
+              <span class="flavor-dot" style="background-color: #6E9E53;"></span>
+              Pistachio
+            </button>
+            <button class="flavor-pill" data-flavor="mango">
+              <span class="flavor-dot" style="background-color: #F59E0B;"></span>
+              Mango
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column: 35-40% Viewport Dominant Isolated Ice Cream Cone -->
+      <div class="hero-stage">
+        <!-- Subtle Minimalist Decorative Ring (No text, zero colored shapes) -->
+        <div class="hero-halo-ring" id="heroHaloRing"></div>
+
+        <!-- Central Oversized Isolated Ice Cream Cone -->
+        <div class="icecream-display-frame" id="heroDisplayFrame">
+          <img src="assets/images/chocolate.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img flavor-enter" id="heroIcecreamImg">
+        </div>
+      </div>
+
+      <!-- Right Column: Product Information Card -->
+      <div class="hero-right-col">
+        <div class="hero-product-card" id="heroProductCard">
+          <div class="hero-product-header">
+            <div>
+              <span class="badge badge-pink" style="margin-bottom:6px; font-size:0.75rem;">Top Craving</span>
+              <h3 class="hero-product-name" id="heroProductName">BELGIAN DARK TRUFFLE</h3>
+            </div>
+            <span class="hero-product-price" id="heroProductPrice">₹249</span>
+          </div>
+          <p class="hero-product-desc" id="heroProductDesc">
+            Decadent 70% dark cocoa fudge with glossy ribbons of melted chocolate ganache and crisp curls.
+          </p>
+          <div class="hero-product-footer">
+            <div class="qty-stepper">
+              <button class="qty-btn" id="heroQtyMinus">−</button>
+              <span class="qty-number" id="heroQtyNumber">1</span>
+              <button class="qty-btn" id="heroQtyPlus">+</button>
+            </div>
+            <button class="btn btn-primary btn-add-hero" id="heroAddToCartBtn">
+              ADD TO CART 🍦
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       03 — WAVY TRANSITION DIVIDER
+       ======================================================================== -->
+  <div class="wave-divider wave-divider-cream">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,32 C180,68 360,8 540,42 C720,76 900,14 1080,52 C1260,84 1380,24 1440,36 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       04 — SHOP / 20-SCOOP CATALOG
+       ======================================================================== -->
+  <section class="section-pad bestsellers-section" id="bestsellersSection">
+    <div class="container">
+      <div class="section-header reveal-slide-up">
+        <span class="section-eyebrow">Artisanal Scoop Catalog</span>
+        <h2 class="section-title">THE COMPLETE 20-SCOOP COLLECTION</h2>
+        <p class="section-subtitle">Freshly slow-churned daily with 100% grass-fed dairy and uncompromised ingredients. Explore all 20 flavors.</p>
+      </div>
+
+      <!-- Shop Controls: Category Filter Tabs & Sorting Selector -->
+      <div class="shop-toolbar reveal-slide-up stagger-1">
+        <div class="shop-filter-tabs" id="shopFilterTabs">
+          <button class="shop-tab active" data-filter="all">All Flavors (20)</button>
+          <button class="shop-tab" data-filter="vanilla">🍦 Vanilla</button>
+          <button class="shop-tab" data-filter="strawberry">🍓 Strawberry</button>
+          <button class="shop-tab" data-filter="chocolate">🍫 Chocolate</button>
+          <button class="shop-tab" data-filter="pistachio">🌰 Pistachio</button>
+          <button class="shop-tab" data-filter="mango">🥭 Mango</button>
+        </div>
+
+        <div class="shop-sort-wrap">
+          <label for="shopSortSelect" class="shop-sort-label">Sort by:</label>
+          <div class="shop-sort-select-wrapper">
+            <select id="shopSortSelect" class="shop-sort-select" aria-label="Sort products">
+              <option value="popular">Popular / Top Rated</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="newest">Newest Additions</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="bestsellersGrid">
+        <!-- 20 Products Injected dynamically via shop.js (4 columns x 5 rows) -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Wavy Divider: Transition to Story Section -->
+  <div class="wave-divider wave-divider-cream">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,35 C220,10 440,75 660,35 C880,-10 1100,75 1320,30 C1380,18 1410,24 1440,28 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       06 — “MADE FOR REAL CRAVINGS” (Storytelling)
+       ======================================================================== -->
+  <section class="section-pad story-section" id="storySection">
+    <div class="container story-grid">
+      <!-- Left: Imagery with Organic Melt Mask & Floating Badge -->
+      <div class="story-image-wrap reveal-slide-up">
+        <div class="story-organic-frame">
+          <img src="assets/images/story-craft.jpg" alt="Craft Churning at Melt & Scoop" class="story-img">
+        </div>
+        <div class="story-badge-floating">
+          <span class="story-badge-icon">🥛</span>
+          <div>
+            <div class="story-badge-title">100% Grass-Fed Cream</div>
+            <div class="story-badge-subtitle">Single-farm ethically sourced</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Storytelling Copy & 3 Pillars -->
+      <div class="story-content reveal-slide-up stagger-2">
+        <span class="section-eyebrow">Our Philosophy</span>
+        <h2 class="section-title" style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin-bottom: 20px;">
+          CREAMY BY NATURE.<br>
+          HAPPY BY DESIGN.
+        </h2>
+        <p class="story-lead">
+          We believe great ice cream doesn't need to be complicated. Just beautiful ingredients, rich creaminess, and flavors worth coming back for.
+        </p>
+
+        <div class="story-pillars">
+          <!-- 01 -->
+          <div class="story-pillar-item">
+            <span class="pillar-number">01</span>
+            <div>
+              <h4 class="pillar-title">Premium Ingredients</h4>
+              <p class="pillar-desc">Real vanilla bean pods from Madagascar, single-origin Belgian cocoa, and hand-plucked berries. No synthetic stabilizers, ever.</p>
+            </div>
+          </div>
+
+          <!-- 02 -->
+          <div class="story-pillar-item">
+            <span class="pillar-number">02</span>
+            <div>
+              <h4 class="pillar-title">Freshly Made Daily</h4>
+              <p class="pillar-desc">Every batch is slow-churned in micro churns at dawn to preserve the maximum density, silky texture, and delicate aroma.</p>
+            </div>
+          </div>
+
+          <!-- 03 -->
+          <div class="story-pillar-item">
+            <span class="pillar-number">03</span>
+            <div>
+              <h4 class="pillar-title">Delivered With Care</h4>
+              <p class="pillar-desc">Packed in eco-friendly sub-zero dry-ice insulated containers to guarantee your pints arrive rock-solid frozen in under 45 minutes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wavy Divider: Transition to Main Cream -->
+  <div class="wave-divider wave-divider-main">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,50 C260,10 520,70 780,25 C1040,-15 1280,65 1440,30 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       07 — BUILD YOUR BOX (Interactive Custom Bundle)
+       ======================================================================== -->
+  <section class="section-pad box-builder-section" id="boxBuilderSection">
+    <div class="container">
+      <div class="section-header reveal-slide-up">
+        <span class="section-eyebrow">Custom Ice Cream Party</span>
+        <h2 class="section-title">BUILD YOUR PERFECT BOX</h2>
+        <p class="section-subtitle">Pick your favorites from 18 freshly churned artisanal flavors. Mix and match freely!</p>
+      </div>
+
+      <div class="box-builder-container reveal-slide-up stagger-1">
+        <!-- Box Sizes Selector: 4, 6, 8 Scoops -->
+        <div class="box-sizes-nav">
+          <button class="box-size-btn" data-size="4">
+            <span class="box-size-num">4 SCOOPS</span>
+            <span class="badge badge-cream">₹549</span>
+          </button>
+          <button class="box-size-btn active" data-size="6">
+            <span class="box-size-num">6 SCOOPS (POPULAR)</span>
+            <span class="badge badge-cream">₹799</span>
+          </button>
+          <button class="box-size-btn" data-size="8">
+            <span class="box-size-num">8 SCOOPS PARTY</span>
+            <span class="badge badge-cream">₹999</span>
+          </button>
+        </div>
+
+        <!-- Box Visualizer Slots Grid -->
+        <div class="box-visualizer">
+          <div class="box-visualizer-header">
+            <span class="box-tray-title">📦 Your Custom Scoop Tray</span>
+            <span class="box-tray-counter" id="boxTrayCounter">0 / 6 Scoops</span>
+          </div>
+          <div class="box-slots-grid" id="boxSlotsGrid">
+            <!-- Rendered by box-builder.js -->
+          </div>
+        </div>
+
+        <!-- Flavor Picker Header & Search -->
+        <div class="flavor-palette-header">
+          <div>
+            <div class="flavor-palette-title">Choose From 18 Artisanal Flavors:</div>
+            <div class="flavor-palette-subtitle">Tap (+) to add scoops to your box or (−) to swap.</div>
+          </div>
+          <div class="box-flavor-search-wrap">
+            <input type="text" id="boxFlavorSearch" placeholder="Search 18 flavors..." class="box-flavor-search-input">
+          </div>
+        </div>
+
+        <!-- Category Filter Tabs for 18 Flavors -->
+        <div class="box-category-tabs" id="boxCategoryTabs">
+          <button class="box-cat-btn active" data-cat="all">All Flavors (18)</button>
+          <button class="box-cat-btn" data-cat="fruity">🍓 Fruity & Sorbets (5)</button>
+          <button class="box-cat-btn" data-cat="chocolate">🍫 Chocolates & Fudges (5)</button>
+          <button class="box-cat-btn" data-cat="classics">🍦 Classic Creams (4)</button>
+          <button class="box-cat-btn" data-cat="nuts">🌰 Nuts & Exotics (4)</button>
+        </div>
+
+        <!-- Flavor Picker Grid -->
+        <div class="flavor-palette-grid" id="flavorPaletteGrid">
+          <!-- Rendered by box-builder.js -->
+        </div>
+
+        <!-- Box Summary Sticky Action Bar -->
+        <div class="box-summary-bar">
+          <div class="box-summary-left">
+            <div>
+              <div class="box-summary-title" id="boxSummaryTitle">6 Scoops Party Box</div>
+              <div class="box-summary-status" id="boxSummaryStatus">0 of 6 scoops selected</div>
+            </div>
+            <div class="box-summary-price" id="boxSummaryPrice">₹799</div>
+          </div>
+          <button class="btn btn-primary btn-add-box" id="addBoxToCartBtn" disabled>
+            CHOOSE 6 MORE SCOOPS
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wavy Divider: Transition to White -->
+  <div class="wave-divider wave-divider-white">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,35 C200,65 420,15 640,50 C860,85 1080,20 1300,55 C1360,65 1400,45 1440,40 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       08 — PRODUCT / ICE-CREAM EXPERIENCE (Editorial Spread)
+       ======================================================================== -->
+  <section class="section-pad editorial-section" id="editorialExperience">
+    <div class="container editorial-grid">
+      <!-- Left: Photo Frame with Rotating Kinetic Badge Outside -->
+      <div class="editorial-media-wrapper reveal-slide-up">
+        <!-- Circular Rotating Typography Stamp Badge (Completely unclipped, floating outside corner) -->
+        <div class="circular-stamp" title="Artisanal Quality Stamp">
+          <svg viewBox="0 0 100 100">
+            <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+            <text font-size="9.5" font-weight="800" fill="#FFFFFF" letter-spacing="2.2px">
+              <textPath href="#circlePath">
+                • ARTISANAL CHURNED • FRESH DAILY • 100% REAL MILK •
+              </textPath>
+            </text>
+          </svg>
+          <span class="circular-stamp-center">🍦</span>
+        </div>
+        <div class="editorial-image-frame">
+          <img src="assets/images/editorial-scoop.jpg" alt="Editorial ice cream scoop experience" class="editorial-img">
+        </div>
+      </div>
+
+      <!-- Right: Editorial Content -->
+      <div class="editorial-content reveal-slide-up stagger-2">
+        <span class="section-eyebrow">The Ritual</span>
+        <h2 class="editorial-motto">
+          SCOOP.<br>
+          SMILE.<br>
+          REPEAT.
+        </h2>
+        <p class="editorial-desc">
+          Every bite should feel like the first sunny day of summer. We meticulously temper our cream at −14°C so it meets your spoon with effortless velvet glide.
+        </p>
+        <a href="#bestsellersSection" class="btn btn-dark">
+          SHOP ALL SCOOPS →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wavy Divider: Transition to Cream Soft -->
+  <div class="wave-divider wave-divider-cream">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,40 C190,10 380,75 570,35 C760,-5 950,80 1140,25 C1280,-10 1380,45 1440,35 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       09 — CUSTOMER LOVE (Organic Testimonial Cards)
+       ======================================================================== -->
+  <section class="section-pad testimonials-section" id="testimonialsSection">
+    <div class="container">
+      <div class="section-header reveal-slide-up">
+        <span class="section-eyebrow">Fan Testimonials</span>
+        <h2 class="section-title">SWEET WORDS FROM<br>SWEET PEOPLE</h2>
+        <p class="section-subtitle">Real reviews from our ice cream obsessed community across India.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Card 1 -->
+        <div class="testimonial-card reveal-slide-up stagger-1">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">“The pistachio is dangerously good. Creamy, nutty, and not overly sugary like regular supermarket brands!”</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">👩‍💼</div>
+            <div>
+              <div class="author-name">Rhea Singhal</div>
+              <div class="author-tag">Verified Scoop Fan · Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testimonial-card reveal-slide-up stagger-2">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">“Ordered the 6-scoop party box for a dinner with friends. Arrived frozen solid in eco dry-ice and vanished within 10 minutes.”</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">🧑‍💻</div>
+            <div>
+              <div class="author-name">Aarav Mehta</div>
+              <div class="author-tag">Verified Scoop Fan · Ahmedabad</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="testimonial-card reveal-slide-up stagger-3">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">“Hands down the most decadent dark chocolate fudge ice cream in the country. That ribbons of ganache are pure heaven.”</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">👩‍🎨</div>
+            <div>
+              <div class="author-name">Neha Kapoor</div>
+              <div class="author-tag">Verified Scoop Fan · Bangalore</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wavy Divider: Transition to White -->
+  <div class="wave-divider wave-divider-white">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,30 C250,70 500,10 750,55 C1000,90 1250,20 1440,40 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ========================================================================
+       10 — STORE / LOCATION IRL
+       ======================================================================== -->
+  <section class="section-pad store-section" id="storeSection">
+    <div class="container">
+      <div class="section-header reveal-slide-up">
+        <span class="section-eyebrow">Visit Our Parlors</span>
+        <h2 class="section-title">COME GET A SCOOP IRL</h2>
+        <p class="section-subtitle">Experience fresh churns warm waffle cones and store-exclusive flavors.</p>
+      </div>
+
+      <div class="store-grid">
+        <!-- Left: Parlor Image with Live Status -->
+        <div class="store-image-box reveal-slide-up">
+          <div class="store-live-badge">
+            <span class="live-pulse-dot"></span>
+            <span>Scooping Now · Open till 11:30 PM</span>
+          </div>
+          <img src="assets/images/storefront.jpg" alt="Melt & Scoop parlor interior" class="store-img">
+        </div>
+
+        <!-- Right: Interactive City Switcher & Details -->
+        <div>
+          <div class="store-city-tabs">
+            <button class="city-tab active" data-city="ahmedabad">📍 Ahmedabad</button>
+            <button class="city-tab" data-city="mumbai">📍 Mumbai</button>
+            <button class="city-tab" data-city="delhi">📍 Delhi</button>
+            <button class="city-tab" data-city="bangalore">📍 Bangalore</button>
+          </div>
+
+          <div class="store-detail-card reveal-slide-up stagger-2">
+            <h3 class="store-detail-title" id="storeDetailTitle">Bodakdev Flagship Scoop Bar</h3>
+            <div class="store-detail-info">
+              <p id="storeDetailAddress">Shop 4, Ground Floor, Sindhu Bhavan Road, Bodakdev, Ahmedabad - 380054</p>
+              <p id="storeDetailHours">Open Daily: 11:00 AM – 11:30 PM</p>
+              <p id="storeDetailPhone">📞 +91 79 4892 1100</p>
+            </div>
+            <div style="font-weight: 700; color: var(--brand-pink); margin-bottom: 20px;" id="storeDetailExclusive">
+              ✨ Ahmedabad Special: Saffron Kesar Pista Crunch
+            </div>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-dark">
+              GET DIRECTIONS / FIND A STORE →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       11 — FINAL CTA (Boundary Overlapping Section)
+       ======================================================================== -->
+  <section class="final-cta-section" id="finalCtaSection">
+    <div class="final-cta-container reveal-slide-up">
+      <span class="section-eyebrow">Sweet Salvation</span>
+      <h2 class="final-cta-title">
+        LIFE'S TOO SHORT<br>FOR BORING ICE CREAM.
+      </h2>
+      <p class="final-cta-subtitle">
+        Treat yourself to artisanal happiness. Delivered fresh to your door in chilled sub-zero dry ice.
+      </p>
+      <a href="#bestsellersSection" class="btn btn-primary" style="font-size: 1.15rem; padding: 18px 44px;">
+        SHOP YOUR FAVORITE →
+      </a>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       12 — LARGE VISUALLY RICH BRAND FINALE FOOTER
+       ======================================================================== -->
+  <!-- Wavy Curved Melted Top Edge for Footer -->
+  <div class="footer-wave-wrap">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,42 C200,80 400,15 620,55 C840,95 1060,20 1280,60 C1360,75 1400,50 1440,45 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
+  <footer class="site-footer" id="footerContact">
+    <!-- Subtle Background Ambient Blobs & Ice Cream Elements -->
+    <div class="footer-bg-blob-1"></div>
+    <div class="footer-bg-blob-2"></div>
+    <div class="footer-decor-stars">✨ 🍨 ✨</div>
+    <div class="footer-decor-cone">🍦</div>
+
+    <div class="container" style="position: relative; z-index: 5;">
+      <!-- 1. Top Playful Finale Stage -->
+      <div class="footer-finale-stage reveal-slide-up">
+        <span class="footer-cone-icon">🍦</span>
+        <h2 class="footer-playful-title">ONE LAST SCOOP?</h2>
+        <p class="footer-playful-subtitle">
+          Your freezer is waiting for something extraordinary. Handcrafted daily in micro-batches and delivered rock-solid in dry ice.
+        </p>
+        <a href="#bestsellersSection" class="btn btn-primary btn-footer-shop">
+          SHOP ICE CREAM →
+        </a>
+      </div>
+
+      <!-- 2. Horizontal Primary Navigation -->
+      <div class="footer-nav-row reveal-slide-up stagger-1" aria-label="Footer Navigation">
+        <a href="#heroSection" class="footer-nav-link">Home</a>
+        <a href="#bestsellersSection" class="footer-nav-link">Shop</a>
+        <a href="#boxBuilderSection" class="footer-nav-link">Build a Box</a>
+        <a href="#storySection" class="footer-nav-link">About Us</a>
+        <a href="#storeSection" class="footer-nav-link">Locations</a>
+        <a href="#footerContact" class="footer-nav-link">Contact</a>
+      </div>
+
+      <!-- 3. Monumental Brand Wordmark Closing Statement -->
+      <div class="footer-monumental-brand reveal-slide-up stagger-2">
+        <div class="footer-wordmark">
+          MELT & SCOOP
+        </div>
+        <div class="footer-brand-motto">
+          CREAMY BY NATURE · HAPPY BY DESIGN · ARTISANAL CREAMERY
+        </div>
+      </div>
+
+      <!-- 4. Polished Scoop Club Newsletter & Secondary Helpful Info -->
+      <div class="footer-mid-grid">
+        <!-- Newsletter Card -->
+        <div>
+          <div class="badge badge-pink" style="margin-bottom: 10px;">Sweet Privileges</div>
+          <h3 class="newsletter-box-title">Join the Scoop Club</h3>
+          <p class="newsletter-box-desc">
+            Subscribe for secret limited-batch drops, secret tasting events, and 10% off your very first party box!
+          </p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-wrap">
+              <input type="email" placeholder="Enter your sweet email..." class="newsletter-input-field" required>
+              <button type="submit" class="btn-newsletter-join">Join Club 🍦</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Secondary Information -->
+        <div class="footer-secondary-info">
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-pink); margin-bottom: 4px;">
+              Sweet Help & Direct Line
+            </div>
+            <a href="mailto:hello@meltandscoop.com" class="footer-contact-email">
+              hello@meltandscoop.com
+            </a>
+          </div>
+
+          <div class="footer-secondary-links">
+            <a href="#" onclick="window.showToast('Sub-zero dry ice ensures solid freeze for 4 hours after arrival.'); return false;">Delivery FAQs</a>
+            <span>·</span>
+            <a href="#" onclick="window.showToast('100% pasture-raised dairy, no synthetic additives.'); return false;">Allergen Guide</a>
+            <span>·</span>
+            <a href="#" onclick="window.showToast('Party & wedding catering: party@meltandscoop.com'); return false;">Event Catering</a>
+          </div>
+
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-pill" title="Instagram">📷</a>
+            <a href="#" class="footer-social-pill" title="TikTok">🎵</a>
+            <a href="#" class="footer-social-pill" title="Twitter/X">🐦</a>
+            <a href="#" class="footer-social-pill" title="Pinterest">📌</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Understated Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 Melt & Scoop Artisanal Creamery. Handcrafted with 100% pasture-raised cream.
+        </div>
+        <div class="footer-legal-links">
+          <a href="#" onclick="return false;">Privacy Policy</a>
+          <a href="#" onclick="return false;">Terms of Service</a>
+          <a href="#" onclick="return false;">Allergen Directory</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       SLIDE-OVER CART DRAWER
+       ======================================================================== -->
+  <div class="cart-backdrop" id="cartBackdrop"></div>
+  <div class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size: 1.4rem;">🍦</span>
+        <h3 class="cart-drawer-title">Your Sweet Cart</h3>
+      </div>
+      <button class="cart-close-btn" id="closeCartBtn" aria-label="Close Cart">✕</button>
+    </div>
+
+    <!-- Free Delivery Progress Meter -->
+    <div class="free-shipping-progress">
+      <div id="freeShippingText">Add ₹699 for FREE Sub-Zero Delivery!</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="freeShippingFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items List -->
+    <div class="cart-items-list" id="cartItemsList">
+      <!-- Injected by cart.js -->
+    </div>
+
+    <!-- Drawer Footer / Totals & Checkout -->
+    <div class="cart-drawer-footer">
+      <div class="cart-promo-row">
+        <input type="text" placeholder="Promo code (Try: SWEET20)" class="promo-input" id="promoCodeInput">
+        <button class="btn btn-secondary" id="applyPromoBtn" style="padding: 10px 18px; font-size: 0.85rem;">Apply</button>
+      </div>
+
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₹0</span>
+      </div>
+      <div class="cart-summary-line" id="cartDiscountRow" style="display:none; color:#10B981; font-weight:700;">
+        <span>Promo Discount</span>
+        <span id="cartDiscountVal">-₹0</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>Sub-Zero Dry Ice Shipping</span>
+        <span id="cartShipping">₹0</span>
+      </div>
+      <div class="cart-summary-line cart-summary-total">
+        <span>Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+
+      <button class="btn btn-primary" id="checkoutBtn" style="width: 100%; padding: 16px; font-size: 1rem;">
+        PROCEED TO CHECKOUT 🛒
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       CHECKOUT MODAL
+       ======================================================================== -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="document.getElementById('checkoutModal').classList.remove('open')">✕</button>
+      
+      <!-- Checkout Form View -->
+      <div id="checkoutFormView">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 2.5rem;">🍨</span>
+          <h2 style="font-size: 1.8rem; margin-top: 8px;">Fast Chilled Checkout</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Total to pay: <strong id="checkoutSummaryTotal" style="color:var(--brand-pink);">₹0</strong></p>
+        </div>
+
+        <form id="checkoutForm">
+          <div class="checkout-grid-row">
+            <div>
+              <label class="checkout-label">First Name</label>
+              <input type="text" required class="checkout-input" placeholder="Aarav">
+            </div>
+            <div>
+              <label class="checkout-label">Last Name</label>
+              <input type="text" required class="checkout-input" placeholder="Mehta">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label class="checkout-label">Delivery Address</label>
+            <input type="text" required class="checkout-input" placeholder="Apartment / Villa, Street, Locality">
+          </div>
+
+          <div class="checkout-grid-city-pin">
+            <div>
+              <label class="checkout-label">City</label>
+              <select class="checkout-input" style="background: #fff;">
+                <option>Ahmedabad</option>
+                <option>Mumbai</option>
+                <option>Delhi NCR</option>
+                <option>Bangalore</option>
+              </select>
+            </div>
+            <div>
+              <label class="checkout-label">Pincode</label>
+              <input type="text" required class="checkout-input" placeholder="380054">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <label class="checkout-label">Payment Method</label>
+            <div class="checkout-grid-payments">
+              <label class="checkout-payment-opt">
+                <input type="radio" name="paymentMethod" checked> UPI / GPay
+              </label>
+              <label class="checkout-payment-opt">
+                <input type="radio" name="paymentMethod"> Card
+              </label>
+              <label class="checkout-payment-opt">
+                <input type="radio" name="paymentMethod"> Cash On Deliv.
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1rem;">
+            PLACE ORDER & CHILL ❄️
+          </button>
+        </form>
+      </div>
+
+      <!-- Checkout Success View -->
+      <div id="checkoutSuccessView" style="display:none; text-align:center; padding: 20px 10px;">
+        <div style="font-size: 4rem; margin-bottom: 12px;">🎉</div>
+        <h2 style="font-size: 2rem; margin-bottom: 8px; color: var(--text-main);">Craving Confirmed!</h2>
+        <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 20px;">
+          Your order <strong id="orderConfirmationId" style="color:var(--brand-pink);">#MS-829104</strong> is freshly churned and packed into our sub-zero dry ice box.
+        </p>
+        <div style="background:var(--bg-cream-soft); padding:16px; border-radius:var(--radius-md); margin-bottom:24px; font-size:0.9rem;">
+          ⏱️ <strong>Estimated Arrival:</strong> Within 35 - 45 minutes frozen solid.
+        </div>
+        <button class="btn btn-primary" onclick="document.getElementById('checkoutModal').classList.remove('open'); document.getElementById('checkoutSuccessView').style.display='none'; document.getElementById('checkoutFormView').style.display='block';">
+          BACK TO SWEET STORE →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       QUICK VIEW PRODUCT MODAL
+       ======================================================================== -->
+  <div class="modal-overlay" id="quickViewModal">
+    <div class="modal-card" style="max-width: 780px;">
+      <button class="modal-close-btn" onclick="window.ShopInstance.closeQuickView()">✕</button>
+      <div id="quickViewContent">
+        <!-- Injected dynamically by shop.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SEARCH OVERLAY MODAL
+       ======================================================================== -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal-card" style="max-width: 580px;">
+      <button class="modal-close-btn" id="closeSearchBtn">✕</button>
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.4rem; margin-bottom: 6px;">Find Your Scoop</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">Search flavors, notes, or dietary tags</p>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search e.g. Pistachio, Chocolate, Sorbet..." style="width: 100%; padding: 14px 18px; border-radius: var(--radius-pill); border: 2px solid var(--border-medium); font-size: 1rem; outline: none; margin-bottom: 20px;">
+      <div id="searchResults" style="max-height: 320px; overflow-y: auto;">
+        <p style="color:var(--text-muted); text-align:center; padding: 20px;">Type a flavor name to see live recommendations...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/particles.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/box-builder.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/editor.js"></script>
+</body>
+</html>

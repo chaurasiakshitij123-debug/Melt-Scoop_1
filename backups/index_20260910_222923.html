@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/animations.css?v=m1">
   <link rel="stylesheet" href="css/editor.css?v=m1">
 </head>
-<body class="" style="" data-cursor-fx="sprinkles" data-section-anim="slide-up">
+<body class="">
 
   <!-- ========================================================================
        01 — HEADER / NAVIGATION
@@ -51,7 +51,7 @@
 
         <button class="header-cart-pill open-cart-btn cart-btn" id="headerCartBtn" aria-label="Shopping Cart">
           <span>Cart</span>
-          <span class="header-cart-badge cart-count badge-pop" id="headerCartCount">4</span>
+          <span class="header-cart-badge cart-count" id="headerCartCount">0</span>
         </button>
 
         <!-- Mobile Hamburger Menu Button (visible on mobile/tablet <= 860px) -->
@@ -105,7 +105,7 @@
           🔍 Search Scoops
         </button>
         <button class="btn btn-primary mobile-quick-btn open-cart-btn" onclick="window.closeMobileMenu();">
-          🛒 Open Cart (<span class="cart-count badge-pop">4</span>)
+          🛒 Open Cart (<span class="cart-count">0</span>)
         </button>
       </div>
       <div class="mobile-drawer-socials">
@@ -122,23 +122,18 @@
   <!-- ========================================================================
        02 — HERO — IMMERSIVE STRAWBERRY ICE CREAM EXPERIENCE
        ======================================================================== -->
-  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(250, 243, 240);">
-    <!-- Smooth Crossfading Background Layers -->
-    <div class="hero-bg-layer is-active" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
-    <div class="hero-bg-layer" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
-
+  <section class="hero-section" id="heroSection" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);">
     <!-- Sprinkles Interactive Canvas -->
     <canvas id="sprinklesCanvas" width="3430" height="1305"></canvas>
 
-    <!-- Dynamic Radial Ambient Glow (Smooth Crossfade Layers) -->
-    <div class="hero-ambient-glow is-active" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
-    <div class="hero-ambient-glow" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <!-- Dynamic Radial Ambient Glow -->
+    <div class="hero-ambient-glow" id="heroAmbientGlow" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
 
-    <div class="container hero-container" style="">
-      <!-- Tier 1: Purple Container (Badge, Editorial Heading & Subtitle) -->
-      <div class="hero-top-container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
+    <div class="container hero-grid" style="">
+      <!-- Left Column: Oversized Editorial Typography -->
+      <div class="hero-content">
         <div class="badge badge-pink hero-badge">
-          <span>✨ 100% Artisanal Churned</span>
+          <span class="">✨ 100% Artisanal Churned</span>
         </div>
         <h1 class="hero-editorial-title">
           <span class="title-word">SCOOPS</span>
@@ -148,75 +143,77 @@
         <p class="hero-subtitle">
           Creamy, dreamy ice cream made for your happiest cravings. Handcrafted daily in micro-batches with pure grass-fed dairy and uncompromised ingredients.
         </p>
+
+        <div class="hero-actions">
+          <a href="#bestsellersSection" class="btn btn-primary">
+            SHOP ICE CREAM →
+          </a>
+          <a href="#boxBuilderSection" class="btn btn-secondary">
+            BUILD YOUR BOX 🎁
+          </a>
+        </div>
+
+        <!-- Horizontal "Choose Your Scoop" Flavor Selector -->
+        <div class="hero-flavor-picker">
+          <div class="hero-flavor-label">
+            <span>CHOOSE YOUR SCOOP</span>
+          </div>
+          <div class="flavor-selector-wrapper">
+            <button class="flavor-pill" data-flavor="vanilla">
+              <span class="flavor-dot" style="background-color: #E5A823;"></span>
+              Vanilla
+            </button>
+            <button class="flavor-pill" data-flavor="strawberry">
+              <span class="flavor-dot" style="background-color: #FF5E7E;"></span>
+              Strawberry
+            </button>
+            <button class="flavor-pill" data-flavor="chocolate">
+              <span class="flavor-dot" style="background-color: #48271F;"></span>
+              Chocolate
+            </button>
+            <button class="flavor-pill" data-flavor="pistachio">
+              <span class="flavor-dot" style="background-color: #6E9E53;"></span>
+              Pistachio
+            </button>
+            <button class="flavor-pill active" data-flavor="mango">
+              <span class="flavor-dot" style="background-color: #F59E0B;"></span>
+              Mango
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!-- Tier 2: Lower Row (Left Actions Box, Center Zoomed Cone with Arrows, Right Purchase Card) -->
-      <div class="hero-main-row">
-        <!-- Left Green Box: Shop & Build Action Buttons -->
-        <div class="hero-left-actions-box anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0.1s;">
-          <div class="hero-actions-card">
-            <span class="hero-actions-eyebrow">🍦 Fresh Artisanal Cravings</span>
-            <div class="hero-actions-buttons">
-              <a href="#bestsellersSection" class="btn btn-primary hero-btn-shop">
-                SHOP ICE CREAM →
-              </a>
-              <a href="#boxBuilderSection" class="btn btn-secondary hero-btn-build">
-                BUILD YOUR BOX 🎁
-              </a>
-            </div>
-            <div class="hero-actions-perks">
-              <span class="hero-perk-dot"></span>
-              <span>100% Grass-Fed Dairy · Churned Daily</span>
-            </div>
-          </div>
+      <!-- Center Column: 35-40% Viewport Dominant Isolated Ice Cream Cone -->
+      <div class="hero-stage">
+        <!-- Subtle Minimalist Decorative Ring (No text, zero colored shapes) -->
+        <div class="hero-halo-ring" id="heroHaloRing"></div>
+
+        <!-- Central Oversized Isolated Ice Cream Cone -->
+        <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.27deg) rotateY(2.33deg);">
+          <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img flavor-enter anim-slide-up" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 25px 35px); --anim-duration: 0.8s; --anim-delay: 0s;">
         </div>
+      </div>
 
-        <!-- Center Orange Box: Zoomed-In Cone flanked by Left & Right Arrows -->
-        <div class="hero-center-stage">
-          <!-- Left Arrow Button to Change Flavor -->
-          <button class="hero-arrow-btn hero-arrow-prev" id="heroPrevFlavorBtn" aria-label="Previous Flavor" title="Previous Flavor (←)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 18l-6-6 6-6"></path>
-            </svg>
-          </button>
-
-          <!-- Central Zoomed-In Isolated Ice Cream Cone -->
-          <div class="hero-stage">
-            <div class="hero-halo-ring" id="heroHaloRing"></div>
-            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.47deg) rotateY(3.9deg);">
-              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img flavor-enter anim-float-up" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 25px 35px); --anim-duration: 0.8s; --anim-delay: 0s;">
+      <!-- Right Column: Product Information Card -->
+      <div class="hero-right-col">
+        <div class="hero-product-card" id="heroProductCard" style="">
+          <div class="hero-product-header">
+            <div class="">
+              <span class="badge badge-pink" style="margin-bottom:6px; font-size:0.75rem;">Top Craving</span>
+              <h3 class="hero-product-name" id="heroProductName">ALPHONSO MANGO VELVET</h3>
             </div>
+            <span class="hero-product-price" id="heroProductPrice">₹219</span>
           </div>
-
-          <!-- Right Arrow Button to Change Flavor -->
-          <button class="hero-arrow-btn hero-arrow-next" id="heroNextFlavorBtn" aria-label="Next Flavor" title="Next Flavor (→)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 18l6-6-6-6"></path>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Right Green Box: Product Information Card with Description & Add to Cart -->
-        <div class="hero-right-purchase-box anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0.1s;">
-          <div class="hero-product-card" id="heroProductCard">
-            <div class="hero-product-header">
-              <div>
-                <span class="badge badge-pink" style="margin-bottom:6px; font-size:0.75rem;">Top Craving</span>
-                <h3 class="hero-product-name" id="heroProductName">ALPHONSO MANGO VELVET</h3>
-              </div>
-              <span class="hero-product-price" id="heroProductPrice">₹219</span>
+          <p class="hero-product-desc" id="heroProductDesc">Pure sun-ripened Alphonso mango nectar swirled into frozen fruit silk.</p>
+          <div class="hero-product-footer">
+            <div class="qty-stepper">
+              <button class="qty-btn" id="heroQtyMinus">−</button>
+              <span class="qty-number" id="heroQtyNumber">1</span>
+              <button class="qty-btn" id="heroQtyPlus">+</button>
             </div>
-            <p class="hero-product-desc" id="heroProductDesc">Pure sun-ripened Alphonso mango nectar swirled into frozen fruit silk.</p>
-            <div class="hero-product-footer">
-              <div class="qty-stepper">
-                <button class="qty-btn" id="heroQtyMinus">−</button>
-                <span class="qty-number" id="heroQtyNumber">1</span>
-                <button class="qty-btn" id="heroQtyPlus">+</button>
-              </div>
-              <button class="btn btn-primary btn-add-hero" id="heroAddToCartBtn">
-                ADD TO CART 🍦
-              </button>
-            </div>
+            <button class="btn btn-primary btn-add-hero" id="heroAddToCartBtn">
+              ADD TO CART 🍦
+            </button>
           </div>
         </div>
       </div>
@@ -233,21 +230,25 @@
   </div>
 
   <!-- ========================================================================
-       04 — SHOP / 7-SCOOP SIGNATURE COLLECTION (4 COLUMNS x 2 ROWS)
+       04 — SHOP / 20-SCOOP CATALOG
        ======================================================================== -->
-  <section class="section-pad bestsellers-section sec-animate-ready sec-animated anim-sec-slide-up" id="bestsellersSection">
+  <section class="section-pad bestsellers-section" id="bestsellersSection">
     <div class="container">
       <div class="section-header reveal-slide-up is-revealed anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
-        <span class="section-eyebrow">Artisanal Scoop Collection</span>
-        <h2 class="section-title">THE SIGNATURE 7-SCOOP COLLECTION</h2>
-        <p class="section-subtitle">Freshly slow-churned daily with 100% grass-fed dairy and uncompromised ingredients. Handcrafted to pure perfection.</p>
+        <span class="section-eyebrow">Artisanal Scoop Catalog</span>
+        <h2 class="section-title">THE COMPLETE 20-SCOOP COLLECTION</h2>
+        <p class="section-subtitle">Freshly slow-churned daily with 100% grass-fed dairy and uncompromised ingredients. Explore all 20 flavors.</p>
       </div>
 
-      <!-- Shop Controls: Sorting Selector & Counter (No Categories) -->
+      <!-- Shop Controls: Category Filter Tabs & Sorting Selector -->
       <div class="shop-toolbar reveal-slide-up stagger-1 is-revealed">
-        <div class="shop-flavor-counter">
-          <span class="counter-badge">✨ 7 Signature Scoops</span>
-          <span class="counter-note">Freshly churned in micro-batches</span>
+        <div class="shop-filter-tabs" id="shopFilterTabs">
+          <button class="shop-tab active" data-filter="all">All Flavors (20)</button>
+          <button class="shop-tab" data-filter="vanilla">🍦 Vanilla</button>
+          <button class="shop-tab" data-filter="strawberry">🍓 Strawberry</button>
+          <button class="shop-tab" data-filter="chocolate">🍫 Chocolate</button>
+          <button class="shop-tab" data-filter="pistachio">🌰 Pistachio</button>
+          <button class="shop-tab" data-filter="mango">🥭 Mango</button>
         </div>
 
         <div class="shop-sort-wrap">
@@ -417,7 +418,7 @@
         </div>
       
         <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-caramel">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-caramel', this)" title="Save to favorites" aria-label="Save to favorites">
+          <button class="product-wishlist-btn" onclick="window.ShopInstance.toggleWishlist('prod-choc-caramel', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
 
@@ -872,7 +873,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-van-bourbon">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-van-bourbon">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-bourbon', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -910,7 +911,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-straw-sorbet">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-straw-sorbet">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-sorbet', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -948,7 +949,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-mango-chili">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-mango-chili">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-chili', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -986,7 +987,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-4" id="card-prod-van-chai">
+        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-van-chai">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-chai', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -1037,7 +1038,7 @@
   <!-- ========================================================================
        06 — “MADE FOR REAL CRAVINGS” (Storytelling)
        ======================================================================== -->
-  <section class="section-pad story-section sec-animate-ready sec-animated anim-sec-slide-up" id="storySection">
+  <section class="section-pad story-section" id="storySection">
     <div class="container story-grid anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <!-- Left: Imagery with Organic Melt Mask & Floating Badge -->
       <div class="story-image-wrap reveal-slide-up is-revealed">
@@ -1106,7 +1107,7 @@
   <!-- ========================================================================
        07 — BUILD YOUR BOX (Interactive Custom Bundle)
        ======================================================================== -->
-  <section class="section-pad box-builder-section sec-animate-ready anim-sec-slide-up" id="boxBuilderSection">
+  <section class="section-pad box-builder-section" id="boxBuilderSection">
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed">
         <span class="section-eyebrow">Custom Ice Cream Party</span>
@@ -1676,7 +1677,7 @@
   <!-- ========================================================================
        10 — STORE / LOCATION IRL
        ======================================================================== -->
-  <section class="section-pad store-section sec-animate-ready anim-sec-slide-up" id="storeSection">
+  <section class="section-pad store-section" id="storeSection">
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed">
         <span class="section-eyebrow">Visit Our Parlors</span>
@@ -1750,7 +1751,7 @@
     </svg>
   </div>
 
-  <footer class="site-footer sec-animate-ready anim-sec-slide-up" id="footerContact">
+  <footer class="site-footer" id="footerContact">
     <!-- Subtle Background Ambient Blobs & Ice Cream Elements -->
     <div class="footer-bg-blob-1"></div>
     <div class="footer-bg-blob-2"></div>
@@ -1864,66 +1865,19 @@
 
     <!-- Free Delivery Progress Meter -->
     <div class="free-shipping-progress">
-      <div id="freeShippingText">🎉 You unlocked <strong>FREE Sub-Zero Dry Ice Delivery</strong>!</div>
+      <div id="freeShippingText">Add ₹699 for FREE Sub-Zero Delivery!</div>
       <div class="progress-track">
-        <div class="progress-fill" id="freeShippingFill" style="width: 100%; background-color: rgb(16, 185, 129);"></div>
+        <div class="progress-fill" id="freeShippingFill" style="width: 0%;"></div>
       </div>
     </div>
 
     <!-- Items List -->
     <div class="cart-items-list" id="cartItemsList">
-        <div class="cart-item">
-          <img src="assets/images/vanilla.png" alt="Tahitian Vanilla Bean" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Tahitian Vanilla Bean</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹189</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-van-tahitian', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">1</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-van-tahitian', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-van-tahitian')" title="Remove item">✕</button>
-        </div>
-      
-        <div class="cart-item">
-          <img src="assets/images/pistachio.png" alt="Sicilian Pistachio Crunch" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Sicilian Pistachio Crunch</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹269</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-pist-sicilian', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">2</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-pist-sicilian', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-pist-sicilian')" title="Remove item">✕</button>
-        </div>
-      
-        <div class="cart-item">
-          <img src="assets/images/strawberry.png" alt="Strawberry Bliss" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Strawberry Bliss</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹199</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-straw-bliss', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">1</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-straw-bliss', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-straw-bliss')" title="Remove item">✕</button>
+        <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+          <div style="font-size: 3.5rem; margin-bottom: 16px;">🍦</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main);">Your Cart is Empty</h3>
+          <p style="font-size: 0.9rem; margin-bottom: 24px;">Your cart deserves something sweet and creamy.</p>
+          <a href="#shopFlavors" class="btn btn-primary" onclick="window.Cart.closeCart()">Shop Flavors →</a>
         </div>
       </div>
 
@@ -1936,7 +1890,7 @@
 
       <div class="cart-summary-line">
         <span>Subtotal</span>
-        <span id="cartSubtotal">₹926</span>
+        <span id="cartSubtotal">₹0</span>
       </div>
       <div class="cart-summary-line" id="cartDiscountRow" style="display:none; color:#10B981; font-weight:700;">
         <span>Promo Discount</span>
@@ -1944,11 +1898,11 @@
       </div>
       <div class="cart-summary-line">
         <span>Sub-Zero Dry Ice Shipping</span>
-        <span id="cartShipping">FREE</span>
+        <span id="cartShipping">₹0</span>
       </div>
       <div class="cart-summary-line cart-summary-total">
         <span>Total</span>
-        <span id="cartTotal">₹926</span>
+        <span id="cartTotal">₹0</span>
       </div>
 
       <button class="btn btn-primary" id="checkoutBtn" style="width: 100%; padding: 16px; font-size: 1rem;">
@@ -2052,32 +2006,32 @@
       <div id="quickViewContent">
         <div class="quick-view-grid">
           <div class="quick-view-img-wrap">
-            <img src="assets/images/strawberry.png" alt="Strawberry Bliss" class="quick-view-img">
+            <img src="assets/images/chocolate.png" alt="Belgian Dark Truffle" class="quick-view-img">
           </div>
           <div class="quick-view-info">
-            <div class="badge badge-pink" style="margin-bottom:10px;">Strawberry</div>
-            <h2 class="quick-view-title">Strawberry Bliss</h2>
+            <div class="badge badge-pink" style="margin-bottom:10px;">Chocolate</div>
+            <h2 class="quick-view-title">Belgian Dark Truffle</h2>
             <div class="quick-view-rating-row">
               <span style="color:#F59E0B;">★★★★★</span>
               <span>5</span>
-              <span style="color:var(--text-muted);">(280 customer reviews)</span>
+              <span style="color:var(--text-muted);">(340 customer reviews)</span>
             </div>
-            <p class="quick-view-desc">Bursting with hand-picked alpine strawberries folded into freshly churned whole cream, with sweet glazed berry chunks in every spoonful.</p>
+            <p class="quick-view-desc">An unapologetically intense dark chocolate experience crafted with single-origin Callebaut Belgian cocoa and ribbons of molten ganache.</p>
             
             <div class="quick-view-dietary-row">
-              <span class="quick-view-diet-pill">Gluten-Free</span><span class="quick-view-diet-pill">Vegetarian</span>
+              <span class="quick-view-diet-pill">Vegetarian</span>
             </div>
 
             <div class="quick-view-nutrition">
-              <div class="quick-nutri-item"><strong>Calories:</strong> <span>210 kcal</span></div>
-              <div class="quick-nutri-item"><strong>Fat:</strong> <span>11g</span></div>
-              <div class="quick-nutri-item"><strong>Sugar:</strong> <span>18g</span></div>
-              <div class="quick-nutri-item"><strong>Protein:</strong> <span>4g</span></div>
+              <div class="quick-nutri-item"><strong>Calories:</strong> <span>260 kcal</span></div>
+              <div class="quick-nutri-item"><strong>Fat:</strong> <span>15g</span></div>
+              <div class="quick-nutri-item"><strong>Sugar:</strong> <span>19g</span></div>
+              <div class="quick-nutri-item"><strong>Protein:</strong> <span>5g</span></div>
             </div>
 
             <div class="quick-view-footer">
-              <div class="quick-view-price">₹199</div>
-              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('prod-straw-bliss'); window.ShopInstance.closeQuickView();">
+              <div class="quick-view-price">₹249</div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('prod-choc-truffle'); window.ShopInstance.closeQuickView();">
                 Add to Cart 🛒
               </button>
             </div>
@@ -2114,4 +2068,4 @@
   <script src="js/editor.js"></script>
 
 
-<div id="toastContainer" class="toast-container"></div></body></html>
+</body></html>

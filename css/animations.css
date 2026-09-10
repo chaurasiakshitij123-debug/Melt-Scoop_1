@@ -124,41 +124,139 @@
   }
 }
 
-/* Hero Liquid Transitions */
-.flavor-enter {
-  animation: flavorSlideIn 0.65s var(--ease-spring) forwards;
+/* Hero Horizontal Slide Out / Slide In Transitions (Direction-Aware, 25% Larger, Top-Anchored) */
+.slide-out-left {
+  transform-origin: top center !important;
+  animation: coneSlideOutLeft 0.28s cubic-bezier(0.4, 0, 0.7, 1) forwards !important;
 }
 
-.flavor-exit {
-  animation: flavorSlideOut 0.4s var(--ease-smooth) forwards;
+.slide-in-right {
+  transform-origin: top center !important;
+  animation: coneSlideInRight 0.52s cubic-bezier(0.18, 0.89, 0.32, 1.15) forwards !important;
 }
 
-@keyframes flavorSlideIn {
+.slide-out-right {
+  transform-origin: top center !important;
+  animation: coneSlideOutRight 0.28s cubic-bezier(0.4, 0, 0.7, 1) forwards !important;
+}
+
+.slide-in-left {
+  transform-origin: top center !important;
+  animation: coneSlideInLeft 0.52s cubic-bezier(0.18, 0.89, 0.32, 1.15) forwards !important;
+}
+
+@keyframes coneSlideOutLeft {
   0% {
-    opacity: 0;
-    transform: scale(0.7) translateY(40px) rotate(-8deg);
-    filter: blur(10px);
-  }
-  60% {
     opacity: 1;
-    transform: scale(1.04) translateY(-8px) rotate(2deg);
+    transform: translateX(0) scale(1.25) rotate(0deg);
     filter: blur(0px);
   }
   100% {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotate(0deg);
+    opacity: 0;
+    transform: translateX(-125%) scale(1.15) rotate(-9deg);
+    filter: blur(6px);
   }
 }
 
-@keyframes flavorSlideOut {
+@keyframes coneSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(125%) scale(1.15) rotate(9deg);
+    filter: blur(6px);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(-10px) scale(1.28) rotate(-1.5deg);
+    filter: blur(0px);
+  }
+  85% {
+    transform: translateX(3px) scale(1.24) rotate(0.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1.25) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes coneSlideOutRight {
   0% {
     opacity: 1;
-    transform: scale(1) translateY(0) rotate(0deg);
+    transform: translateX(0) scale(1.25) rotate(0deg);
+    filter: blur(0px);
   }
   100% {
     opacity: 0;
-    transform: scale(0.75) translateY(-30px) rotate(10deg);
-    filter: blur(8px);
+    transform: translateX(125%) scale(1.15) rotate(9deg);
+    filter: blur(6px);
+  }
+}
+
+@keyframes coneSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-125%) scale(1.15) rotate(-9deg);
+    filter: blur(6px);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(10px) scale(1.28) rotate(1.5deg);
+    filter: blur(0px);
+  }
+  85% {
+    transform: translateX(-3px) scale(1.24) rotate(-0.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1.25) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Fallback Dip Down & Rise Up Transitions */
+.flavor-enter,
+.cone-rise-up {
+  transform-origin: top center;
+  animation: coneRiseUp 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.15) forwards;
+}
+
+.flavor-exit,
+.cone-dip-down {
+  transform-origin: top center;
+  animation: coneDipDown 0.3s cubic-bezier(0.4, 0, 0.7, 1) forwards;
+}
+
+@keyframes coneRiseUp {
+  0% {
+    opacity: 0;
+    transform: translateY(120%) scale(1.15);
+    filter: blur(4px);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-14px) scale(1.28);
+    filter: blur(0px);
+  }
+  85% {
+    transform: translateY(4px) scale(1.24);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1.25);
+    filter: blur(0px);
+  }
+}
+
+@keyframes coneDipDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1.25);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(120%) scale(1.15);
+    filter: blur(4px);
   }
 }
 
@@ -238,3 +336,232 @@
 .site-header {
   animation: headerSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ==========================================================================
+   Live Editor Preset Animations
+   ========================================================================== */
+@keyframes animFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes animBlurIn {
+  from {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+@keyframes animFloatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  65% {
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes animWobble {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-5deg) scale(1.05); }
+  50% { transform: rotate(4deg) scale(0.96); }
+  75% { transform: rotate(-2deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.anim-fade-in {
+  animation: animFadeIn var(--anim-duration, 0.8s) var(--anim-delay, 0s) cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.anim-blur-in {
+  animation: animBlurIn var(--anim-duration, 0.9s) var(--anim-delay, 0s) cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.anim-float-up {
+  animation: animFloatUp var(--anim-duration, 0.85s) var(--anim-delay, 0s) cubic-bezier(0.2, 0.9, 0.3, 1) both !important;
+}
+
+.anim-slide-up {
+  animation: animSlideUp var(--anim-duration, 0.75s) var(--anim-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+.anim-pop-in {
+  animation: animPopIn var(--anim-duration, 0.65s) var(--anim-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+.anim-wobble {
+  animation: animWobble var(--anim-duration, 0.8s) var(--anim-delay, 0s) ease-in-out both !important;
+}
+
+/* ==========================================================================
+   Section Scroll Entrance Animations
+   ========================================================================== */
+@keyframes secSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes secBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(24px);
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+@keyframes secZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.93);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes secFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(45px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.sec-animate-ready {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition: none;
+}
+
+.sec-animate-ready.sec-animated.anim-sec-slide-up {
+  animation: secSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.sec-animate-ready.sec-animated.anim-sec-blur-in {
+  animation: secBlurIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.sec-animate-ready.sec-animated.anim-sec-zoom-in {
+  animation: secZoomIn 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+}
+
+.sec-animate-ready.sec-animated.anim-sec-float {
+  animation: secFloat 1.0s cubic-bezier(0.2, 0.9, 0.3, 1) forwards !important;
+}
+
+/* ==========================================================================
+   Interactive Mouse Cursor FX Styles
+   ========================================================================== */
+/* 1. Fluid Melting Blob Cursor */
+.cursor-blob-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 94, 126, 0.75);
+  box-shadow: 0 0 16px rgba(255, 94, 126, 0.4), inset 0 2px 6px rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.05s ease-out;
+  mix-blend-mode: multiply;
+}
+
+.cursor-blob-follower.is-hovering {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 94, 126, 0.45);
+}
+
+/* 2. Ambient Glow Spotlight */
+.cursor-glow-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 94, 126, 0.18) 0%, rgba(255, 240, 244, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 99990;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease-out;
+}
+
+/* 3. Magic Sprinkle Particles */
+.sprinkle-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99995;
+  width: 5px;
+  height: 14px;
+  border-radius: 999px;
+  animation: sprinkleDrift 0.8s ease-out forwards;
+}
+
+@keyframes sprinkleDrift {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(var(--rot, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 40px)) scale(0.3) rotate(calc(var(--rot, 0deg) + 90deg));
+  }
+}
+
+
