@@ -6,36 +6,52 @@ const STORE_LOCATIONS = {
     storeName: 'Bodakdev Flagship Scoop Bar',
     address: 'Shop 4, Ground Floor, Sindhu Bhavan Road, Bodakdev, Ahmedabad - 380054',
     hours: 'Open Daily: 11:00 AM – 11:30 PM',
+    status: 'Scooping Now · Open till 11:30 PM',
+    badge: '🟢 Open Now',
     phone: '+91 79 4892 1100',
-    exclusiveFlavor: '✨ Ahmedabad Special: Saffron Kesar Pista Crunch',
-    mapsUrl: 'https://maps.google.com'
+    tel: '+917948921100',
+    exclusiveTitle: 'Saffron Kesar Pista Crunch',
+    exclusiveDesc: 'Handcrafted with Kashmiri Mongra saffron & roasted Iranian pistachios',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Melt+and+Scoop+Sindhu+Bhavan+Road+Bodakdev+Ahmedabad'
   },
   mumbai: {
     city: 'Mumbai',
     storeName: 'Bandra West Creamery',
     address: '14 Linking Road, Near KFC Junction, Bandra West, Mumbai - 400050',
-    hours: 'Open Daily: 11:30 AM – 12:30 AM (Midnight Craving Hours)',
+    hours: 'Open Daily: 11:30 AM – 12:30 AM (Midnight Cravings)',
+    status: 'Scooping Now · Open till 12:30 AM',
+    badge: '🟢 Open Till 12:30 AM',
     phone: '+91 22 2640 5522',
-    exclusiveFlavor: '✨ Mumbai Special: Sea Salt Caramel Sea Breeze',
-    mapsUrl: 'https://maps.google.com'
+    tel: '+912226405522',
+    exclusiveTitle: 'Sea Salt Caramel Sea Breeze',
+    exclusiveDesc: 'Slow-cooked golden butter caramel with Arabian sea salt crystals',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Melt+and+Scoop+Linking+Road+Bandra+West+Mumbai'
   },
   delhi: {
     city: 'Delhi NCR',
     storeName: 'Khan Market Boutique',
     address: 'Shop 28-A, Middle Lane, Khan Market, New Delhi - 110003',
     hours: 'Open Daily: 11:00 AM – 11:00 PM',
+    status: 'Scooping Now · Open till 11:00 PM',
+    badge: '🟢 Open Now',
     phone: '+91 11 4105 8899',
-    exclusiveFlavor: '✨ Delhi Special: Kashmiri Shahi Gulab & Pistachio',
-    mapsUrl: 'https://maps.google.com'
+    tel: '+911141058899',
+    exclusiveTitle: 'Kashmiri Shahi Gulab & Pistachio',
+    exclusiveDesc: 'Damascus rose water infused cream folded with slivered green pistachios',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Melt+and+Scoop+Khan+Market+New+Delhi'
   },
   bangalore: {
     city: 'Bangalore',
     storeName: 'Indiranagar 100ft Scoop Shop',
     address: '612, 100 Feet Rd, HAL 2nd Stage, Indiranagar, Bengaluru - 560038',
     hours: 'Open Daily: 11:00 AM – 11:45 PM',
+    status: 'Scooping Now · Open till 11:45 PM',
+    badge: '🟢 Open Now',
     phone: '+91 80 4120 7744',
-    exclusiveFlavor: '✨ Bangalore Special: Chikmagalur Roast Coffee Crunch',
-    mapsUrl: 'https://maps.google.com'
+    tel: '+918041207744',
+    exclusiveTitle: 'Chikmagalur Roast Coffee Crunch',
+    exclusiveDesc: 'Single-estate arabica espresso churn with dark cacao nib crunch',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Melt+and+Scoop+100+Feet+Rd+Indiranagar+Bengaluru'
   }
 };
 
@@ -80,13 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  // 3. Store Location City Switcher
+  // 3. Store Location City Switcher with Dynamic Links & Smooth Crossfade
   const cityTabs = document.querySelectorAll('.city-tab');
   const storeTitleEl = document.getElementById('storeDetailTitle');
+  const storeCityLabelEl = document.getElementById('storeCityLabel');
+  const storeCityOverlayEl = document.getElementById('storeCityOverlay');
   const storeAddressEl = document.getElementById('storeDetailAddress');
   const storeHoursEl = document.getElementById('storeDetailHours');
-  const storeExclusiveEl = document.getElementById('storeDetailExclusive');
+  const storeHoursBadgeEl = document.getElementById('storeHoursBadge');
+  const storeLiveStatusEl = document.getElementById('storeLiveStatus');
+  const storeExclusiveTitleEl = document.getElementById('storeDetailExclusiveTitle');
+  const storeExclusiveDescEl = document.getElementById('storeDetailExclusiveDesc');
   const storePhoneEl = document.getElementById('storeDetailPhone');
+  const storeDirectionsBtn = document.getElementById('storeDetailDirections');
+  const storeCallBtn = document.getElementById('storeDetailCallBtn');
+  const storeCardEl = document.getElementById('storeDetailCard');
 
   cityTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -94,14 +118,48 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = STORE_LOCATIONS[cityKey];
       if (!data) return;
 
-      cityTabs.forEach(t => t.classList.remove('active'));
+      cityTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
 
-      if (storeTitleEl) storeTitleEl.textContent = data.storeName;
-      if (storeAddressEl) storeAddressEl.textContent = data.address;
-      if (storeHoursEl) storeHoursEl.textContent = data.hours;
-      if (storeExclusiveEl) storeExclusiveEl.textContent = data.exclusiveFlavor;
-      if (storePhoneEl) storePhoneEl.textContent = data.phone;
+      if (storeCardEl) {
+        storeCardEl.style.opacity = '0.35';
+        storeCardEl.style.transform = 'translateY(4px)';
+      }
+
+      setTimeout(() => {
+        if (storeTitleEl) storeTitleEl.textContent = data.storeName;
+        if (storeCityLabelEl) storeCityLabelEl.textContent = `${data.city} Flagship`;
+        if (storeCityOverlayEl) storeCityOverlayEl.textContent = `📍 ${data.city} Flagship`;
+        if (storeAddressEl) storeAddressEl.textContent = data.address;
+        if (storeHoursEl) storeHoursEl.textContent = data.hours;
+        if (storeHoursBadgeEl) storeHoursBadgeEl.textContent = data.badge;
+        if (storeLiveStatusEl) storeLiveStatusEl.textContent = data.status;
+        if (storeExclusiveTitleEl) storeExclusiveTitleEl.textContent = data.exclusiveTitle;
+        if (storeExclusiveDescEl) storeExclusiveDescEl.textContent = data.exclusiveDesc;
+
+        if (storePhoneEl) {
+          storePhoneEl.innerHTML = `${data.phone} <span class="store-call-hint">(Tap to Call)</span>`;
+          storePhoneEl.setAttribute('href', `tel:${data.tel}`);
+        }
+
+        if (storeDirectionsBtn) {
+          storeDirectionsBtn.setAttribute('href', data.mapsUrl);
+        }
+
+        if (storeCallBtn) {
+          storeCallBtn.setAttribute('href', `tel:${data.tel}`);
+        }
+
+        if (storeCardEl) {
+          storeCardEl.style.opacity = '1';
+          storeCardEl.style.transform = 'translateY(0)';
+          storeCardEl.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+        }
+      }, 100);
     });
   });
 

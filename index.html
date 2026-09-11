@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1178,42 +1178,96 @@
   <section class="section-pad store-section sec-animate-ready anim-sec-slide-up sec-animated" id="storeSection">
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed">
-        <span class="section-eyebrow">Visit Our Parlors</span>
+        <span class="section-eyebrow">Visit Our Parlors · 4 City Flagships</span>
         <h2 class="section-title">COME GET A SCOOP IRL</h2>
-        <p class="section-subtitle">Experience fresh churns warm waffle cones and store-exclusive flavors.</p>
+        <p class="section-subtitle">Experience fresh slow churns, warm waffle cones, and store-exclusive flavors across India.</p>
+      </div>
+
+      <!-- 4 City Location Switcher Tabs (Balanced 4-Location Bar / 2x2 Mobile Grid) -->
+      <div class="store-city-tabs-wrapper reveal-slide-up is-revealed">
+        <div class="store-city-tabs" role="tablist" aria-label="Select Parlor Location">
+          <button class="city-tab active" data-city="ahmedabad" role="tab" aria-selected="true">
+            <span class="city-tab-icon">📍</span>
+            <span class="city-tab-name">Ahmedabad</span>
+          </button>
+          <button class="city-tab" data-city="mumbai" role="tab" aria-selected="false">
+            <span class="city-tab-icon">📍</span>
+            <span class="city-tab-name">Mumbai</span>
+          </button>
+          <button class="city-tab" data-city="delhi" role="tab" aria-selected="false">
+            <span class="city-tab-icon">📍</span>
+            <span class="city-tab-name">Delhi NCR</span>
+          </button>
+          <button class="city-tab" data-city="bangalore" role="tab" aria-selected="false">
+            <span class="city-tab-icon">📍</span>
+            <span class="city-tab-name">Bangalore</span>
+          </button>
+        </div>
       </div>
 
       <div class="store-grid">
-        <!-- Left: Parlor Image with Live Status -->
+        <!-- Left: Parlor Image with Live Status & City Overlay -->
         <div class="store-image-box reveal-slide-up is-revealed">
           <div class="store-live-badge">
             <span class="live-pulse-dot"></span>
-            <span>Scooping Now · Open till 11:30 PM</span>
+            <span id="storeLiveStatus">Scooping Now · Open till 11:30 PM</span>
           </div>
-          <img src="assets/images/storefront.jpg" alt="Melt &amp; Scoop parlor interior" class="store-img">
+          <span class="store-city-overlay-badge" id="storeCityOverlay">📍 Ahmedabad Flagship</span>
+          <img src="assets/images/storefront.jpg" alt="Melt &amp; Scoop parlor interior" class="store-img" id="storeImg">
         </div>
 
-        <!-- Right: Interactive City Switcher & Details -->
-        <div>
-          <div class="store-city-tabs">
-            <button class="city-tab active" data-city="ahmedabad">📍 Ahmedabad</button>
-            <button class="city-tab" data-city="mumbai">📍 Mumbai</button>
-            <button class="city-tab" data-city="delhi">📍 Delhi</button>
-            <button class="city-tab" data-city="bangalore">📍 Bangalore</button>
+        <!-- Right: Rich Parlor Details Card with Direct Call & Map Links -->
+        <div class="store-detail-card reveal-slide-up stagger-2 is-revealed" id="storeDetailCard">
+          <div class="store-card-header">
+            <div>
+              <span class="store-city-label" id="storeCityLabel">Ahmedabad Flagship</span>
+              <h3 class="store-detail-title" id="storeDetailTitle">Bodakdev Flagship Scoop Bar</h3>
+            </div>
+            <span class="store-hours-badge" id="storeHoursBadge">🟢 Open Now</span>
           </div>
 
-          <div class="store-detail-card reveal-slide-up stagger-2 is-revealed">
-            <h3 class="store-detail-title" id="storeDetailTitle">Bodakdev Flagship Scoop Bar</h3>
-            <div class="store-detail-info">
-              <p id="storeDetailAddress">Shop 4, Ground Floor, Sindhu Bhavan Road, Bodakdev, Ahmedabad - 380054</p>
-              <p id="storeDetailHours">Open Daily: 11:00 AM – 11:30 PM</p>
-              <p id="storeDetailPhone">📞 +91 79 4892 1100</p>
+          <div class="store-detail-info">
+            <div class="store-info-row">
+              <span class="store-info-icon">📍</span>
+              <div class="store-info-text">
+                <strong>Address</strong>
+                <p id="storeDetailAddress">Shop 4, Ground Floor, Sindhu Bhavan Road, Bodakdev, Ahmedabad - 380054</p>
+              </div>
             </div>
-            <div style="font-weight: 700; color: var(--brand-pink); margin-bottom: 20px;" id="storeDetailExclusive">
-              ✨ Ahmedabad Special: Saffron Kesar Pista Crunch
+
+            <div class="store-info-row">
+              <span class="store-info-icon">🕒</span>
+              <div class="store-info-text">
+                <strong>Scoop Hours</strong>
+                <p id="storeDetailHours">Open Daily: 11:00 AM – 11:30 PM</p>
+              </div>
             </div>
-            <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-dark">
-              GET DIRECTIONS / FIND A STORE →
+
+            <div class="store-info-row">
+              <span class="store-info-icon">📞</span>
+              <div class="store-info-text">
+                <strong>Direct Contact</strong>
+                <a href="tel:+917948921100" class="store-phone-link" id="storeDetailPhone">
+                  +91 79 4892 1100 <span class="store-call-hint">(Tap to Call)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Store-Exclusive Signature Flavor Banner -->
+          <div class="store-exclusive-card" id="storeDetailExclusiveBox">
+            <div class="store-exclusive-badge">✨ Parlor Exclusive Churn</div>
+            <h4 class="store-exclusive-title" id="storeDetailExclusiveTitle">Saffron Kesar Pista Crunch</h4>
+            <p class="store-exclusive-desc" id="storeDetailExclusiveDesc">Handcrafted with Kashmiri Mongra saffron &amp; roasted Iranian pistachios</p>
+          </div>
+
+          <!-- Mobile-Optimized Action Buttons: Directions & Instant Call -->
+          <div class="store-actions-row">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Melt+and+Scoop+Sindhu+Bhavan+Road+Bodakdev+Ahmedabad" target="_blank" rel="noopener" class="btn btn-dark store-btn-directions" id="storeDetailDirections">
+              🗺️ GET DIRECTIONS →
+            </a>
+            <a href="tel:+917948921100" class="btn btn-secondary store-btn-call" id="storeDetailCallBtn">
+              📞 CALL PARLOR
             </a>
           </div>
         </div>
