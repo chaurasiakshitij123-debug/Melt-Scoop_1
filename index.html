@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,10 @@
   <!-- ========================================================================
        01 — HEADER / NAVIGATION
        ======================================================================== -->
-  <header class="site-header" id="siteHeader">
+  <header class="site-header is-compact" id="siteHeader">
     <div class="header-container">
       <!-- Left: Geometric Modern Brand Logo -->
-      <a href="#heroSection" class="header-left-logo" aria-label="MELT &amp; SCOOP Home">
+      <a href="#heroSection" class="header-left-logo" aria-label="MELT &amp; SCOOP Home" style="touch-action: manipulation; user-select: none; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s, color 0.3s; transform: translateY(0px); cursor: pointer;">
         <span>MELT &amp; SCOOP</span><span class="header-logo-accent">.</span>
       </a>
 
@@ -51,7 +51,7 @@
 
         <button class="header-cart-pill open-cart-btn cart-btn" id="headerCartBtn" aria-label="Shopping Cart">
           <span>Cart</span>
-          <span class="header-cart-badge cart-count badge-pop" id="headerCartCount">4</span>
+          <span class="header-cart-badge cart-count badge-pop" id="headerCartCount">0</span>
         </button>
 
         <!-- Mobile Hamburger Menu Button (visible on mobile/tablet <= 860px) -->
@@ -68,7 +68,7 @@
   <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
   <aside class="mobile-menu-drawer" id="mobileMenuDrawer" aria-label="Mobile Navigation Drawer">
     <div class="mobile-drawer-header">
-      <a href="#heroSection" class="mobile-drawer-logo" onclick="window.closeMobileMenu()">
+      <a href="#heroSection" class="mobile-drawer-logo" onclick="window.closeMobileMenu()" style="touch-action: manipulation; user-select: none; cursor: pointer;">
         <span>MELT &amp; SCOOP</span><span class="header-logo-accent">.</span>
       </a>
       <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Navigation Menu">✕</button>
@@ -105,7 +105,7 @@
           🔍 Search Scoops
         </button>
         <button class="btn btn-primary mobile-quick-btn open-cart-btn" onclick="window.closeMobileMenu();">
-          🛒 Open Cart (<span class="cart-count badge-pop">4</span>)
+          🛒 Open Cart (<span class="cart-count badge-pop">0</span>)
         </button>
       </div>
       <div class="mobile-drawer-socials">
@@ -122,17 +122,17 @@
   <!-- ========================================================================
        02 — HERO — IMMERSIVE STRAWBERRY ICE CREAM EXPERIENCE
        ======================================================================== -->
-  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(250, 243, 240);">
+  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(246, 250, 244);">
     <!-- Smooth Crossfading Background Layers -->
-    <div class="hero-bg-layer is-active" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
-    <div class="hero-bg-layer" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
+    <div class="hero-bg-layer" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
+    <div class="hero-bg-layer is-active" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(246, 250, 244) 0%, rgb(255, 249, 242) 75%);"></div>
 
     <!-- Sprinkles Interactive Canvas -->
-    <canvas id="sprinklesCanvas" width="3430" height="1305"></canvas>
+    <canvas id="sprinklesCanvas" width="3420" height="1305"></canvas>
 
     <!-- Dynamic Radial Ambient Glow (Smooth Crossfade Layers) -->
-    <div class="hero-ambient-glow is-active" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
-    <div class="hero-ambient-glow" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <div class="hero-ambient-glow" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <div class="hero-ambient-glow is-active" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(110, 158, 83, 0.3) 0%, rgba(255, 240, 244, 0) 70%);"></div>
 
     <div class="container hero-container" style="">
       <!-- Tier 1: Purple Container (Badge, Editorial Heading & Subtitle) -->
@@ -183,8 +183,8 @@
           <!-- Central Zoomed-In Isolated Ice Cream Cone -->
           <div class="hero-stage">
             <div class="hero-halo-ring" id="heroHaloRing"></div>
-            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.47deg) rotateY(3.9deg);">
-              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img flavor-enter anim-float-up" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 25px 35px); --anim-duration: 0.8s; --anim-delay: 0s;">
+            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-13.98deg) rotateY(-2.84deg);">
+              <img src="assets/images/pistachio.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-right" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.8px 35px); --anim-duration: 0.8s; --anim-delay: 0s;">
             </div>
           </div>
 
@@ -202,11 +202,11 @@
             <div class="hero-product-header">
               <div>
                 <span class="badge badge-pink" style="margin-bottom:6px; font-size:0.75rem;">Top Craving</span>
-                <h3 class="hero-product-name" id="heroProductName">ALPHONSO MANGO VELVET</h3>
+                <h3 class="hero-product-name" id="heroProductName">PISTACHIO DREAM</h3>
               </div>
-              <span class="hero-product-price" id="heroProductPrice">₹219</span>
+              <span class="hero-product-price" id="heroProductPrice">₹249</span>
             </div>
-            <p class="hero-product-desc" id="heroProductDesc">Pure sun-ripened Alphonso mango nectar swirled into frozen fruit silk.</p>
+            <p class="hero-product-desc" id="heroProductDesc">Creamy Sicilian pistachio gelato crafted with slow-roasted nutty goodness.</p>
             <div class="hero-product-footer">
               <div class="qty-stepper">
                 <button class="qty-btn" id="heroQtyMinus">−</button>
@@ -275,8 +275,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Chocolate</span>
-              
+              <span class="badge-signature-tag">👑 Bestseller</span>
             </div>
 
             <div class="product-header-row">
@@ -313,8 +312,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Vanilla</span>
-              
+              <span class="badge-signature-tag">✨ Classic</span>
             </div>
 
             <div class="product-header-row">
@@ -351,8 +349,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Pistachio</span>
-              
+              <span class="badge-signature-tag">⭐ Chef Pick</span>
             </div>
 
             <div class="product-header-row">
@@ -389,8 +386,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Strawberry</span>
-              
+              <span class="badge-signature-tag">🍓 Pure Fruit</span>
             </div>
 
             <div class="product-header-row">
@@ -427,8 +423,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Chocolate</span>
-              
+              <span class="badge-signature-tag">🔥 Fan Fav</span>
             </div>
 
             <div class="product-header-row">
@@ -465,8 +460,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Mango</span>
-              
+              <span class="badge-signature-tag">🥭 Seasonal</span>
             </div>
 
             <div class="product-header-row">
@@ -503,8 +497,7 @@
 
           <div class="product-card-body">
             <div class="product-badge-row">
-              <span class="product-cat-tag">Strawberry</span>
-              <span class="badge-new-tag">✨ New</span>
+              <span class="badge-signature-tag">✨ New</span>
             </div>
 
             <div class="product-header-row">
@@ -523,500 +516,6 @@
                   <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-straw-cheesecake', 1)" aria-label="Increase quantity">+</button>
                 </div>
                 <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-straw-cheesecake')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-mango-cardamom">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-cardamom', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-mango-cardamom')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/mango.png" alt="Alphonso Cream Cloud &amp; Cardamom" class="product-image" id="img-prod-mango-cardamom">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Mango</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-mango-cardamom')" style="cursor:pointer;">Alphonso Cream Cloud &amp; Cardamom</h3>
-              <div class="product-rating">★ 5.0</div>
-            </div>
-
-            <p class="product-tasting-notes">Sweet whole cream · Alphonso nectar glaze · Aromatic cardamom essence</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹239</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-mango-cardamom">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-cardamom', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-mango-cardamom">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-cardamom', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-mango-cardamom')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-brownie">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-brownie', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-choc-brownie')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/chocolate.png" alt="Midnight Cocoa Brownie Chunk" class="product-image" id="img-prod-choc-brownie">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Chocolate</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-choc-brownie')" style="cursor:pointer;">Midnight Cocoa Brownie Chunk</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">80% Valrhona black cocoa · Fudgy baked brownie squares · Dark chocolate chunks</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹269</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-choc-brownie">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-choc-brownie', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-choc-brownie">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-choc-brownie', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-choc-brownie')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-pist-praline">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-praline', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-pist-praline')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/pistachio.png" alt="Salted Pistachio Praline Gelato" class="product-image" id="img-prod-pist-praline">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Pistachio</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-pist-praline')" style="cursor:pointer;">Salted Pistachio Praline Gelato</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Crunchy pistachio brittle · Maldon sea salt · Dark caramel swirls</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹269</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-pist-praline">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-praline', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-pist-praline">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-praline', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-pist-praline')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-van-honeycomb">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-honeycomb', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-van-honeycomb')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/vanilla.png" alt="Madagascar Honeycomb Crunch" class="product-image" id="img-prod-van-honeycomb">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Vanilla</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-van-honeycomb')" style="cursor:pointer;">Madagascar Honeycomb Crunch</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Wildflower honey toffee · Crunchy honeycomb · Creamy vanilla</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹219</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-van-honeycomb">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-honeycomb', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-van-honeycomb">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-honeycomb', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-van-honeycomb')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-mango-passion">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-passion', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-mango-passion')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/mango.png" alt="Mango Passionfruit Swirl" class="product-image" id="img-prod-mango-passion">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Mango</span>
-              
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-mango-passion')" style="cursor:pointer;">Mango Passionfruit Swirl</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Tart yellow passionfruit · Sweet mango puree · Tropical sorbet twist</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹229</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-mango-passion">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-passion', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-mango-passion">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-passion', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-mango-passion')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-gianduja">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-gianduja', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-choc-gianduja')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/chocolate.png" alt="Roasted Hazelnut Gianduja" class="product-image" id="img-prod-choc-gianduja">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Chocolate</span>
-              
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-choc-gianduja')" style="cursor:pointer;">Roasted Hazelnut Gianduja</h3>
-              <div class="product-rating">★ 4.8</div>
-            </div>
-
-            <p class="product-tasting-notes">Piedmont roasted hazelnuts · Milk chocolate cream · Praline crunch</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹259</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-choc-gianduja">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-choc-gianduja', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-choc-gianduja">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-choc-gianduja', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-choc-gianduja')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-pist-kulfi">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-kulfi', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-pist-kulfi')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/pistachio.png" alt="Rosewater Pistachio Kulfi" class="product-image" id="img-prod-pist-kulfi">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Pistachio</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-pist-kulfi')" style="cursor:pointer;">Rosewater Pistachio Kulfi</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Damascus rosewater · Crushed green pistachios · Saffron milk reduction</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹249</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-pist-kulfi">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-kulfi', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-pist-kulfi">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-kulfi', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-pist-kulfi')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-straw-balsamic">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-balsamic', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-straw-balsamic')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/strawberry.png" alt="Roasted Strawberry Balsamic" class="product-image" id="img-prod-straw-balsamic">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Strawberry</span>
-              
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-straw-balsamic')" style="cursor:pointer;">Roasted Strawberry Balsamic</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Slow-roasted berries · 12-year Modena balsamic drizzle · Black pepper hint</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹239</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-straw-balsamic">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-straw-balsamic', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-straw-balsamic">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-straw-balsamic', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-straw-balsamic')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-pist-whitechoc">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-whitechoc', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-pist-whitechoc')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/pistachio.png" alt="White Chocolate Pistachio Cloud" class="product-image" id="img-prod-pist-whitechoc">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Pistachio</span>
-              
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-pist-whitechoc')" style="cursor:pointer;">White Chocolate Pistachio Cloud</h3>
-              <div class="product-rating">★ 4.8</div>
-            </div>
-
-            <p class="product-tasting-notes">Ivory cocoa butter · Roasted pistachio swirl · Creamy sweetness</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹259</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-pist-whitechoc">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-whitechoc', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-pist-whitechoc">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-pist-whitechoc', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-pist-whitechoc')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-van-bourbon">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-bourbon', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-van-bourbon')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/vanilla.png" alt="Smoked Bourbon Vanilla" class="product-image" id="img-prod-van-bourbon">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Vanilla</span>
-              
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-van-bourbon')" style="cursor:pointer;">Smoked Bourbon Vanilla</h3>
-              <div class="product-rating">★ 4.8</div>
-            </div>
-
-            <p class="product-tasting-notes">Charred oak essence · Kentucky bourbon aroma · Velvety cream</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹239</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-van-bourbon">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-bourbon', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-van-bourbon">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-bourbon', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-van-bourbon')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-straw-sorbet">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-sorbet', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-straw-sorbet')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/strawberry.png" alt="Strawberry Hibiscus Rose Sorbet" class="product-image" id="img-prod-straw-sorbet">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Strawberry</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-straw-sorbet')" style="cursor:pointer;">Strawberry Hibiscus Rose Sorbet</h3>
-              <div class="product-rating">★ 4.8</div>
-            </div>
-
-            <p class="product-tasting-notes">Red hibiscus brew · Hand-mashed berries · Delicate rose finish</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹199</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-straw-sorbet">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-straw-sorbet', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-straw-sorbet">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-straw-sorbet', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-straw-sorbet')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-mango-chili">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-chili', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-mango-chili')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/mango.png" alt="Spiced Alphonso Mango Chili" class="product-image" id="img-prod-mango-chili">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Mango</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-mango-chili')" style="cursor:pointer;">Spiced Alphonso Mango Chili</h3>
-              <div class="product-rating">★ 4.8</div>
-            </div>
-
-            <p class="product-tasting-notes">Golden mango nectar · Kashmiri red chili sparkle · Fresh lime zest</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹209</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-mango-chili">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-chili', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-mango-chili">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-mango-chili', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-mango-chili')">
-                  ADD +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="product-card reveal-slide-up stagger-4" id="card-prod-van-chai">
-          <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-chai', this)" title="Save to favorites" aria-label="Save to favorites">
-            ♡
-          </button>
-
-          <div class="product-image-container" onclick="window.ShopInstance.openQuickView('prod-van-chai')" style="cursor:pointer;" title="Click to view details">
-            <img src="assets/images/vanilla.png" alt="Cardamom Spiced Vanilla Silk" class="product-image" id="img-prod-van-chai">
-          </div>
-
-          <div class="product-card-body">
-            <div class="product-badge-row">
-              <span class="product-cat-tag">Vanilla</span>
-              <span class="badge-new-tag">✨ New</span>
-            </div>
-
-            <div class="product-header-row">
-              <h3 class="product-title" onclick="window.ShopInstance.openQuickView('prod-van-chai')" style="cursor:pointer;">Cardamom Spiced Vanilla Silk</h3>
-              <div class="product-rating">★ 4.9</div>
-            </div>
-
-            <p class="product-tasting-notes">Green cardamom pods · Cinnamon bark hint · Silky vanilla whole milk</p>
-
-            <div class="product-card-footer">
-              <div class="product-price">₹209</div>
-              <div class="product-card-actions">
-                <div class="qty-stepper" id="stepper-prod-van-chai">
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-chai', -1)" aria-label="Decrease quantity">−</button>
-                  <span class="qty-number" id="qty-val-prod-van-chai">1</span>
-                  <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('prod-van-chai', 1)" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn btn-dark btn-card-add" onclick="window.ShopInstance.addCardToCart('prod-van-chai')">
                   ADD +
                 </button>
               </div>
@@ -1106,7 +605,7 @@
   <!-- ========================================================================
        07 — BUILD YOUR BOX (Interactive Custom Bundle)
        ======================================================================== -->
-  <section class="section-pad box-builder-section sec-animate-ready anim-sec-slide-up" id="boxBuilderSection">
+  <section class="section-pad box-builder-section sec-animate-ready anim-sec-slide-up sec-animated" id="boxBuilderSection">
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed">
         <span class="section-eyebrow">Custom Ice Cream Party</span>
@@ -1676,7 +1175,7 @@
   <!-- ========================================================================
        10 — STORE / LOCATION IRL
        ======================================================================== -->
-  <section class="section-pad store-section sec-animate-ready anim-sec-slide-up" id="storeSection">
+  <section class="section-pad store-section sec-animate-ready anim-sec-slide-up sec-animated" id="storeSection">
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed">
         <span class="section-eyebrow">Visit Our Parlors</span>
@@ -1750,7 +1249,7 @@
     </svg>
   </div>
 
-  <footer class="site-footer sec-animate-ready anim-sec-slide-up" id="footerContact">
+  <footer class="site-footer sec-animate-ready anim-sec-slide-up sec-animated" id="footerContact">
     <!-- Subtle Background Ambient Blobs & Ice Cream Elements -->
     <div class="footer-bg-blob-1"></div>
     <div class="footer-bg-blob-2"></div>
@@ -1864,66 +1363,19 @@
 
     <!-- Free Delivery Progress Meter -->
     <div class="free-shipping-progress">
-      <div id="freeShippingText">🎉 You unlocked <strong>FREE Sub-Zero Dry Ice Delivery</strong>!</div>
+      <div id="freeShippingText">Add ₹699 for FREE Sub-Zero Delivery!</div>
       <div class="progress-track">
-        <div class="progress-fill" id="freeShippingFill" style="width: 100%; background-color: rgb(16, 185, 129);"></div>
+        <div class="progress-fill" id="freeShippingFill" style="width: 0%; background-color: rgb(16, 185, 129);"></div>
       </div>
     </div>
 
     <!-- Items List -->
     <div class="cart-items-list" id="cartItemsList">
-        <div class="cart-item">
-          <img src="assets/images/vanilla.png" alt="Tahitian Vanilla Bean" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Tahitian Vanilla Bean</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹189</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-van-tahitian', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">1</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-van-tahitian', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-van-tahitian')" title="Remove item">✕</button>
-        </div>
-      
-        <div class="cart-item">
-          <img src="assets/images/pistachio.png" alt="Sicilian Pistachio Crunch" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Sicilian Pistachio Crunch</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹269</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-pist-sicilian', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">2</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-pist-sicilian', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-pist-sicilian')" title="Remove item">✕</button>
-        </div>
-      
-        <div class="cart-item">
-          <img src="assets/images/strawberry.png" alt="Strawberry Bliss" class="cart-item-img">
-          <div class="cart-item-details">
-            <div class="cart-item-name">Strawberry Bliss</div>
-            <div class="cart-item-subtext">Single Tub Pint</div>
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-              <span class="cart-item-price">₹199</span>
-              <div class="qty-stepper" style="padding: 2px;">
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-straw-bliss', -1)">−</button>
-                <span class="qty-number" style="min-width: 20px;">1</span>
-                <button class="qty-btn" onclick="window.Cart.updateQuantity('prod-straw-bliss', 1)">+</button>
-              </div>
-            </div>
-          </div>
-          <button class="cart-item-remove" onclick="window.Cart.removeItem('prod-straw-bliss')" title="Remove item">✕</button>
+        <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+          <div style="font-size: 3.5rem; margin-bottom: 16px;">🍦</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main);">Your Cart is Empty</h3>
+          <p style="font-size: 0.9rem; margin-bottom: 24px;">Your cart deserves something sweet and creamy.</p>
+          <a href="#shopFlavors" class="btn btn-primary" onclick="window.Cart.closeCart()">Shop Flavors →</a>
         </div>
       </div>
 
@@ -1936,7 +1388,7 @@
 
       <div class="cart-summary-line">
         <span>Subtotal</span>
-        <span id="cartSubtotal">₹926</span>
+        <span id="cartSubtotal">₹0</span>
       </div>
       <div class="cart-summary-line" id="cartDiscountRow" style="display:none; color:#10B981; font-weight:700;">
         <span>Promo Discount</span>
@@ -1944,11 +1396,11 @@
       </div>
       <div class="cart-summary-line">
         <span>Sub-Zero Dry Ice Shipping</span>
-        <span id="cartShipping">FREE</span>
+        <span id="cartShipping">₹0</span>
       </div>
       <div class="cart-summary-line cart-summary-total">
         <span>Total</span>
-        <span id="cartTotal">₹926</span>
+        <span id="cartTotal">₹0</span>
       </div>
 
       <button class="btn btn-primary" id="checkoutBtn" style="width: 100%; padding: 16px; font-size: 1rem;">

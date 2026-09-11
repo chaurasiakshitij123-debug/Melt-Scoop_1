@@ -860,3 +860,240 @@ body.editor-active.mode-media .editor-img-wrapper-active:hover .editor-img-chang
   background: rgba(255, 94, 126, 0.2);
 }
 
+/* ==========================================================================
+   11. SECRET LOGO TRIGGER STYLES (5 RAPID CLICKS)
+   ========================================================================== */
+.header-left-logo,
+.mobile-drawer-logo {
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: manipulation !important;
+  transition: transform 0.15s ease, filter 0.2s ease, color 0.2s ease;
+}
+
+.header-left-logo:active,
+.mobile-drawer-logo:active {
+  transform: scale(0.96);
+}
+
+/* Subtle micro-pulse on intermediate clicks */
+.header-left-logo.logo-pulse,
+.mobile-drawer-logo.logo-pulse {
+  color: var(--brand-pink, #FF5E7E) !important;
+  filter: drop-shadow(0 0 12px rgba(255, 94, 126, 0.85)) !important;
+  transform: scale(1.04);
+}
+
+/* 5th click: golden unlocked shimmer */
+.header-left-logo.logo-unlocked,
+.mobile-drawer-logo.logo-unlocked {
+  color: #E5A823 !important;
+  filter: drop-shadow(0 0 20px rgba(229, 168, 35, 1)) drop-shadow(0 0 12px rgba(255, 94, 126, 0.8)) !important;
+  animation: logoSecretGlow 0.4s 2 alternate ease-in-out !important;
+}
+
+@keyframes logoSecretGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(229, 168, 35, 0.8)); }
+  100% { filter: drop-shadow(0 0 22px rgba(255, 94, 126, 1)); }
+}
+
+.editor-tool-export-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.editor-tool-export-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   12. TRANSFORM STUDIO (POSITION, ROTATION & SCALE OF EVERYTHING)
+   ========================================================================== */
+body.mode-transform {
+  cursor: crosshair;
+}
+
+body.mode-transform .editor-inspect-highlight {
+  outline: 2px dashed #E5A823 !important;
+  outline-offset: 3px !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 12px rgba(229, 168, 35, 0.4) !important;
+}
+
+.editor-transform-selected {
+  outline: 2.5px dashed #FF5E7E !important;
+  outline-offset: 5px !important;
+  box-shadow: 0 0 20px rgba(255, 94, 126, 0.5), 0 0 8px rgba(229, 168, 35, 0.6) !important;
+  cursor: grab !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.editor-transform-selected:active {
+  cursor: grabbing !important;
+}
+
+.editor-transform-panel {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  width: 330px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  background: rgba(28, 18, 16, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(229, 168, 35, 0.45);
+  border-radius: 20px;
+  padding: 18px;
+  color: #FFFFFF;
+  z-index: 9998;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 25px rgba(229, 168, 35, 0.15);
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  animation: animFloatUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editor-transform-panel.is-active {
+  display: flex;
+}
+
+.editor-transform-panel::-webkit-scrollbar {
+  width: 5px;
+}
+.editor-transform-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.editor-transform-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 10px;
+}
+
+.editor-transform-target-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  background: rgba(229, 168, 35, 0.2);
+  color: #F8CB64;
+  border: 1px solid rgba(229, 168, 35, 0.4);
+  padding: 2px 8px;
+  border-radius: 6px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editor-transform-tip {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 10px;
+  border-radius: 8px;
+  line-height: 1.35;
+}
+
+.editor-transform-tip span {
+  color: #FF8DA4;
+  font-weight: 700;
+}
+
+.editor-transform-section {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.editor-transform-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.editor-transform-val {
+  font-size: 0.75rem;
+  color: #FF8DA4;
+  font-family: monospace;
+  background: rgba(255, 94, 126, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.editor-nudge-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.editor-nudge-btn:hover {
+  background: rgba(229, 168, 35, 0.25);
+  border-color: #E5A823;
+  color: #F8CB64;
+  transform: translateY(-1px);
+}
+
+.editor-transform-reset-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editor-transform-reset-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #EF4444;
+  color: #FCA5A5;
+}
+
+.editor-transform-done-btn {
+  flex: 1;
+  background: #FF5E7E;
+  border: none;
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 94, 126, 0.4);
+}
+
+.editor-transform-done-btn:hover {
+  background: #E84B6B;
+  transform: translateY(-1px);
+}
+

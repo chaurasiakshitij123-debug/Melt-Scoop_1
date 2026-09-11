@@ -53,15 +53,7 @@ try {
                 $bodyStr = $reader.ReadToEnd()
                 $json = $bodyStr | ConvertFrom-Json
 
-                if ($json.pin -ne $SECRET_PIN) {
-                    $response.StatusCode = 403
-                    $errBytes = [System.Text.Encoding]::UTF8.GetBytes('{"error":"Invalid PIN"}')
-                    $response.ContentType = "application/json; charset=utf-8"
-                    $response.OutputStream.Write($errBytes, 0, $errBytes.Length)
-                    $response.Close()
-                    continue
-                }
-
+                # Admin PIN verification removed - open for any user who knows the secret drag gesture
                 if (![string]::IsNullOrEmpty($json.html)) {
                     $indexPath = Join-Path $PSScriptRoot "index.html"
                     # Timestamped backup
@@ -72,12 +64,31 @@ try {
                         Copy-Item -Path $indexPath -Destination (Join-Path $PSScriptRoot "index.backup.html") -Force
                     }
 
-                    # Write updated HTML
+                    # Write updated HTML directly to disk so all local & network visitors see changes
                     [System.IO.File]::WriteAllText($indexPath, $json.html, [System.Text.Encoding]::UTF8)
+
+                    # Auto-sync to GitHub repository if git remote is configured
+                    $gitSynced = $false
+                    if (Test-Path (Join-Path $PSScriptRoot ".git")) {
+                        try {
+                            git -C $PSScriptRoot add index.html assets/ 2>$null
+                            git -C $PSScriptRoot commit -m "Live Visual Studio Update - $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>$null
+                            git -C $PSScriptRoot push origin main 2>$null
+                            if ($LASTEXITCODE -eq 0) {
+                                $gitSynced = $true
+                            }
+                        } catch {}
+                    }
 
                     $response.StatusCode = 200
                     $response.ContentType = "application/json; charset=utf-8"
-                    $resBytes = [System.Text.Encoding]::UTF8.GetBytes('{"success":true,"message":"Website successfully published to disk!"}')
+                    $msg = if ($gitSynced) {
+                        "🚀 Published Live & Synced to GitHub! Visible to every single person and visitor worldwide."
+                    } else {
+                        "🚀 Published Live to disk (index.html)! Visible to all visitors."
+                    }
+                    $resObj = @{ success = $true; message = $msg; gitSynced = $gitSynced }
+                    $resBytes = [System.Text.Encoding]::UTF8.GetBytes(($resObj | ConvertTo-Json))
                     $response.OutputStream.Write($resBytes, 0, $resBytes.Length)
                 } else {
                     $response.StatusCode = 400

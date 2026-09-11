@@ -3,9 +3,15 @@
 (function() {
   const SECRET_PIN = "4321";
   let editorUnlocked = false;
-  let currentMode = 'text'; // 'text' | 'animate' | 'media'
+  let currentMode = 'text'; // 'text' | 'animate' | 'media' | 'transform'
   let selectedElement = null;
   let hoveredElement = null;
+  let selectedTransformElement = null;
+  let isTransformCanvasDragging = false;
+  let canvasDragStartX = 0;
+  let canvasDragStartY = 0;
+  let canvasInitX = 0;
+  let canvasInitY = 0;
   let clickTimestamps = [];
   let targetImageEl = null;
 
@@ -23,28 +29,7 @@
     initMouseFxEngine();
     initSectionScrollObserver();
 
-    // A. PIN Modal
-    const pinOverlay = document.createElement('div');
-    pinOverlay.id = 'editorPinModal';
-    pinOverlay.className = 'editor-pin-overlay';
-    pinOverlay.innerHTML = `
-      <div class="editor-pin-card" id="editorPinCard">
-        <div class="editor-pin-badge">🔒 Secret Admin</div>
-        <h2 class="editor-pin-title">Studio Mode</h2>
-        <p class="editor-pin-desc">Enter the 4-digit PIN to unlock the live visual website editor.</p>
-        <div class="editor-pin-input-group">
-          <input type="password" maxlength="1" class="editor-pin-digit" data-index="0" autofocus>
-          <input type="password" maxlength="1" class="editor-pin-digit" data-index="1">
-          <input type="password" maxlength="1" class="editor-pin-digit" data-index="2">
-          <input type="password" maxlength="1" class="editor-pin-digit" data-index="3">
-        </div>
-        <div class="editor-pin-actions">
-          <button type="button" class="editor-pin-btn editor-pin-btn-cancel" id="editorPinCancel">Cancel</button>
-          <button type="button" class="editor-pin-btn editor-pin-btn-unlock" id="editorPinSubmit">Unlock Studio</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(pinOverlay);
+    // Admin access removed - Secret Left/Right drag gesture directly toggles the Studio Dock
 
     // B. Floating Studio Dock (with Cursor FX & Section Entrance Selectors)
     const dock = document.createElement('div');
@@ -64,6 +49,9 @@
       </button>
       <button type="button" class="editor-tool-btn" id="toolBtnMedia" data-mode="media" title="Click any image to upload or replace">
         🖼️ Replace Images
+      </button>
+      <button type="button" class="editor-tool-btn" id="toolBtnTransform" data-mode="transform" title="Select any item to Move, Rotate, or Scale">
+        📐 Move & Scale
       </button>
       <div class="editor-dock-divider"></div>
       <div style="display:flex; align-items:center; gap:6px;">
@@ -85,7 +73,10 @@
         </select>
       </div>
       <div class="editor-dock-divider"></div>
-      <button type="button" class="editor-tool-publish-btn" id="editorPublishBtn">
+      <button type="button" class="editor-tool-export-btn" id="editorExportBtn" title="Download updated index.html for all viewers">
+        💾 Export HTML
+      </button>
+      <button type="button" class="editor-tool-publish-btn" id="editorPublishBtn" title="Publish live so all viewers see changes">
         🚀 Publish Live
       </button>
       <button type="button" class="editor-tool-close-btn" id="editorCloseBtn" title="Exit Studio Mode">
@@ -135,6 +126,103 @@
       </div>
     `;
     document.body.appendChild(animPanel);
+
+    // C2. Transform Controls Panel
+    const transformPanel = document.createElement('div');
+    transformPanel.id = 'editorTransformPanel';
+    transformPanel.className = 'editor-transform-panel';
+    transformPanel.innerHTML = `
+      <div class="editor-transform-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.1rem;">📐</span>
+          <div>
+            <div style="font-weight:800; font-size:0.9rem; color:#FFFFFF;">Transform Studio</div>
+            <span class="editor-transform-target-tag" id="transformTargetTag">Select an element</span>
+          </div>
+        </div>
+        <button type="button" class="editor-tool-close-btn" id="closeTransformPanel" style="width:24px; height:24px; font-size:0.75rem;">✕</button>
+      </div>
+
+      <div class="editor-transform-tip">
+        <span>💡 Tip:</span> Click & drag any element on the page, or fine-tune with sliders below!
+      </div>
+
+      <!-- Position X & Y -->
+      <div class="editor-transform-section">
+        <div class="editor-transform-row-header">
+          <span>📍 Position (Move)</span>
+          <span class="editor-transform-val" id="transformPosVal">X: 0px, Y: 0px</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+          <div>
+            <label style="font-size:0.7rem; color:rgba(255,255,255,0.6); display:block; margin-bottom:2px;">X Offset</label>
+            <input type="range" min="-300" max="300" value="0" class="editor-anim-slider" id="transformPosXSlider">
+          </div>
+          <div>
+            <label style="font-size:0.7rem; color:rgba(255,255,255,0.6); display:block; margin-bottom:2px;">Y Offset</label>
+            <input type="range" min="-300" max="300" value="0" class="editor-anim-slider" id="transformPosYSlider">
+          </div>
+        </div>
+        <div style="display:flex; justify-content:center; gap:5px;">
+          <button type="button" class="editor-nudge-btn" id="nudgeLeft">← 5px</button>
+          <button type="button" class="editor-nudge-btn" id="nudgeUp">↑ 5px</button>
+          <button type="button" class="editor-nudge-btn" id="nudgeDown">↓ 5px</button>
+          <button type="button" class="editor-nudge-btn" id="nudgeRight">→ 5px</button>
+          <button type="button" class="editor-nudge-btn" id="resetPosBtn">Center</button>
+        </div>
+      </div>
+
+      <!-- Rotation -->
+      <div class="editor-transform-section">
+        <div class="editor-transform-row-header">
+          <span>🔄 Rotation</span>
+          <span class="editor-transform-val" id="transformRotVal">0°</span>
+        </div>
+        <input type="range" min="-180" max="180" value="0" class="editor-anim-slider" id="transformRotSlider">
+        <div style="display:flex; justify-content:space-between; gap:4px; margin-top:8px;">
+          <button type="button" class="editor-nudge-btn" id="rotMinus15">-15°</button>
+          <button type="button" class="editor-nudge-btn" id="rotPlus15">+15°</button>
+          <button type="button" class="editor-nudge-btn" id="rotZero">0° Flat</button>
+          <button type="button" class="editor-nudge-btn" id="rot90">90°</button>
+          <button type="button" class="editor-nudge-btn" id="rot180">180°</button>
+        </div>
+      </div>
+
+      <!-- Scale / Resize -->
+      <div class="editor-transform-section">
+        <div class="editor-transform-row-header">
+          <span>🔍 Scale (Resize)</span>
+          <span class="editor-transform-val" id="transformScaleVal">1.00x</span>
+        </div>
+        <input type="range" min="0.2" max="3.0" step="0.05" value="1.0" class="editor-anim-slider" id="transformScaleSlider">
+        <div style="display:flex; justify-content:space-between; gap:4px; margin-top:8px;">
+          <button type="button" class="editor-nudge-btn" id="scaleHalf">0.5x</button>
+          <button type="button" class="editor-nudge-btn" id="scaleNormal">1.0x</button>
+          <button type="button" class="editor-nudge-btn" id="scale125">1.25x</button>
+          <button type="button" class="editor-nudge-btn" id="scale15">1.5x</button>
+          <button type="button" class="editor-nudge-btn" id="scaleDouble">2.0x</button>
+        </div>
+      </div>
+
+      <!-- Layering / Z-Index -->
+      <div class="editor-transform-section">
+        <div class="editor-transform-row-header">
+          <span>📑 Layer Order (Z-Index)</span>
+          <span class="editor-transform-val" id="transformZVal">Auto</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="editor-nudge-btn" style="flex:1;" id="layerForward">Bring Forward ⬆</button>
+          <button type="button" class="editor-nudge-btn" style="flex:1;" id="layerBackward">Send Backward ⬇</button>
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div style="display:flex; gap:8px; margin-top:4px;">
+        <button type="button" class="editor-transform-reset-btn" id="resetTransformBtn">↺ Reset</button>
+        <button type="button" class="editor-transform-done-btn" id="doneTransformBtn">✓ Done</button>
+      </div>
+    `;
+    document.body.appendChild(transformPanel);
 
     // D. Image Replacer Modal
     const imgModal = document.createElement('div');
@@ -247,42 +335,62 @@
   }
 
   // ==========================================================================
-  // 2. TRIPLE-CLICK DETECTION
+  // 2. SECRET LOGO TRIGGER (5 RAPID CLICKS - NO ADMIN PIN REQUIRED)
   // ==========================================================================
-  function setupTripleClickTrigger() {
+  function setupLogoClickTrigger() {
     const logos = document.querySelectorAll('.header-left-logo, .mobile-drawer-logo');
     logos.forEach(logo => {
+      let clickTimes = [];
+
+      logo.style.cursor = 'pointer';
+      logo.style.touchAction = 'manipulation';
+      logo.style.userSelect = 'none';
+      logo.style.webkitUserSelect = 'none';
+
       logo.addEventListener('click', (e) => {
         const now = Date.now();
-        clickTimestamps.push(now);
+        clickTimes.push(now);
 
-        // Keep only clicks within the last 700ms
-        clickTimestamps = clickTimestamps.filter(t => now - t < 700);
+        // Keep clicks occurring within the last 1800ms (1.8 seconds)
+        clickTimes = clickTimes.filter(t => now - t < 1800);
 
-        if (clickTimestamps.length >= 3) {
+        // Subtle micro-pulse on intermediate clicks (2, 3, 4)
+        if (clickTimes.length >= 2 && clickTimes.length < 5) {
+          logo.classList.add('logo-pulse');
+          setTimeout(() => logo.classList.remove('logo-pulse'), 180);
+          if (navigator.vibrate) navigator.vibrate(12);
+        }
+
+        // 5th click triggers Studio Mode directly!
+        if (clickTimes.length >= 5) {
           e.preventDefault();
-          clickTimestamps = [];
-          if (editorUnlocked) {
-            toggleEditorDock();
-          } else {
-            openPinModal();
-          }
+          e.stopPropagation();
+          clickTimes = [];
+
+          // Gold celebratory shimmer
+          logo.classList.add('logo-unlocked');
+          setTimeout(() => logo.classList.remove('logo-unlocked'), 800);
+
+          if (navigator.vibrate) navigator.vibrate([25, 45, 25]);
+
+          // NO ADMIN ACCESS / PIN REQUIRED! Works for anyone who knows the 5-click secret
+          editorUnlocked = true;
+          showEditorToast("✨ 5 Clicks Detected! Studio Mode Active.", "🍨");
+          toggleEditorDock();
         }
       });
     });
   }
 
+  const setupLogoGestureTrigger = setupLogoClickTrigger;
+
   // ==========================================================================
-  // 3. PIN VERIFICATION
+  // 3. ADMIN ACCESS / PIN BYPASS
   // ==========================================================================
   function openPinModal() {
-    const modal = document.getElementById('editorPinModal');
-    if (!modal) return;
-    document.body.classList.add('pin-modal-open');
-    modal.classList.add('is-active');
-    const digits = modal.querySelectorAll('.editor-pin-digit');
-    digits.forEach(d => d.value = '');
-    digits[0].focus();
+    // Admin access removed - open editor dock directly
+    editorUnlocked = true;
+    openEditorDock();
   }
 
   function closePinModal() {
@@ -292,25 +400,8 @@
   }
 
   function checkPin() {
-    const digits = document.querySelectorAll('.editor-pin-digit');
-    let pin = '';
-    digits.forEach(d => pin += d.value.trim());
-
-    if (pin === SECRET_PIN) {
-      editorUnlocked = true;
-      closePinModal();
-      showEditorToast("Studio Mode Unlocked! Welcome, Creator.", "🔓");
-      openEditorDock();
-    } else {
-      const card = document.getElementById('editorPinCard');
-      if (card) {
-        card.classList.add('is-shaking');
-        setTimeout(() => card.classList.remove('is-shaking'), 400);
-      }
-      showEditorToast("Invalid PIN. Please try again.", "⚠️");
-      digits.forEach(d => d.value = '');
-      digits[0].focus();
-    }
+    editorUnlocked = true;
+    openEditorDock();
   }
 
   // ==========================================================================
@@ -347,9 +438,11 @@
     if (dock) dock.classList.remove('is-open');
     document.body.classList.remove('editor-active');
     document.body.classList.remove('mode-media');
+    document.body.classList.remove('mode-transform');
     disableInlineEditing();
     clearInspector();
     closeAnimPanel();
+    closeTransformPanel();
     closeImgModal();
     showEditorToast("Studio Mode Paused", "👋");
   }
@@ -363,18 +456,26 @@
     });
 
     document.body.classList.toggle('mode-media', mode === 'media');
+    document.body.classList.toggle('mode-transform', mode === 'transform');
 
     if (mode === 'text') {
       enableInlineEditing();
       closeAnimPanel();
+      closeTransformPanel();
       showEditorToast("Text Mode: Click any headline, tab, or price to edit!", "✏️");
     } else if (mode === 'animate') {
       disableInlineEditing();
+      closeTransformPanel();
       showEditorToast("Animation Mode: Click any element to add/test animations!", "✨");
     } else if (mode === 'media') {
       disableInlineEditing();
       closeAnimPanel();
+      closeTransformPanel();
       showEditorToast("Media Mode: Click on any image to replace it!", "🖼️");
+    } else if (mode === 'transform') {
+      disableInlineEditing();
+      closeAnimPanel();
+      showEditorToast("Transform Mode: Click and drag any item to Move, Rotate, or Scale!", "📐");
     }
   }
 
@@ -787,6 +888,10 @@
       selectedElement.classList.remove('editor-inspect-selected');
       selectedElement = null;
     }
+    if (selectedTransformElement) {
+      selectedTransformElement.classList.remove('editor-transform-selected');
+      selectedTransformElement = null;
+    }
   }
 
   function selectElementForAnimation(el) {
@@ -924,8 +1029,253 @@
   }
 
   // ==========================================================================
-  // 12. PUBLISH LIVE TO SERVER
+  // 11. TRANSFORM STUDIO (POSITION, ROTATION & SCALE OF EVERYTHING)
   // ==========================================================================
+  function openTransformPanel() {
+    const panel = document.getElementById('editorTransformPanel');
+    if (panel) panel.classList.add('is-active');
+  }
+
+  function closeTransformPanel() {
+    const panel = document.getElementById('editorTransformPanel');
+    if (panel) panel.classList.remove('is-active');
+    if (selectedTransformElement) {
+      selectedTransformElement.classList.remove('editor-transform-selected');
+      selectedTransformElement = null;
+    }
+  }
+
+  function selectElementForTransform(el) {
+    if (selectedTransformElement) {
+      selectedTransformElement.classList.remove('editor-transform-selected');
+    }
+    selectedTransformElement = el;
+    selectedTransformElement.classList.add('editor-transform-selected');
+
+    // Parse current transform values
+    let x = 0;
+    let y = 0;
+    let rot = 0;
+    let scale = 1;
+
+    if (el.dataset.transformX !== undefined) {
+      x = parseInt(el.dataset.transformX, 10) || 0;
+      y = parseInt(el.dataset.transformY, 10) || 0;
+      rot = parseFloat(el.dataset.transformRot) || 0;
+      scale = parseFloat(el.dataset.transformScale) || 1;
+    } else if (el.style.transform) {
+      const trMatch = el.style.transform.match(/translate\(\s*(-?\d+)px\s*,\s*(-?\d+)px\s*\)/);
+      if (trMatch) {
+        x = parseInt(trMatch[1], 10) || 0;
+        y = parseInt(trMatch[2], 10) || 0;
+      }
+      const rotMatch = el.style.transform.match(/rotate\(\s*(-?\d+(?:\.\d+)?)deg\s*\)/);
+      if (rotMatch) {
+        rot = parseFloat(rotMatch[1]) || 0;
+      }
+      const scMatch = el.style.transform.match(/scale\(\s*(-?\d+(?:\.\d+)?)\s*\)/);
+      if (scMatch) {
+        scale = parseFloat(scMatch[1]) || 1;
+      }
+    }
+
+    const xSlider = document.getElementById('transformPosXSlider');
+    const ySlider = document.getElementById('transformPosYSlider');
+    const rotSlider = document.getElementById('transformRotSlider');
+    const scaleSlider = document.getElementById('transformScaleSlider');
+
+    if (xSlider) xSlider.value = x;
+    if (ySlider) ySlider.value = y;
+    if (rotSlider) rotSlider.value = rot;
+    if (scaleSlider) scaleSlider.value = scale;
+
+    const posVal = document.getElementById('transformPosVal');
+    if (posVal) posVal.textContent = `X: ${x}px, Y: ${y}px`;
+    const rotVal = document.getElementById('transformRotVal');
+    if (rotVal) rotVal.textContent = `${rot}°`;
+    const scaleVal = document.getElementById('transformScaleVal');
+    if (scaleVal) scaleVal.textContent = `${scale.toFixed(2)}x`;
+    const zVal = document.getElementById('transformZVal');
+    if (zVal) zVal.textContent = el.style.zIndex || 'Auto';
+
+    const tagLabel = el.tagName.toLowerCase() + (el.id ? '#' + el.id : (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : ''));
+    const tagEl = document.getElementById('transformTargetTag');
+    if (tagEl) tagEl.textContent = tagLabel.slice(0, 24);
+
+    openTransformPanel();
+    showEditorToast(`Selected: ${tagLabel}. Drag on canvas or use sliders!`, "📐");
+  }
+
+  function updateSelectedTransform() {
+    if (!selectedTransformElement) return;
+
+    const x = parseInt(document.getElementById('transformPosXSlider').value, 10) || 0;
+    const y = parseInt(document.getElementById('transformPosYSlider').value, 10) || 0;
+    const rot = parseFloat(document.getElementById('transformRotSlider').value) || 0;
+    const scale = parseFloat(document.getElementById('transformScaleSlider').value) || 1;
+
+    selectedTransformElement.dataset.transformX = x;
+    selectedTransformElement.dataset.transformY = y;
+    selectedTransformElement.dataset.transformRot = rot;
+    selectedTransformElement.dataset.transformScale = scale;
+
+    const computedPos = window.getComputedStyle(selectedTransformElement).position;
+    if (computedPos === 'static') {
+      selectedTransformElement.style.position = 'relative';
+    }
+
+    selectedTransformElement.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${scale})`;
+    selectedTransformElement.style.transformOrigin = 'center center';
+
+    const posVal = document.getElementById('transformPosVal');
+    if (posVal) posVal.textContent = `X: ${x}px, Y: ${y}px`;
+    const rotVal = document.getElementById('transformRotVal');
+    if (rotVal) rotVal.textContent = `${rot}°`;
+    const scaleVal = document.getElementById('transformScaleVal');
+    if (scaleVal) scaleVal.textContent = `${scale.toFixed(2)}x`;
+  }
+
+  function resetSelectedTransform() {
+    if (!selectedTransformElement) return;
+    delete selectedTransformElement.dataset.transformX;
+    delete selectedTransformElement.dataset.transformY;
+    delete selectedTransformElement.dataset.transformRot;
+    delete selectedTransformElement.dataset.transformScale;
+    delete selectedTransformElement.dataset.transformZ;
+
+    selectedTransformElement.style.transform = '';
+    selectedTransformElement.style.transformOrigin = '';
+    selectedTransformElement.style.zIndex = '';
+    selectedTransformElement.style.position = '';
+
+    const xSlider = document.getElementById('transformPosXSlider');
+    const ySlider = document.getElementById('transformPosYSlider');
+    const rotSlider = document.getElementById('transformRotSlider');
+    const scaleSlider = document.getElementById('transformScaleSlider');
+
+    if (xSlider) xSlider.value = 0;
+    if (ySlider) ySlider.value = 0;
+    if (rotSlider) rotSlider.value = 0;
+    if (scaleSlider) scaleSlider.value = 1;
+
+    const posVal = document.getElementById('transformPosVal');
+    if (posVal) posVal.textContent = `X: 0px, Y: 0px`;
+    const rotVal = document.getElementById('transformRotVal');
+    if (rotVal) rotVal.textContent = `0°`;
+    const scaleVal = document.getElementById('transformScaleVal');
+    if (scaleVal) scaleVal.textContent = `1.00x`;
+    const zVal = document.getElementById('transformZVal');
+    if (zVal) zVal.textContent = `Auto`;
+
+    showEditorToast("Reset element to original layout", "↺");
+  }
+
+  function nudgePosition(dx, dy) {
+    if (!selectedTransformElement) return;
+    const xSlider = document.getElementById('transformPosXSlider');
+    const ySlider = document.getElementById('transformPosYSlider');
+    if (!xSlider || !ySlider) return;
+
+    xSlider.value = Math.max(-300, Math.min(300, parseInt(xSlider.value, 10) + dx));
+    ySlider.value = Math.max(-300, Math.min(300, parseInt(ySlider.value, 10) + dy));
+    updateSelectedTransform();
+  }
+
+  function setRotationAngle(deg) {
+    if (!selectedTransformElement) return;
+    const rotSlider = document.getElementById('transformRotSlider');
+    if (!rotSlider) return;
+    rotSlider.value = deg;
+    updateSelectedTransform();
+  }
+
+  function setTransformScale(s) {
+    if (!selectedTransformElement) return;
+    const scSlider = document.getElementById('transformScaleSlider');
+    if (!scSlider) return;
+    scSlider.value = s;
+    updateSelectedTransform();
+  }
+
+  function changeLayerOrder(delta) {
+    if (!selectedTransformElement) return;
+    let curZ = parseInt(window.getComputedStyle(selectedTransformElement).zIndex, 10);
+    if (isNaN(curZ)) curZ = 1;
+    const newZ = Math.max(0, curZ + delta);
+    selectedTransformElement.style.zIndex = newZ;
+    selectedTransformElement.dataset.transformZ = newZ;
+
+    const computedPos = window.getComputedStyle(selectedTransformElement).position;
+    if (computedPos === 'static') selectedTransformElement.style.position = 'relative';
+
+    const zVal = document.getElementById('transformZVal');
+    if (zVal) zVal.textContent = newZ;
+    showEditorToast(`Layer order: Z-Index ${newZ}`, "📑");
+  }
+
+  // ==========================================================================
+  // 12. PUBLISH LIVE & UNIVERSAL VIEWER AVAILABILITY
+  // ==========================================================================
+  function getCleanHtml() {
+    disableInlineEditing();
+    clearInspector();
+
+    const docClone = document.documentElement.cloneNode(true);
+
+    // Remove all injected editor UI elements
+    const editorIds = [
+      'editorPinModal', 'visualEditorDock', 'editorAnimPanel', 'editorTransformPanel', 'editorImgModal',
+      'editorAddProdModal', 'editorToastBanner', 'catalogAddScoopBtn', 'editorAddCatBtn'
+    ];
+    editorIds.forEach(id => {
+      const el = docClone.querySelector('#' + id);
+      if (el) el.remove();
+    });
+
+    // Remove card delete buttons and category delete crosses
+    docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight').forEach(el => el.remove());
+
+    // Clean selection and highlight classes from cloned elements
+    docClone.querySelectorAll('.editor-transform-selected, .editor-inspect-highlight, .editor-inspect-selected').forEach(el => {
+      el.classList.remove('editor-transform-selected', 'editor-inspect-highlight', 'editor-inspect-selected');
+    });
+
+    const bodyClone = docClone.querySelector('body');
+    if (bodyClone) {
+      bodyClone.classList.remove('editor-active');
+      bodyClone.classList.remove('mode-media');
+      bodyClone.classList.remove('mode-transform');
+      bodyClone.classList.remove('pin-modal-open');
+      bodyClone.classList.remove('editor-modal-open');
+      bodyClone.dataset.cursorFx = activeCursorFx;
+      bodyClone.dataset.sectionAnim = activeSectionAnim;
+    }
+
+    if (currentMode === 'text') enableInlineEditing();
+
+    return '<!DOCTYPE html>\n' + docClone.outerHTML;
+  }
+
+  function downloadUpdatedHtml(htmlContent) {
+    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 200);
+  }
+
+  function exportCleanHtml() {
+    const cleanHtml = getCleanHtml();
+    downloadUpdatedHtml(cleanHtml);
+    showEditorToast("💾 Exported updated index.html! Ready to push or upload.", "📥");
+  }
+
   async function publishLive() {
     const publishBtn = document.getElementById('editorPublishBtn');
     if (publishBtn) {
@@ -934,35 +1284,12 @@
     }
 
     try {
-      disableInlineEditing();
-      clearInspector();
+      const cleanHtml = getCleanHtml();
 
-      const docClone = document.documentElement.cloneNode(true);
-
-      // Remove all injected editor UI elements
-      const editorIds = [
-        'editorPinModal', 'visualEditorDock', 'editorAnimPanel', 'editorImgModal',
-        'editorAddProdModal', 'editorToastBanner', 'catalogAddScoopBtn', 'editorAddCatBtn'
-      ];
-      editorIds.forEach(id => {
-        const el = docClone.querySelector('#' + id);
-        if (el) el.remove();
-      });
-
-      // Remove card delete buttons and category delete crosses
-      docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight').forEach(el => el.remove());
-
-      const bodyClone = docClone.querySelector('body');
-      if (bodyClone) {
-        bodyClone.classList.remove('editor-active');
-        bodyClone.classList.remove('mode-media');
-        bodyClone.classList.remove('pin-modal-open');
-        bodyClone.classList.remove('editor-modal-open');
-        bodyClone.dataset.cursorFx = activeCursorFx;
-        bodyClone.dataset.sectionAnim = activeSectionAnim;
-      }
-
-      const cleanHtml = '<!DOCTYPE html>\n' + docClone.outerHTML;
+      // Persist to local browser storage so current device always retains latest version
+      try {
+        localStorage.setItem('melt_scoop_published_html', cleanHtml);
+      } catch (e) {}
 
       const res = await fetch('/api/publish', {
         method: 'POST',
@@ -975,12 +1302,15 @@
 
       const data = await res.json();
       if (data.success) {
-        showEditorToast("🚀 Published Live! Visible to all visitors.", "🎉");
+        showEditorToast(data.message || "🚀 Published Live! Changes saved to index.html and live for all viewers.", "🎉");
       } else {
-        showEditorToast(`Publish failed: ${data.error || 'Server error'}`, "⚠️");
+        showEditorToast(`Publish note: ${data.error || 'Saved locally'}`, "⚠️");
       }
     } catch (err) {
-      showEditorToast(`Publish error: ${err.message}`, "⚠️");
+      // Offline / static hosting fallback: Download updated HTML automatically
+      const cleanHtml = getCleanHtml();
+      downloadUpdatedHtml(cleanHtml);
+      showEditorToast("💾 Saved locally & downloaded index.html! Upload to repository for all viewers.", "📥");
     } finally {
       if (publishBtn) {
         publishBtn.disabled = false;
@@ -994,7 +1324,7 @@
   // 13. EVENT LISTENERS SETUP
   // ==========================================================================
   function setupEventListeners() {
-    // PIN Modal input navigation
+    // PIN Modal input navigation (if modal present)
     const digits = document.querySelectorAll('.editor-pin-digit');
     digits.forEach((digit, idx) => {
       digit.addEventListener('input', () => {
@@ -1016,14 +1346,20 @@
       });
     });
 
-    document.getElementById('editorPinCancel').addEventListener('click', closePinModal);
-    document.getElementById('editorPinSubmit').addEventListener('click', checkPin);
+    const pinCancel = document.getElementById('editorPinCancel');
+    if (pinCancel) pinCancel.addEventListener('click', closePinModal);
+    const pinSubmit = document.getElementById('editorPinSubmit');
+    if (pinSubmit) pinSubmit.addEventListener('click', checkPin);
 
     // Dock Mode Buttons
     document.getElementById('toolBtnText').addEventListener('click', () => setMode('text'));
     document.getElementById('toolBtnAnimate').addEventListener('click', () => setMode('animate'));
     document.getElementById('toolBtnMedia').addEventListener('click', () => setMode('media'));
+    const trToolBtn = document.getElementById('toolBtnTransform');
+    if (trToolBtn) trToolBtn.addEventListener('click', () => setMode('transform'));
     document.getElementById('editorPublishBtn').addEventListener('click', publishLive);
+    const exportBtn = document.getElementById('editorExportBtn');
+    if (exportBtn) exportBtn.addEventListener('click', exportCleanHtml);
     document.getElementById('editorCloseBtn').addEventListener('click', closeEditorDock);
 
     // Section Animation Selector
@@ -1062,7 +1398,7 @@
     // Global Inspector Clicks & Hovers
     document.addEventListener('mouseover', (e) => {
       if (!editorUnlocked || !document.body.classList.contains('editor-active')) return;
-      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
+      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
 
       if (currentMode === 'animate') {
         if (hoveredElement && hoveredElement !== e.target) {
@@ -1077,12 +1413,18 @@
           hoveredElement = img;
           hoveredElement.classList.add('editor-inspect-highlight');
         }
+      } else if (currentMode === 'transform') {
+        if (hoveredElement && hoveredElement !== e.target) {
+          hoveredElement.classList.remove('editor-inspect-highlight');
+        }
+        hoveredElement = e.target;
+        hoveredElement.classList.add('editor-inspect-highlight');
       }
     });
 
     document.addEventListener('click', (e) => {
       if (!editorUnlocked || !document.body.classList.contains('editor-active')) return;
-      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
+      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
 
       if (currentMode === 'animate') {
         e.preventDefault();
@@ -1095,6 +1437,10 @@
           e.stopPropagation();
           openImageReplacer(img);
         }
+      } else if (currentMode === 'transform') {
+        e.preventDefault();
+        e.stopPropagation();
+        selectElementForTransform(e.target);
       }
     }, true);
 
@@ -1149,12 +1495,124 @@
       }
     });
 
+    // Transform Panel Controls
+    const closeTrBtn = document.getElementById('closeTransformPanel');
+    if (closeTrBtn) closeTrBtn.addEventListener('click', closeTransformPanel);
+
+    const xSlider = document.getElementById('transformPosXSlider');
+    const ySlider = document.getElementById('transformPosYSlider');
+    const rotSlider = document.getElementById('transformRotSlider');
+    const scaleSlider = document.getElementById('transformScaleSlider');
+
+    if (xSlider) xSlider.addEventListener('input', updateSelectedTransform);
+    if (ySlider) ySlider.addEventListener('input', updateSelectedTransform);
+    if (rotSlider) rotSlider.addEventListener('input', updateSelectedTransform);
+    if (scaleSlider) scaleSlider.addEventListener('input', updateSelectedTransform);
+
+    // Nudge buttons
+    const btnNudgeL = document.getElementById('nudgeLeft');
+    if (btnNudgeL) btnNudgeL.addEventListener('click', () => nudgePosition(-5, 0));
+    const btnNudgeR = document.getElementById('nudgeRight');
+    if (btnNudgeR) btnNudgeR.addEventListener('click', () => nudgePosition(5, 0));
+    const btnNudgeU = document.getElementById('nudgeUp');
+    if (btnNudgeU) btnNudgeU.addEventListener('click', () => nudgePosition(0, -5));
+    const btnNudgeD = document.getElementById('nudgeDown');
+    if (btnNudgeD) btnNudgeD.addEventListener('click', () => nudgePosition(0, 5));
+    const btnResetPos = document.getElementById('resetPosBtn');
+    if (btnResetPos) btnResetPos.addEventListener('click', () => {
+      if (xSlider) xSlider.value = 0;
+      if (ySlider) ySlider.value = 0;
+      updateSelectedTransform();
+    });
+
+    // Rotation preset buttons
+    const rM15 = document.getElementById('rotMinus15');
+    if (rM15) rM15.addEventListener('click', () => {
+      if (rotSlider) { rotSlider.value = Math.max(-180, parseInt(rotSlider.value, 10) - 15); updateSelectedTransform(); }
+    });
+    const rP15 = document.getElementById('rotPlus15');
+    if (rP15) rP15.addEventListener('click', () => {
+      if (rotSlider) { rotSlider.value = Math.min(180, parseInt(rotSlider.value, 10) + 15); updateSelectedTransform(); }
+    });
+    const rZero = document.getElementById('rotZero');
+    if (rZero) rZero.addEventListener('click', () => setRotationAngle(0));
+    const r90 = document.getElementById('rot90');
+    if (r90) r90.addEventListener('click', () => setRotationAngle(90));
+    const r180 = document.getElementById('rot180');
+    if (r180) r180.addEventListener('click', () => setRotationAngle(180));
+
+    // Scale preset buttons
+    const sHalf = document.getElementById('scaleHalf');
+    if (sHalf) sHalf.addEventListener('click', () => setTransformScale(0.5));
+    const sNorm = document.getElementById('scaleNormal');
+    if (sNorm) sNorm.addEventListener('click', () => setTransformScale(1.0));
+    const s125 = document.getElementById('scale125');
+    if (s125) s125.addEventListener('click', () => setTransformScale(1.25));
+    const s15 = document.getElementById('scale15');
+    if (s15) s15.addEventListener('click', () => setTransformScale(1.5));
+    const sDbl = document.getElementById('scaleDouble');
+    if (sDbl) sDbl.addEventListener('click', () => setTransformScale(2.0));
+
+    // Layer buttons
+    const lFwd = document.getElementById('layerForward');
+    if (lFwd) lFwd.addEventListener('click', () => changeLayerOrder(1));
+    const lBwd = document.getElementById('layerBackward');
+    if (lBwd) lBwd.addEventListener('click', () => changeLayerOrder(-1));
+
+    // Reset & Done buttons
+    const btnResetTr = document.getElementById('resetTransformBtn');
+    if (btnResetTr) btnResetTr.addEventListener('click', resetSelectedTransform);
+    const btnDoneTr = document.getElementById('doneTransformBtn');
+    if (btnDoneTr) btnDoneTr.addEventListener('click', closeTransformPanel);
+
+    // Direct On-Canvas Drag-to-Move
+    document.addEventListener('pointerdown', (e) => {
+      if (currentMode !== 'transform' || !selectedTransformElement) return;
+      if (e.target.closest('#visualEditorDock, #editorTransformPanel, #editorAnimPanel, #editorToastBanner, .shop-toolbar, .editor-catalog-add-btn')) return;
+
+      if (e.target === selectedTransformElement || selectedTransformElement.contains(e.target)) {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isTransformCanvasDragging = true;
+        canvasDragStartX = e.clientX;
+        canvasDragStartY = e.clientY;
+        canvasInitX = parseInt(document.getElementById('transformPosXSlider')?.value || 0, 10);
+        canvasInitY = parseInt(document.getElementById('transformPosYSlider')?.value || 0, 10);
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('pointermove', (e) => {
+      if (!isTransformCanvasDragging || !selectedTransformElement) return;
+      const deltaX = Math.round(e.clientX - canvasDragStartX);
+      const deltaY = Math.round(e.clientY - canvasDragStartY);
+      const newX = Math.max(-300, Math.min(300, canvasInitX + deltaX));
+      const newY = Math.max(-300, Math.min(300, canvasInitY + deltaY));
+
+      const xSl = document.getElementById('transformPosXSlider');
+      const ySl = document.getElementById('transformPosYSlider');
+      if (xSl && ySl) {
+        xSl.value = newX;
+        ySl.value = newY;
+        updateSelectedTransform();
+      }
+    });
+
+    const stopCanvasDrag = () => {
+      if (isTransformCanvasDragging) {
+        isTransformCanvasDragging = false;
+        showEditorToast("Position updated on canvas!", "📍");
+      }
+    };
+    document.addEventListener('pointerup', stopCanvasDrag);
+    document.addEventListener('pointercancel', stopCanvasDrag);
+
     // Escape Key to Close Modals
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closePinModal();
         closeImgModal();
         closeAnimPanel();
+        closeTransformPanel();
         closeAddProductModal();
       }
     });
@@ -1164,11 +1622,11 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initEditorUI();
-      setupTripleClickTrigger();
+      setupLogoClickTrigger();
     });
   } else {
     initEditorUI();
-    setupTripleClickTrigger();
+    setupLogoClickTrigger();
   }
 
   // Export globals for testing or console access
@@ -1183,6 +1641,7 @@
     },
     close: closeEditorDock,
     publish: publishLive,
+    exportHtml: exportCleanHtml,
     setCursorFx,
     setSectionAnimationPreset,
     openAddProductModal
