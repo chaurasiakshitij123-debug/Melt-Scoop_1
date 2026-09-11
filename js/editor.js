@@ -69,7 +69,22 @@
           <option value="sprinkles">✨ Sprinkles Trail</option>
           <option value="blob">🍨 Melting Blob</option>
           <option value="glow">💡 Ambient Glow</option>
-          <option value="none">⚪ Default</option>
+          <option value="scooper">🥄 Ice Cream Scoop</option>
+          <option value="sparkles">⭐ Golden Stardust</option>
+          <option value="bubbles">🫧 Soda Bubbles</option>
+          <option value="berries">🍓 Berry Blast</option>
+          <option value="chocolate">🍫 Molten Ganache</option>
+          <option value="sakura">🌸 Cherry Blossom</option>
+          <option value="waffle">🧇 Waffle Crunch</option>
+          <option value="swirl">🍦 Soft Serve Ribbon</option>
+          <option value="confetti">🎉 Party Confetti</option>
+          <option value="frost">❄️ Sub-Zero Frost</option>
+          <option value="hearts">💖 Sweet Hearts</option>
+          <option value="caramel">🔥 Toffee Caramel</option>
+          <option value="galaxy">🌌 Cosmic Nebula</option>
+          <option value="neon">⚡ Neon Electric</option>
+          <option value="magic">🪄 Pixie Dust Wand</option>
+          <option value="none">⚪ Default Minimal</option>
         </select>
       </div>
       <div class="editor-dock-divider"></div>
@@ -341,7 +356,7 @@
     const logos = document.querySelectorAll('.header-left-logo, .mobile-drawer-logo');
     logos.forEach(logo => {
       let clickTimes = [];
-      let lastTapTime = 0;
+      let lastPointerUpTime = 0;
 
       logo.style.cursor = 'pointer';
       logo.style.touchAction = 'manipulation';
@@ -350,14 +365,20 @@
 
       const handleLogoTap = (e) => {
         const now = Date.now();
-        // Prevent duplicate synthetic events between pointerup and click
-        if (now - lastTapTime < 50) return;
-        lastTapTime = now;
+
+        // Prevent duplicate synthetic click event immediately following pointerup
+        if (e.type === 'click' && (now - lastPointerUpTime < 500)) return;
+        if (e.type === 'pointerup') lastPointerUpTime = now;
 
         clickTimes.push(now);
 
-        // Keep clicks occurring within the last 2200ms (generous for mobile thumbs)
-        clickTimes = clickTimes.filter(t => now - t < 2200);
+        // Keep clicks occurring within the last 2500ms (comfortable for all devices)
+        clickTimes = clickTimes.filter(t => now - t < 2500);
+
+        // Prevent anchor navigation jump on rapid multi-clicks (clicks 2, 3, 4, 5)
+        if (clickTimes.length > 1 && e.cancelable) {
+          e.preventDefault();
+        }
 
         // Subtle micro-pulse on intermediate clicks (2, 3, 4)
         if (clickTimes.length >= 2 && clickTimes.length < 5) {
@@ -366,7 +387,7 @@
           if (navigator.vibrate) navigator.vibrate(12);
         }
 
-        // 5th click triggers Studio Mode directly!
+        // 5th click unlocks and opens Studio Mode directly!
         if (clickTimes.length >= 5) {
           if (e.cancelable) e.preventDefault();
           e.stopPropagation();
@@ -381,7 +402,7 @@
           // NO ADMIN ACCESS / PIN REQUIRED! Works for anyone who knows the 5-click secret
           editorUnlocked = true;
           showEditorToast("✨ 5 Clicks Detected! Studio Mode Active.", "🍨");
-          toggleEditorDock();
+          openEditorDock();
         }
       };
 
@@ -793,15 +814,20 @@
   }
 
   // ==========================================================================
-  // 9. INTERACTIVE MOUSE CURSOR FX ENGINE
+  // 9. INTERACTIVE MOUSE CURSOR FX ENGINE (19 TOTAL ARTISANAL OPTIONS)
   // ==========================================================================
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
+  let prevMouseX = mouseX;
+  let prevMouseY = mouseY;
   let followerX = mouseX;
   let followerY = mouseY;
   let cursorBlobEl = null;
   let cursorGlowEl = null;
-  let lastSprinkleTime = 0;
+  let cursorFollowerEl = null;
+  let lastParticleTime = 0;
+  let mouseVelX = 0;
+  let mouseVelY = 0;
 
   function initMouseFxEngine() {
     setCursorFx(activeCursorFx);
@@ -809,17 +835,74 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      mouseVelX = mouseX - prevMouseX;
+      mouseVelY = mouseY - prevMouseY;
+      const speed = Math.sqrt(mouseVelX * mouseVelX + mouseVelY * mouseVelY);
 
-      if (activeCursorFx === 'sprinkles') {
-        const now = Date.now();
-        if (now - lastSprinkleTime > 40) {
-          lastSprinkleTime = now;
-          spawnSprinkleParticle(mouseX, mouseY);
-        }
-      } else if (activeCursorFx === 'glow' && cursorGlowEl) {
+      const now = Date.now();
+      const interval = speed > 20 ? 25 : 45;
+
+      if (now - lastParticleTime > interval && speed > 1.2) {
+        lastParticleTime = now;
+        spawnCursorParticle(activeCursorFx, mouseX, mouseY, mouseVelX, mouseVelY);
+      }
+
+      if (activeCursorFx === 'glow' && cursorGlowEl) {
         cursorGlowEl.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
       }
+
+      if (cursorFollowerEl) {
+        if (activeCursorFx === 'scooper') {
+          const angle = Math.atan2(mouseVelY, mouseVelX) * (180 / Math.PI);
+          cursorFollowerEl.style.setProperty('--scoop-rot', `${angle - 45}deg`);
+          cursorFollowerEl.style.transform = `translate(${mouseX}px, ${mouseY}px) rotate(${angle - 45}deg)`;
+        } else if (activeCursorFx === 'magic') {
+          cursorFollowerEl.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        } else if (activeCursorFx === 'neon') {
+          cursorFollowerEl.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        }
+      }
+
+      prevMouseX = mouseX;
+      prevMouseY = mouseY;
     }, { passive: true });
+
+    // Interactive Click Bursts
+    window.addEventListener('click', (e) => {
+      const cx = e.clientX;
+      const cy = e.clientY;
+
+      if (activeCursorFx === 'scooper') {
+        if (cursorFollowerEl) {
+          cursorFollowerEl.classList.add('is-scooping');
+          setTimeout(() => cursorFollowerEl && cursorFollowerEl.classList.remove('is-scooping'), 260);
+        }
+        for (let i = 0; i < 4; i++) {
+          const drop = document.createElement('div');
+          drop.className = 'cursor-scoop-drop';
+          drop.style.left = `${cx + (Math.random() - 0.5) * 26}px`;
+          drop.style.top = `${cy + (Math.random() - 0.5) * 26}px`;
+          document.body.appendChild(drop);
+          setTimeout(() => drop.remove(), 900);
+        }
+      } else if (activeCursorFx === 'sparkles' || activeCursorFx === 'magic') {
+        for (let i = 0; i < 8; i++) {
+          spawnCursorParticle(activeCursorFx, cx, cy, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40);
+        }
+      } else if (activeCursorFx === 'confetti') {
+        for (let i = 0; i < 12; i++) {
+          spawnCursorParticle('confetti', cx, cy, (Math.random() - 0.5) * 60, (Math.random() - 0.5) * 60);
+        }
+      } else if (activeCursorFx === 'hearts') {
+        for (let i = 0; i < 6; i++) {
+          spawnCursorParticle('hearts', cx, cy, (Math.random() - 0.5) * 35, (Math.random() - 0.5) * 35);
+        }
+      } else if (activeCursorFx === 'bubbles') {
+        for (let i = 0; i < 6; i++) {
+          spawnCursorParticle('bubbles', cx, cy, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30);
+        }
+      }
+    });
 
     // Blob physics loop
     function updateBlobPhysics() {
@@ -857,6 +940,7 @@
     // Clean up existing elements
     if (cursorBlobEl) { cursorBlobEl.remove(); cursorBlobEl = null; }
     if (cursorGlowEl) { cursorGlowEl.remove(); cursorGlowEl = null; }
+    if (cursorFollowerEl) { cursorFollowerEl.remove(); cursorFollowerEl = null; }
 
     if (fxMode === 'blob') {
       cursorBlobEl = document.createElement('div');
@@ -866,22 +950,227 @@
       cursorGlowEl = document.createElement('div');
       cursorGlowEl.className = 'cursor-glow-spotlight';
       document.body.appendChild(cursorGlowEl);
+    } else if (fxMode === 'scooper') {
+      cursorFollowerEl = document.createElement('div');
+      cursorFollowerEl.className = 'cursor-scooper-follower';
+      cursorFollowerEl.innerHTML = '🥄';
+      document.body.appendChild(cursorFollowerEl);
+    } else if (fxMode === 'magic') {
+      cursorFollowerEl = document.createElement('div');
+      cursorFollowerEl.className = 'cursor-magic-follower';
+      cursorFollowerEl.innerHTML = '🪄';
+      document.body.appendChild(cursorFollowerEl);
+    } else if (fxMode === 'neon') {
+      cursorFollowerEl = document.createElement('div');
+      cursorFollowerEl.className = 'cursor-neon-follower';
+      document.body.appendChild(cursorFollowerEl);
     }
   }
 
-  function spawnSprinkleParticle(x, y) {
-    const colors = ['#FF5E7E', '#E5A823', '#6E9E53', '#321D17', '#F59E0B', '#3B82F6', '#EC4899'];
-    const p = document.createElement('div');
-    p.className = 'sprinkle-particle';
-    p.style.left = `${x}px`;
-    p.style.top = `${y}px`;
-    p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    p.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-    p.style.setProperty('--dx', `${(Math.random() - 0.5) * 40}px`);
-    p.style.setProperty('--dy', `${20 + Math.random() * 35}px`);
-    document.body.appendChild(p);
+  function spawnCursorParticle(type, x, y, vx, vy) {
+    let p = null;
+    let lifetime = 800;
 
-    setTimeout(() => p.remove(), 800);
+    switch(type) {
+      case 'sprinkles': {
+        const colors = ['#FF5E7E', '#E5A823', '#6E9E53', '#321D17', '#F59E0B', '#3B82F6', '#EC4899'];
+        p = document.createElement('div');
+        p.className = 'sprinkle-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        p.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 40}px`);
+        p.style.setProperty('--dy', `${20 + Math.random() * 35}px`);
+        lifetime = 800;
+        break;
+      }
+      case 'sparkles': {
+        p = document.createElement('div');
+        p.className = 'cursor-sparkle-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.textContent = ['✦', '★', '✧', '✨'][Math.floor(Math.random() * 4)];
+        p.style.setProperty('--sz', `${Math.random() * 8 + 14}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 35}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 750;
+        break;
+      }
+      case 'bubbles': {
+        p = document.createElement('div');
+        p.className = 'cursor-bubble-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 12 + 10}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 30}px`);
+        lifetime = 850;
+        break;
+      }
+      case 'berries': {
+        const berries = ['🍓', '🍒', '🫐', '🌸', '✨'];
+        p = document.createElement('div');
+        p.className = 'cursor-berry-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.textContent = berries[Math.floor(Math.random() * berries.length)];
+        p.style.setProperty('--sz', `${Math.random() * 8 + 14}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 40}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 30}px`);
+        p.style.setProperty('--rot', `${Math.floor(Math.random() * 180)}deg`);
+        lifetime = 800;
+        break;
+      }
+      case 'chocolate': {
+        p = document.createElement('div');
+        p.className = 'cursor-choc-particle';
+        p.style.left = `${x + (Math.random() - 0.5) * 12}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--w', `${Math.random() * 4 + 8}px`);
+        p.style.setProperty('--h', `${Math.random() * 8 + 14}px`);
+        lifetime = 850;
+        break;
+      }
+      case 'sakura': {
+        p = document.createElement('div');
+        p.className = 'cursor-sakura-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 6 + 10}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 45}px`);
+        p.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
+        lifetime = 950;
+        break;
+      }
+      case 'waffle': {
+        p = document.createElement('div');
+        p.className = 'cursor-waffle-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 6 + 8}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 35}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 850;
+        break;
+      }
+      case 'swirl': {
+        p = document.createElement('div');
+        p.className = 'cursor-swirl-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 8 + 16}px`);
+        lifetime = 650;
+        break;
+      }
+      case 'confetti': {
+        const colors = ['#FF5E7E', '#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#FFE4E9'];
+        p = document.createElement('div');
+        p.className = 'cursor-confetti-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--bg-col', colors[Math.floor(Math.random() * colors.length)]);
+        p.style.setProperty('--w', `${Math.random() * 5 + 6}px`);
+        p.style.setProperty('--h', `${Math.random() * 6 + 9}px`);
+        p.style.setProperty('--rad', Math.random() > 0.5 ? '50%' : '2px');
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 45}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 900;
+        break;
+      }
+      case 'frost': {
+        const flakes = ['❄', '❅', '❆', '✧'];
+        p = document.createElement('div');
+        p.className = 'cursor-frost-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+        p.style.setProperty('--sz', `${Math.random() * 8 + 14}px`);
+        lifetime = 850;
+        break;
+      }
+      case 'hearts': {
+        const hearts = ['💖', '💕', '💗', '🍓', '🌸'];
+        p = document.createElement('div');
+        p.className = 'cursor-heart-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        p.style.setProperty('--sz', `${Math.random() * 6 + 14}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 950;
+        break;
+      }
+      case 'caramel': {
+        p = document.createElement('div');
+        p.className = 'cursor-caramel-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 6 + 6}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 35}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 750;
+        break;
+      }
+      case 'galaxy': {
+        const cols = ['#A855F7', '#EC4899', '#06B6D4', '#3B82F6', '#8B5CF6'];
+        p = document.createElement('div');
+        p.className = 'cursor-galaxy-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--sz', `${Math.random() * 6 + 8}px`);
+        p.style.setProperty('--col', cols[Math.floor(Math.random() * cols.length)]);
+        p.style.setProperty('--col2', cols[Math.floor(Math.random() * cols.length)]);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 30}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 30}px`);
+        lifetime = 850;
+        break;
+      }
+      case 'neon': {
+        const cols = ['#06B6D4', '#F43F5E', '#10B981', '#A855F7'];
+        p = document.createElement('div');
+        p.className = 'cursor-neon-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.setProperty('--col', cols[Math.floor(Math.random() * cols.length)]);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 16}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 16}px`);
+        lifetime = 600;
+        break;
+      }
+      case 'magic': {
+        const cols = ['#F472B6', '#FBBF24', '#60A5FA', '#34D399', '#C084FC'];
+        p = document.createElement('div');
+        p.className = 'cursor-magic-particle';
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.textContent = ['✦', '✧', '⋆', '★'][Math.floor(Math.random() * 4)];
+        p.style.setProperty('--col', cols[Math.floor(Math.random() * cols.length)]);
+        p.style.setProperty('--sz', `${Math.random() * 6 + 12}px`);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 35}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 35}px`);
+        lifetime = 750;
+        break;
+      }
+      case 'scooper': {
+        if (Math.random() > 0.4) {
+          p = document.createElement('div');
+          p.className = 'cursor-sparkle-particle';
+          p.style.left = `${x + (Math.random() - 0.5) * 15}px`;
+          p.style.top = `${y + (Math.random() - 0.5) * 15}px`;
+          p.textContent = '🍦';
+          p.style.setProperty('--sz', '12px');
+          p.style.setProperty('--dx', `${(Math.random() - 0.5) * 20}px`);
+          p.style.setProperty('--dy', `15px`);
+          lifetime = 600;
+        }
+        break;
+      }
+    }
+
+    if (p) {
+      document.body.appendChild(p);
+      setTimeout(() => p && p.remove(), lifetime);
+    }
   }
 
   // ==========================================================================
@@ -1240,8 +1529,8 @@
       if (el) el.remove();
     });
 
-    // Remove card delete buttons and category delete crosses
-    docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight').forEach(el => el.remove());
+    // Remove card delete buttons, category delete crosses, and all live cursor followers & particles
+    docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight, .cursor-scooper-follower, .cursor-magic-follower, .cursor-neon-follower, .cursor-scoop-drop, [class*="cursor-"][class*="-particle"]').forEach(el => el.remove());
 
     // Clean selection and highlight classes from cloned elements
     docClone.querySelectorAll('.editor-transform-selected, .editor-inspect-highlight, .editor-inspect-selected').forEach(el => {

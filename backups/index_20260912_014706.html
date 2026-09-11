@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/main.css?v=m1">
   <link rel="stylesheet" href="css/components.css?v=m1">
   <link rel="stylesheet" href="css/animations.css?v=m1">
-  <link rel="stylesheet" href="css/editor.css?v=dockfix">
+  <link rel="stylesheet" href="css/editor.css?v=m1">
 </head>
 <body class="" style="" data-cursor-fx="sprinkles" data-section-anim="slide-up">
 
@@ -122,17 +122,17 @@
   <!-- ========================================================================
        02 — HERO — IMMERSIVE STRAWBERRY ICE CREAM EXPERIENCE
        ======================================================================== -->
-  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(250, 243, 240);">
+  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(246, 250, 244);">
     <!-- Smooth Crossfading Background Layers -->
-    <div class="hero-bg-layer is-active" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
-    <div class="hero-bg-layer" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
+    <div class="hero-bg-layer" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
+    <div class="hero-bg-layer is-active" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(246, 250, 244) 0%, rgb(255, 249, 242) 75%);"></div>
 
     <!-- Sprinkles Interactive Canvas -->
     <canvas id="sprinklesCanvas" width="3420" height="1305"></canvas>
 
     <!-- Dynamic Radial Ambient Glow (Smooth Crossfade Layers) -->
-    <div class="hero-ambient-glow is-active" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
-    <div class="hero-ambient-glow" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <div class="hero-ambient-glow" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <div class="hero-ambient-glow is-active" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(110, 158, 83, 0.3) 0%, rgba(255, 240, 244, 0) 70%);"></div>
 
     <div class="container hero-container" style="">
       <!-- Tier 1: Purple Container (Badge, Editorial Heading & Subtitle) -->
@@ -183,8 +183,8 @@
           <!-- Central Zoomed-In Isolated Ice Cream Cone -->
           <div class="hero-stage">
             <div class="hero-halo-ring" id="heroHaloRing"></div>
-            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.71deg) rotateY(5.2deg);">
-              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-left" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.8px 35px); --anim-duration: 0.8s; --anim-delay: 0s; position: relative; transform: translate(0px, 0px) rotate(0deg) scale(2.05); transform-origin: center center;" data-transform-x="0" data-transform-y="0" data-transform-rot="0" data-transform-scale="2.05">
+            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-13.98deg) rotateY(-2.84deg);">
+              <img src="assets/images/pistachio.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-right" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.8px 35px); --anim-duration: 0.8s; --anim-delay: 0s;">
             </div>
           </div>
 
@@ -202,11 +202,11 @@
             <div class="hero-product-header">
               <div>
                 <span class="badge badge-pink" style="margin-bottom:6px; font-size:0.75rem;">Top Craving</span>
-                <h3 class="hero-product-name" id="heroProductName">ALPHONSO MANGO VELVET</h3>
+                <h3 class="hero-product-name" id="heroProductName">PISTACHIO DREAM</h3>
               </div>
-              <span class="hero-product-price" id="heroProductPrice">₹219</span>
+              <span class="hero-product-price" id="heroProductPrice">₹249</span>
             </div>
-            <p class="hero-product-desc" id="heroProductDesc">Pure sun-ripened Alphonso mango nectar swirled into frozen fruit silk.</p>
+            <p class="hero-product-desc" id="heroProductDesc">Creamy Sicilian pistachio gelato crafted with slow-roasted nutty goodness.</p>
             <div class="hero-product-footer">
               <div class="qty-stepper">
                 <button class="qty-btn" id="heroQtyMinus">−</button>
@@ -264,7 +264,7 @@
       </div>
 
       <div class="products-grid" id="bestsellersGrid">
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-truffle">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-truffle">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-truffle', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -301,7 +301,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-van-tahitian">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-van-tahitian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-tahitian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -338,7 +338,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-pist-sicilian">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-pist-sicilian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-sicilian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -375,7 +375,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-4" id="card-prod-straw-bliss">
+        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-straw-bliss">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-bliss', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -412,7 +412,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-caramel">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-caramel">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-caramel', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -449,7 +449,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-mango-velvet">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-mango-velvet">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-velvet', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -486,7 +486,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-straw-cheesecake">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-straw-cheesecake">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-cheesecake', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -541,7 +541,7 @@
       <!-- Left: Imagery with Organic Melt Mask & Floating Badge -->
       <div class="story-image-wrap reveal-slide-up is-revealed">
         <div class="story-organic-frame">
-          <img src="assets/images/story-craft.jpg" alt="Craft Churning at Melt &amp; Scoop" class="story-img anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
+          <img src="assets/images/story-craft.jpg" alt="Craft Churning at Melt &amp; Scoop" class="story-img">
         </div>
         <div class="story-badge-floating">
           <span class="story-badge-icon">🥛</span>
@@ -585,7 +585,7 @@
           <!-- 03 -->
           <div class="story-pillar-item">
             <span class="pillar-number">03</span>
-            <div class="">
+            <div>
               <h4 class="pillar-title">Delivered With Care</h4>
               <p class="pillar-desc">Packed in eco-friendly sub-zero dry-ice insulated containers to guarantee your pints arrive rock-solid frozen in under 45 minutes.</p>
             </div>
@@ -1060,7 +1060,7 @@
        08 — PRODUCT / ICE-CREAM EXPERIENCE (Editorial Spread)
        ======================================================================== -->
   <section class="section-pad editorial-section" id="editorialExperience">
-    <div class="container editorial-grid anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0.1s;">
+    <div class="container editorial-grid anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <!-- Left: Photo Frame with Rotating Kinetic Badge Outside -->
       <div class="editorial-media-wrapper reveal-slide-up is-revealed">
         <!-- Circular Rotating Typography Stamp Badge (Completely unclipped, floating outside corner) -->
@@ -1134,7 +1134,7 @@
 
         <!-- Card 2 -->
         <div class="testimonial-card reveal-slide-up stagger-2 is-revealed">
-          <div class="">
+          <div>
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-quote">“Ordered the 6-scoop party box for a dinner with friends. Arrived frozen solid in eco dry-ice and vanished within 10 minutes.”</p>
           </div>
@@ -1186,7 +1186,7 @@
       <!-- 4 City Location Switcher Tabs (Balanced 4-Location Bar / 2x2 Mobile Grid) -->
       <div class="store-city-tabs-wrapper reveal-slide-up is-revealed">
         <div class="store-city-tabs" role="tablist" aria-label="Select Parlor Location">
-          <button class="city-tab" data-city="ahmedabad" role="tab" aria-selected="false">
+          <button class="city-tab active" data-city="ahmedabad" role="tab" aria-selected="true">
             <span class="city-tab-icon">📍</span>
             <span class="city-tab-name">Ahmedabad</span>
           </button>
@@ -1198,7 +1198,7 @@
             <span class="city-tab-icon">📍</span>
             <span class="city-tab-name">Delhi NCR</span>
           </button>
-          <button class="city-tab active" data-city="bangalore" role="tab" aria-selected="true">
+          <button class="city-tab" data-city="bangalore" role="tab" aria-selected="false">
             <span class="city-tab-icon">📍</span>
             <span class="city-tab-name">Bangalore</span>
           </button>
@@ -1210,18 +1210,18 @@
         <div class="store-image-box reveal-slide-up is-revealed">
           <div class="store-live-badge">
             <span class="live-pulse-dot"></span>
-            <span id="storeLiveStatus">Scooping Now · Open till 11:45 PM</span>
+            <span id="storeLiveStatus">Scooping Now · Open till 11:30 PM</span>
           </div>
-          <span class="store-city-overlay-badge" id="storeCityOverlay">📍 Bangalore Flagship</span>
+          <span class="store-city-overlay-badge" id="storeCityOverlay">📍 Ahmedabad Flagship</span>
           <img src="assets/images/storefront.jpg" alt="Melt &amp; Scoop parlor interior" class="store-img" id="storeImg">
         </div>
 
         <!-- Right: Rich Parlor Details Card with Direct Call & Map Links -->
-        <div class="store-detail-card reveal-slide-up stagger-2 is-revealed" id="storeDetailCard" style="opacity: 1; transform: translateY(0px); transition: opacity 0.22s, transform 0.22s;">
+        <div class="store-detail-card reveal-slide-up stagger-2 is-revealed" id="storeDetailCard">
           <div class="store-card-header">
             <div>
-              <span class="store-city-label" id="storeCityLabel">Bangalore Flagship</span>
-              <h3 class="store-detail-title" id="storeDetailTitle">Indiranagar 100ft Scoop Shop</h3>
+              <span class="store-city-label" id="storeCityLabel">Ahmedabad Flagship</span>
+              <h3 class="store-detail-title" id="storeDetailTitle">Bodakdev Flagship Scoop Bar</h3>
             </div>
             <span class="store-hours-badge" id="storeHoursBadge">🟢 Open Now</span>
           </div>
@@ -1231,7 +1231,7 @@
               <span class="store-info-icon">📍</span>
               <div class="store-info-text">
                 <strong>Address</strong>
-                <p id="storeDetailAddress">612, 100 Feet Rd, HAL 2nd Stage, Indiranagar, Bengaluru - 560038</p>
+                <p id="storeDetailAddress">Shop 4, Ground Floor, Sindhu Bhavan Road, Bodakdev, Ahmedabad - 380054</p>
               </div>
             </div>
 
@@ -1239,7 +1239,7 @@
               <span class="store-info-icon">🕒</span>
               <div class="store-info-text">
                 <strong>Scoop Hours</strong>
-                <p id="storeDetailHours">Open Daily: 11:00 AM – 11:45 PM</p>
+                <p id="storeDetailHours">Open Daily: 11:00 AM – 11:30 PM</p>
               </div>
             </div>
 
@@ -1247,7 +1247,9 @@
               <span class="store-info-icon">📞</span>
               <div class="store-info-text">
                 <strong>Direct Contact</strong>
-                <a href="tel:+918041207744" class="store-phone-link" id="storeDetailPhone">+91 80 4120 7744 <span class="store-call-hint">(Tap to Call)</span></a>
+                <a href="tel:+917948921100" class="store-phone-link" id="storeDetailPhone">
+                  +91 79 4892 1100 <span class="store-call-hint">(Tap to Call)</span>
+                </a>
               </div>
             </div>
           </div>
@@ -1255,16 +1257,16 @@
           <!-- Store-Exclusive Signature Flavor Banner -->
           <div class="store-exclusive-card" id="storeDetailExclusiveBox">
             <div class="store-exclusive-badge">✨ Parlor Exclusive Churn</div>
-            <h4 class="store-exclusive-title" id="storeDetailExclusiveTitle">Chikmagalur Roast Coffee Crunch</h4>
-            <p class="store-exclusive-desc" id="storeDetailExclusiveDesc">Single-estate arabica espresso churn with dark cacao nib crunch</p>
+            <h4 class="store-exclusive-title" id="storeDetailExclusiveTitle">Saffron Kesar Pista Crunch</h4>
+            <p class="store-exclusive-desc" id="storeDetailExclusiveDesc">Handcrafted with Kashmiri Mongra saffron &amp; roasted Iranian pistachios</p>
           </div>
 
           <!-- Mobile-Optimized Action Buttons: Directions & Instant Call -->
           <div class="store-actions-row">
-            <a href="https://www.google.com/maps/search/?api=1&amp;query=Melt+and+Scoop+100+Feet+Rd+Indiranagar+Bengaluru" target="_blank" rel="noopener" class="btn btn-dark store-btn-directions" id="storeDetailDirections">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Melt+and+Scoop+Sindhu+Bhavan+Road+Bodakdev+Ahmedabad" target="_blank" rel="noopener" class="btn btn-dark store-btn-directions" id="storeDetailDirections">
               🗺️ GET DIRECTIONS →
             </a>
-            <a href="tel:+918041207744" class="btn btn-secondary store-btn-call" id="storeDetailCallBtn">
+            <a href="tel:+917948921100" class="btn btn-secondary store-btn-call" id="storeDetailCallBtn">
               📞 CALL PARLOR
             </a>
           </div>
@@ -1615,7 +1617,7 @@
   <script src="js/box-builder.js"></script>
   <script src="js/shop.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/editor.js?v=dockfix"></script>
+  <script src="js/editor.js"></script>
 
 
 <div id="toastContainer" class="toast-container"></div></body></html>
