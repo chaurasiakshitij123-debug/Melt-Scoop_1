@@ -3436,6 +3436,9 @@
     padding-bottom: 40px;
     min-height: auto;
   }
+  .hero-container {
+    padding: 0 16px;
+  }
   .hero-badge {
     font-size: 0.72rem;
     padding: 6px 14px;
@@ -3462,17 +3465,43 @@
     padding: 13px 20px;
     font-size: 0.9rem;
   }
+  .hero-center-stage {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+  .hero-arrow-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
   .hero-stage {
-    min-height: 360px;
-    height: 360px;
+    min-height: 340px;
+    height: 340px;
+    width: 100%;
+    max-width: min(300px, calc(100vw - 116px));
     margin-top: 6px;
+    overflow: hidden;
   }
   .icecream-display-frame {
-    max-width: 300px;
-    height: 360px;
+    width: 100%;
+    max-width: 100%;
+    height: 340px;
   }
   .icecream-hero-img {
-    max-height: 360px;
+    max-height: 340px;
+  }
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+  .btn-card-add {
+    min-height: 38px;
   }
   .flavor-selector-wrapper {
     padding: 4px;
@@ -3679,19 +3708,40 @@
     grid-template-columns: 1fr;
   }
 
-  /* Full Screen Cart Drawer */
+  /* Full Screen Cart Drawer with Safe Area Insets */
   .cart-drawer {
     width: 100%;
     max-width: 100%;
   }
   .cart-drawer-header {
-    padding: 18px 16px;
+    padding: max(18px, env(safe-area-inset-top, 18px)) 16px 16px;
   }
   .cart-items-list {
     padding: 16px;
   }
   .cart-drawer-footer {
-    padding: 18px 16px;
+    padding: 18px 16px max(18px, env(safe-area-inset-bottom, 18px));
+  }
+
+  /* Compact Hero for narrow phones */
+  .hero-editorial-title {
+    font-size: clamp(1.75rem, 7.2vw, 2.4rem);
+  }
+  .hero-stage {
+    min-height: 300px;
+    height: 300px;
+    max-width: min(280px, calc(100vw - 104px));
+  }
+  .icecream-display-frame {
+    height: 300px;
+  }
+  .icecream-hero-img {
+    max-height: 300px;
+  }
+  .hero-product-card,
+  .hero-actions-card {
+    max-width: 100%;
+    padding: 18px 14px;
   }
 
   /* Footer Newsletter Form Stack */

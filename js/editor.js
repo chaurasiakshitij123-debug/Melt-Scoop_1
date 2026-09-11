@@ -341,18 +341,23 @@
     const logos = document.querySelectorAll('.header-left-logo, .mobile-drawer-logo');
     logos.forEach(logo => {
       let clickTimes = [];
+      let lastTapTime = 0;
 
       logo.style.cursor = 'pointer';
       logo.style.touchAction = 'manipulation';
       logo.style.userSelect = 'none';
       logo.style.webkitUserSelect = 'none';
 
-      logo.addEventListener('click', (e) => {
+      const handleLogoTap = (e) => {
         const now = Date.now();
+        // Prevent duplicate synthetic events between pointerup and click
+        if (now - lastTapTime < 50) return;
+        lastTapTime = now;
+
         clickTimes.push(now);
 
-        // Keep clicks occurring within the last 1800ms (1.8 seconds)
-        clickTimes = clickTimes.filter(t => now - t < 1800);
+        // Keep clicks occurring within the last 2200ms (generous for mobile thumbs)
+        clickTimes = clickTimes.filter(t => now - t < 2200);
 
         // Subtle micro-pulse on intermediate clicks (2, 3, 4)
         if (clickTimes.length >= 2 && clickTimes.length < 5) {
@@ -363,7 +368,7 @@
 
         // 5th click triggers Studio Mode directly!
         if (clickTimes.length >= 5) {
-          e.preventDefault();
+          if (e.cancelable) e.preventDefault();
           e.stopPropagation();
           clickTimes = [];
 
@@ -378,7 +383,10 @@
           showEditorToast("✨ 5 Clicks Detected! Studio Mode Active.", "🍨");
           toggleEditorDock();
         }
-      });
+      };
+
+      logo.addEventListener('pointerup', handleLogoTap);
+      logo.addEventListener('click', handleLogoTap);
     });
   }
 
@@ -1577,12 +1585,16 @@
         canvasDragStartY = e.clientY;
         canvasInitX = parseInt(document.getElementById('transformPosXSlider')?.value || 0, 10);
         canvasInitY = parseInt(document.getElementById('transformPosYSlider')?.value || 0, 10);
-        e.preventDefault();
+        try {
+          if (e.target.setPointerCapture) e.target.setPointerCapture(e.pointerId);
+        } catch(err) {}
+        if (e.cancelable) e.preventDefault();
       }
-    });
+    }, { passive: false });
 
     document.addEventListener('pointermove', (e) => {
       if (!isTransformCanvasDragging || !selectedTransformElement) return;
+      if (e.cancelable) e.preventDefault();
       const deltaX = Math.round(e.clientX - canvasDragStartX);
       const deltaY = Math.round(e.clientY - canvasDragStartY);
       const newX = Math.max(-300, Math.min(300, canvasInitX + deltaX));
@@ -1595,11 +1607,16 @@
         ySl.value = newY;
         updateSelectedTransform();
       }
-    });
+    }, { passive: false });
 
-    const stopCanvasDrag = () => {
+    const stopCanvasDrag = (e) => {
       if (isTransformCanvasDragging) {
         isTransformCanvasDragging = false;
+        try {
+          if (e && e.target && e.target.releasePointerCapture && e.pointerId) {
+            e.target.releasePointerCapture(e.pointerId);
+          }
+        } catch(err) {}
         showEditorToast("Position updated on canvas!", "📍");
       }
     };

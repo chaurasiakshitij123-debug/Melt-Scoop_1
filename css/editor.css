@@ -1097,3 +1097,175 @@ body.mode-transform .editor-inspect-highlight {
   transform: translateY(-1px);
 }
 
+/* ==========================================================================
+   13. COMPREHENSIVE MOBILE OPTIMIZATION FOR STUDIO / EDITOR MODE
+   ========================================================================== */
+
+/* A. Tablets & Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  /* Mobile Floating Studio Dock */
+  .editor-dock {
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    max-width: calc(100vw - 16px);
+    width: auto;
+    border-radius: 20px;
+    padding: 6px 10px;
+    gap: 6px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 94, 126, 0.3);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .editor-dock-brand {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+    gap: 5px;
+  }
+
+  .editor-dock-divider {
+    height: 18px;
+  }
+
+  .editor-tool-btn {
+    padding: 6px 10px;
+    font-size: 0.76rem;
+    min-height: 38px;
+    flex-shrink: 0;
+  }
+
+  .editor-dock-select {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+    min-height: 36px;
+  }
+
+  .editor-tool-export-btn,
+  .editor-tool-publish-btn {
+    padding: 6px 12px;
+    font-size: 0.76rem;
+    min-height: 38px;
+    flex-shrink: 0;
+  }
+
+  .editor-tool-close-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* Transform Studio Bottom Sheet on Mobile */
+  .editor-transform-panel {
+    top: auto !important;
+    bottom: max(78px, calc(env(safe-area-inset-bottom, 12px) + 66px)) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: min(440px, calc(100vw - 16px)) !important;
+    max-height: 48vh !important;
+    border-radius: 20px !important;
+    padding: 14px 14px 16px !important;
+    z-index: 10000 !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(229, 168, 35, 0.25) !important;
+  }
+
+  /* Animation Studio Bottom Sheet on Mobile */
+  .editor-anim-panel {
+    top: auto !important;
+    bottom: max(78px, calc(env(safe-area-inset-bottom, 12px) + 66px)) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: min(440px, calc(100vw - 16px)) !important;
+    max-height: 50vh !important;
+    border-radius: 20px !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+    z-index: 10000 !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 94, 126, 0.25) !important;
+  }
+
+  .editor-anim-presets-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .editor-preset-btn {
+    padding: 8px 6px;
+    font-size: 0.76rem;
+  }
+
+  /* Modals on Mobile */
+  .editor-img-card,
+  .editor-add-prod-card {
+    padding: 22px 18px !important;
+    border-radius: 22px !important;
+    width: 100% !important;
+    max-width: min(460px, calc(100vw - 24px)) !important;
+    max-height: 88vh !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure inputs don't trigger iOS Safari auto-zoom (min 16px font-size) */
+  .editor-form-input,
+  .editor-form-select,
+  .editor-img-url-input {
+    font-size: 16px !important;
+  }
+
+  /* Toast banner centered at top on mobile */
+  .editor-toast-banner {
+    top: max(16px, env(safe-area-inset-top, 16px));
+    width: min(380px, calc(100vw - 28px));
+    font-size: 0.8rem;
+    padding: 10px 16px;
+  }
+
+  /* Make selected transform elements touch-action none for smooth touch dragging */
+  .editor-transform-selected {
+    touch-action: none !important;
+  }
+
+  /* Delete card button larger for easy touch */
+  .editor-card-del-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* B. Small Smartphones (<= 480px) */
+@media (max-width: 480px) {
+  .editor-dock {
+    padding: 5px 8px;
+    gap: 4px;
+    border-radius: 16px;
+  }
+
+  .editor-tool-btn {
+    padding: 6px 8px;
+    font-size: 0.72rem;
+  }
+
+  .editor-dock-select {
+    max-width: 110px;
+    font-size: 0.7rem;
+  }
+
+  .editor-transform-panel {
+    max-height: 52vh !important;
+    padding: 12px !important;
+  }
+
+  .editor-nudge-btn {
+    padding: 5px 6px;
+    font-size: 0.7rem;
+  }
+
+  .editor-anim-presets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
