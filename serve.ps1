@@ -9,7 +9,7 @@ $prefix2 = "http://127.0.0.1:$Port/"
 $listener.Prefixes.Add($prefix1)
 $listener.Prefixes.Add($prefix2)
 
-$SECRET_PIN = "4321"
+$SECRET_PIN = "1234"
 $uploadsDir = Join-Path $PSScriptRoot "assets\images\uploads"
 if (!(Test-Path $uploadsDir)) {
     New-Item -Path $uploadsDir -ItemType Directory -Force | Out-Null

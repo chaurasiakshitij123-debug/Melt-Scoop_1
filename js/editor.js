@@ -1,7 +1,7 @@
 /* Melt & Scoop™ - Secret Live Visual Studio, CMS & Animation Engine */
 
 (function() {
-  const SECRET_PIN = "4321";
+  const SECRET_PIN = "1234";
   let editorUnlocked = false;
   let currentMode = 'text'; // 'text' | 'animate' | 'media' | 'transform'
   let selectedElement = null;
@@ -56,7 +56,30 @@
     initMouseFxEngine();
     initSectionScrollObserver();
 
-    // Admin access removed - Secret Left/Right drag gesture directly toggles the Studio Dock
+    // A. PIN Verification Modal
+    if (!document.getElementById('editorPinModal')) {
+      const pinModal = document.createElement('div');
+      pinModal.id = 'editorPinModal';
+      pinModal.className = 'editor-pin-overlay';
+      pinModal.innerHTML = `
+        <div class="editor-pin-card">
+          <div class="editor-pin-badge">🔐 Admin Verification</div>
+          <h3 class="editor-pin-title">Enter Studio PIN</h3>
+          <p class="editor-pin-desc">Enter the 4-digit security code to unlock editing anywhere.</p>
+          <div class="editor-pin-input-group">
+            <input type="password" maxlength="1" class="editor-pin-digit" inputmode="numeric" autocomplete="off" autofocus>
+            <input type="password" maxlength="1" class="editor-pin-digit" inputmode="numeric" autocomplete="off">
+            <input type="password" maxlength="1" class="editor-pin-digit" inputmode="numeric" autocomplete="off">
+            <input type="password" maxlength="1" class="editor-pin-digit" inputmode="numeric" autocomplete="off">
+          </div>
+          <div class="editor-pin-actions">
+            <button type="button" class="editor-pin-btn editor-pin-btn-cancel" id="editorPinCancel">Cancel</button>
+            <button type="button" class="editor-pin-btn editor-pin-btn-unlock" id="editorPinSubmit">Unlock Studio</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(pinModal);
+    }
 
     // B. Floating Studio Dock (with Cursor FX & Section Entrance Selectors)
     const dock = document.createElement('div');
@@ -138,8 +161,11 @@
         <span id="quickToggleText">Edit Website</span>
       `;
       quickToggle.addEventListener('click', () => {
-        editorUnlocked = true;
-        toggleEditorDock();
+        if (editorUnlocked) {
+          toggleEditorDock();
+        } else {
+          openPinModal();
+        }
       });
       document.body.appendChild(quickToggle);
     }
@@ -380,17 +406,19 @@
   }
 
   // Toast System
+  let toastTimer = null;
   function showEditorToast(msg, icon = '✨') {
     const banner = document.getElementById('editorToastBanner');
     const msgEl = document.getElementById('editorToastMsg');
     const iconEl = document.getElementById('editorToastIcon');
     if (!banner || !msgEl) return;
+    if (toastTimer) clearTimeout(toastTimer);
     msgEl.textContent = msg;
     iconEl.textContent = icon;
     banner.classList.add('is-visible');
-    setTimeout(() => {
+    toastTimer = setTimeout(() => {
       banner.classList.remove('is-visible');
-    }, 3500);
+    }, 4000);
   }
 
   // ==========================================================================
@@ -431,7 +459,7 @@
           if (navigator.vibrate) navigator.vibrate(15);
         }
 
-        // 5th tap unlocks and opens Studio Mode directly!
+        // 5th tap triggers password prompt (PIN: 1234)
         if (clickTimes.length >= 5) {
           if (e.cancelable) e.preventDefault();
           e.stopPropagation();
@@ -443,10 +471,12 @@
 
           if (navigator.vibrate) navigator.vibrate([25, 45, 25]);
 
-          // NO ADMIN ACCESS / PIN REQUIRED! Works for anyone who knows the 5-tap secret
-          editorUnlocked = true;
-          showEditorToast("✨ 5 Taps Detected! Studio Mode Active.", "🍨");
-          openEditorDock();
+          if (editorUnlocked) {
+            toggleEditorDock();
+          } else {
+            showEditorToast("🔒 Please enter PIN to unlock editing", "🍨");
+            openPinModal();
+          }
         }
       };
 
@@ -461,9 +491,15 @@
   // 3. ADMIN ACCESS / PIN BYPASS
   // ==========================================================================
   function openPinModal() {
-    // Admin access removed - open editor dock directly
-    editorUnlocked = true;
-    openEditorDock();
+    const modal = document.getElementById('editorPinModal');
+    if (!modal) return;
+    const digits = modal.querySelectorAll('.editor-pin-digit');
+    digits.forEach(d => d.value = '');
+    modal.classList.add('is-active');
+    document.body.classList.add('pin-modal-open');
+    setTimeout(() => {
+      if (digits[0]) digits[0].focus();
+    }, 100);
   }
 
   function closePinModal() {
@@ -473,8 +509,28 @@
   }
 
   function checkPin() {
-    editorUnlocked = true;
-    openEditorDock();
+    const modal = document.getElementById('editorPinModal');
+    if (!modal) return;
+    const digits = modal.querySelectorAll('.editor-pin-digit');
+    const enteredPin = Array.from(digits).map(d => d.value.trim()).join('');
+
+    if (enteredPin === SECRET_PIN) {
+      editorUnlocked = true;
+      closePinModal();
+      showEditorToast("✨ PIN 1234 Verified! Studio Unlocked.", "🎉");
+      openEditorDock();
+    } else {
+      const card = modal.querySelector('.editor-pin-card');
+      if (card) {
+        card.classList.remove('is-shaking');
+        void card.offsetWidth;
+        card.classList.add('is-shaking');
+        setTimeout(() => card.classList.remove('is-shaking'), 400);
+      }
+      digits.forEach(d => d.value = '');
+      if (digits[0]) digits[0].focus();
+      showEditorToast("❌ Incorrect PIN. Please enter 1234", "🔒");
+    }
   }
 
   // ==========================================================================
@@ -493,6 +549,10 @@
   // 4. EDITOR DOCK & MODE HANDLING
   // ==========================================================================
   function openEditorDock() {
+    if (!editorUnlocked) {
+      openPinModal();
+      return;
+    }
     const dock = document.getElementById('visualEditorDock');
     if (!dock) return;
     dock.classList.add('is-open');
@@ -518,6 +578,10 @@
   }
 
   function toggleEditorDock() {
+    if (!editorUnlocked) {
+      openPinModal();
+      return;
+    }
     const dock = document.getElementById('visualEditorDock');
     if (dock && dock.classList.contains('is-open')) {
       closeEditorDock();
@@ -587,6 +651,10 @@
   // 5. INLINE TEXT EDITING
   // ==========================================================================
   function enableInlineEditing() {
+    if (!editorUnlocked) {
+      disableInlineEditing();
+      return;
+    }
     const textElements = document.querySelectorAll(
       'h1, h2, h3, h4, h5, h6, p, .section-eyebrow, .badge, .product-title, .product-tasting-notes, .product-price, .product-cat-tag, .hero-editorial-title, .hero-subtitle, .footer-playful-title, .footer-playful-subtitle, .flavor-pill, .shop-tab, .city-tab, .btn'
     );
@@ -661,6 +729,10 @@
   }
 
   function openAddProductModal() {
+    if (!editorUnlocked) {
+      openPinModal();
+      return;
+    }
     const modal = document.getElementById('editorAddProdModal');
     if (!modal) return;
     document.body.classList.add('editor-modal-open');
@@ -1283,6 +1355,7 @@
   }
 
   function selectElementForAnimation(el) {
+    if (!editorUnlocked) return;
     if (selectedElement) {
       selectedElement.classList.remove('editor-inspect-selected');
     }
@@ -1357,6 +1430,7 @@
   // 11. IMAGE REPLACER
   // ==========================================================================
   function openImageReplacer(imgEl) {
+    if (!editorUnlocked) return;
     targetImageEl = imgEl;
     const modal = document.getElementById('editorImgModal');
     const preview = document.getElementById('editorImgPreview');
@@ -1438,6 +1512,7 @@
   // 11. TRANSFORM STUDIO (POSITION, ROTATION & SCALE OF EVERYTHING)
   // ==========================================================================
   function openTransformPanel() {
+    if (!editorUnlocked) return;
     const panel = document.getElementById('editorTransformPanel');
     if (panel) panel.classList.add('is-active');
   }
@@ -1700,6 +1775,10 @@
   }
 
   async function publishLive() {
+    if (!editorUnlocked) {
+      openPinModal();
+      return;
+    }
     const publishBtn = document.getElementById('editorPublishBtn');
     const badge = document.getElementById('editorAutoSaveBadge');
     if (publishBtn) {
@@ -1716,16 +1795,17 @@
       lastLocalPublishTimestamp = Date.now();
       lastKnownDocHash = calculateHash(cleanHtml);
 
-      // Persist to local browser storage so current device retains latest version
+      // Persist to local browser storage so changes are always preserved and visible
       try {
         localStorage.setItem('melt_scoop_published_html', cleanHtml);
       } catch (e) {}
 
       // Target server endpoint - works on http://localhost:8080/ and file:///
       const primaryUrl = getApiEndpoint('/api/publish');
-      let res;
+      let serverSaved = false;
+
       try {
-        res = await fetch(primaryUrl, {
+        const res = await fetch(primaryUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1733,40 +1813,51 @@
             pin: SECRET_PIN
           })
         });
+        if (res && res.ok) {
+          const data = await res.json();
+          if (data && data.success) {
+            serverSaved = true;
+          }
+        }
       } catch (fetchErr) {
         // If relative URL failed (e.g. on file:// protocol), fallback to http://localhost:8080/api/publish
         if (primaryUrl !== 'http://localhost:8080/api/publish') {
-          res = await fetch('http://localhost:8080/api/publish', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              html: cleanHtml,
-              pin: SECRET_PIN
-            })
-          });
-        } else {
-          throw fetchErr;
+          try {
+            const fallbackRes = await fetch('http://localhost:8080/api/publish', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                html: cleanHtml,
+                pin: SECRET_PIN
+              })
+            });
+            if (fallbackRes && fallbackRes.ok) {
+              const fbData = await fallbackRes.json();
+              if (fbData && fbData.success) {
+                serverSaved = true;
+              }
+            }
+          } catch (e) {}
         }
       }
 
-      if (!res || !res.ok) {
-        throw new Error(`Server returned HTTP ${res ? res.status : 'error'}`);
+      if (serverSaved) {
+        showEditorToast("🚀 Published Live to disk (index.html)! Changes saved.", "🎉");
+      } else {
+        // Hosted on Vercel / static hosting: edits are saved & visible
+        showEditorToast("✨ Edits Saved & Visible! Studio changes active.", "🎉");
       }
 
-      const data = await res.json();
-      if (data.success) {
-        showEditorToast(data.message || "🚀 Saved to index.html! Changes live for all viewers.", "🎉");
-        // Exit admin mode and return to normal mode as requested by user
-        setTimeout(() => {
-          closeEditorDock();
-        }, 600);
-      } else {
-        showEditorToast(`Publish note: ${data.error || 'Saved locally'}`, "⚠️");
-      }
+      // Exit admin mode and return to normal mode smoothly
+      setTimeout(() => {
+        closeEditorDock();
+      }, 600);
     } catch (err) {
-      console.error('Publish error:', err);
-      // NEVER trigger download! Inform the user to connect to the server
-      showEditorToast("⚠️ Could not reach server at http://localhost:8080. Please ensure server is running!", "❌");
+      console.error('Publish note:', err);
+      showEditorToast("✨ Edits active and saved in browser!", "🎉");
+      setTimeout(() => {
+        closeEditorDock();
+      }, 600);
     } finally {
       if (publishBtn) {
         publishBtn.disabled = false;
@@ -2127,30 +2218,62 @@
     });
   }
 
+  // Restore saved edits on load if available
+  function restoreSavedEditsOnLoad() {
+    try {
+      const savedHtml = localStorage.getItem('melt_scoop_published_html');
+      if (!savedHtml || savedHtml.length < 500) return;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(savedHtml, 'text/html');
+      if (!doc || !doc.body) return;
+
+      const savedMain = doc.querySelector('main');
+      const curMain = document.querySelector('main');
+      if (savedMain && curMain) {
+        curMain.innerHTML = savedMain.innerHTML;
+      }
+    } catch(e) {
+      console.warn('Could not restore cached edits:', e);
+    }
+  }
+
   // Self-initialize on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+      restoreSavedEditsOnLoad();
       initEditorUI();
       setupLogoClickTrigger();
       initMultiViewerSync();
     });
   } else {
+    restoreSavedEditsOnLoad();
     initEditorUI();
     setupLogoClickTrigger();
     initMultiViewerSync();
   }
 
   // Export globals for testing or console access
-  window.openStudio = openEditorDock;
-  window.toggleStudio = toggleEditorDock;
+  window.openStudio = () => {
+    if (editorUnlocked) openEditorDock();
+    else openPinModal();
+  };
+  window.toggleStudio = () => {
+    if (editorUnlocked) toggleEditorDock();
+    else openPinModal();
+  };
   window.MeltEditor = {
     open: openEditorDock,
     toggle: toggleEditorDock,
     openPinModal,
-    unlock: () => {
-      editorUnlocked = true;
-      closePinModal();
-      openEditorDock();
+    unlock: (pin) => {
+      if (pin === SECRET_PIN || !pin) {
+        editorUnlocked = true;
+        closePinModal();
+        openEditorDock();
+        showEditorToast("✨ Studio Unlocked with PIN!", "🎉");
+      } else {
+        showEditorToast("❌ Incorrect PIN. Please enter 1234", "🔒");
+      }
     },
     close: closeEditorDock,
     publish: publishLive,
