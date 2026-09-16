@@ -1362,36 +1362,8 @@ body.mode-transform .editor-inspect-highlight {
   50% { opacity: 0.75; transform: scale(0.98); }
 }
 
-/* Multi-Viewer Real-time Live Sync Toast Notification */
 .editor-sync-toast {
-  position: fixed;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100px);
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 22px;
-  background: rgba(30, 20, 18, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(16, 185, 129, 0.5);
-  border-radius: 999px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(16, 185, 129, 0.3);
-  color: #FFFFFF;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.86rem;
-  font-weight: 700;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.editor-sync-toast.is-visible {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-  pointer-events: auto;
+  display: none !important;
 }
 
 /* Mobile Quick Toggle Positioning */

@@ -1734,102 +1734,19 @@
   }
 
   // ==========================================================================
-  // MULTI-VIEWER REAL-TIME LIVE SYNCHRONIZATION ENGINE
+  // MULTI-VIEWER ENGINE (ZERO AUTO-REFRESH - COMPLETE STABILITY)
   // ==========================================================================
   function initMultiViewerSync() {
-    lastKnownDocHash = calculateHash(document.documentElement.innerHTML);
-
-    // If coming from auto-sync reload, show polite confirmation toast
+    // Purge any stale session flags immediately
     try {
-      const synced = sessionStorage.getItem('melt_scoop_just_synced');
-      if (synced) {
-        sessionStorage.removeItem('melt_scoop_just_synced');
-        const syncNotice = document.createElement('div');
-        syncNotice.className = 'editor-sync-toast is-visible';
-        syncNotice.innerHTML = `<span>🍨</span><span>Site updated with latest live edits!</span>`;
-        document.body.appendChild(syncNotice);
-        setTimeout(() => {
-          syncNotice.classList.remove('is-visible');
-          setTimeout(() => syncNotice.remove(), 400);
-        }, 2800);
-      }
+      sessionStorage.removeItem('melt_scoop_just_synced');
+      sessionStorage.removeItem('melt_scoop_server_version');
+      const existingToast = document.querySelector('.editor-sync-toast');
+      if (existingToast) existingToast.remove();
     } catch (e) {}
 
-    // Background polling every 4 seconds
-    setInterval(async () => {
-      if (isSyncChecking) return;
-      if (document.hidden) return;
-
-      // CRITICAL: NEVER autorefresh when in admin mode!
-      // Let the editor edit the website completely without any autorefresh or interference.
-      const dock = document.getElementById('visualEditorDock');
-      const isDockOpen = dock && dock.classList.contains('is-open');
-      if (isDockOpen || editorUnlocked || document.body.classList.contains('editor-active')) {
-        return; // Absolute block - never refresh while editor is in admin mode!
-      }
-
-      // Skip if local client just published within the last 8 seconds
-      if (Date.now() - lastLocalPublishTimestamp < 8000) return;
-      // Skip if user is actively typing in a contenteditable element
-      if (document.activeElement && document.activeElement.isContentEditable) return;
-      // Skip if currently dragging on canvas
-      if (isTransformCanvasDragging) return;
-
-      isSyncChecking = true;
-      try {
-        let hasChanged = false;
-
-        // Check /api/version for ultra-fast tick check
-        try {
-          const verRes = await fetch('/api/version', { method: 'GET', cache: 'no-store' });
-          if (verRes.status === 200) {
-            const verData = await verRes.json();
-            if (verData && verData.version) {
-              const currentTicks = sessionStorage.getItem('melt_scoop_server_version');
-              if (currentTicks && currentTicks !== verData.version) {
-                hasChanged = true;
-              }
-              sessionStorage.setItem('melt_scoop_server_version', verData.version);
-            }
-          }
-        } catch (e) {}
-
-        // Fallback: Check index.html directly
-        if (!hasChanged) {
-          const res = await fetch('/index.html?syncCheck=' + Date.now(), {
-            method: 'GET',
-            cache: 'no-store'
-          });
-
-          if (res.status === 200) {
-            const remoteHtml = await res.text();
-            const remoteHash = calculateHash(remoteHtml);
-            if (lastKnownDocHash !== 0 && remoteHash !== lastKnownDocHash) {
-              hasChanged = true;
-              lastKnownDocHash = remoteHash;
-            }
-          }
-        }
-
-        // Only reload for viewers who are in NORMAL MODE (NOT in admin mode!)
-        if (hasChanged) {
-          const currentDock = document.getElementById('visualEditorDock');
-          if (currentDock && currentDock.classList.contains('is-open')) return;
-          if (editorUnlocked || document.body.classList.contains('editor-active')) return;
-
-          try {
-            sessionStorage.setItem('melt_scoop_just_synced', 'true');
-          } catch(e) {}
-
-          setTimeout(() => {
-            window.location.reload();
-          }, 600);
-        }
-      } catch (err) {
-      } finally {
-        isSyncChecking = false;
-      }
-    }, 4000);
+    // AUTO-REFRESH COMPLETELY DISABLED:
+    // Website will NEVER auto-reload or disrupt the user/viewers.
   }
 
   // ==========================================================================
