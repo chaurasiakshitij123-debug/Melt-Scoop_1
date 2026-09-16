@@ -38,6 +38,14 @@
   let activeCursorFx = document.body.dataset.cursorFx || 'sprinkles'; // 'sprinkles' | 'blob' | 'glow' | 'none'
   let activeSectionAnim = document.body.dataset.sectionAnim || 'blur-in'; // 'slide-up' | 'blur-in' | 'zoom-in' | 'float'
 
+  // Helper to resolve API endpoint for localhost, network, or file:/// protocol
+  function getApiEndpoint(path) {
+    if (window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') {
+      return 'http://localhost:8080' + path;
+    }
+    return path;
+  }
+
   // ==========================================================================
   // 1. INITIALIZE & INJECT EDITOR DOM
   // ==========================================================================
@@ -108,11 +116,8 @@
         </select>
       </div>
       <div class="editor-dock-divider"></div>
-      <button type="button" class="editor-tool-export-btn" id="editorExportBtn" title="Download updated index.html for all viewers">
-        💾 Export HTML
-      </button>
-      <button type="button" class="editor-tool-publish-btn" id="editorPublishBtn" title="Publish live so all viewers see changes">
-        🚀 Publish Live
+      <button type="button" class="editor-tool-publish-btn" id="editorPublishBtn" title="Save changes directly to index.html on disk for all viewers">
+        💾 Save &amp; Publish Live
       </button>
       <button type="button" class="editor-tool-close-btn" id="editorCloseBtn" title="Exit Studio Mode">
         ✕
@@ -1382,15 +1387,33 @@
 
       showEditorToast("Uploading image to server...", "⏳");
       try {
-        const res = await fetch('/api/upload-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            data: base64Data,
-            filename: file.name,
-            pin: SECRET_PIN
-          })
-        });
+        const uploadUrl = getApiEndpoint('/api/upload-image');
+        let res;
+        try {
+          res = await fetch(uploadUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: base64Data,
+              filename: file.name,
+              pin: SECRET_PIN
+            })
+          });
+        } catch (fetchErr) {
+          if (uploadUrl !== 'http://localhost:8080/api/upload-image') {
+            res = await fetch('http://localhost:8080/api/upload-image', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                data: base64Data,
+                filename: file.name,
+                pin: SECRET_PIN
+              })
+            });
+          } else {
+            throw fetchErr;
+          }
+        }
         const data = await res.json();
         if (data.success && data.url) {
           targetImageEl.src = data.url;
@@ -1681,7 +1704,7 @@
     const badge = document.getElementById('editorAutoSaveBadge');
     if (publishBtn) {
       publishBtn.disabled = true;
-      publishBtn.innerHTML = `⏳ Publishing...`;
+      publishBtn.innerHTML = `⏳ Saving...`;
     }
     if (badge) {
       badge.className = 'editor-save-status is-saving';
@@ -1693,23 +1716,46 @@
       lastLocalPublishTimestamp = Date.now();
       lastKnownDocHash = calculateHash(cleanHtml);
 
-      // Persist to local browser storage so current device always retains latest version
+      // Persist to local browser storage so current device retains latest version
       try {
         localStorage.setItem('melt_scoop_published_html', cleanHtml);
       } catch (e) {}
 
-      const res = await fetch('/api/publish', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          html: cleanHtml,
-          pin: SECRET_PIN
-        })
-      });
+      // Target server endpoint - works on http://localhost:8080/ and file:///
+      const primaryUrl = getApiEndpoint('/api/publish');
+      let res;
+      try {
+        res = await fetch(primaryUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            html: cleanHtml,
+            pin: SECRET_PIN
+          })
+        });
+      } catch (fetchErr) {
+        // If relative URL failed (e.g. on file:// protocol), fallback to http://localhost:8080/api/publish
+        if (primaryUrl !== 'http://localhost:8080/api/publish') {
+          res = await fetch('http://localhost:8080/api/publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              html: cleanHtml,
+              pin: SECRET_PIN
+            })
+          });
+        } else {
+          throw fetchErr;
+        }
+      }
+
+      if (!res || !res.ok) {
+        throw new Error(`Server returned HTTP ${res ? res.status : 'error'}`);
+      }
 
       const data = await res.json();
       if (data.success) {
-        showEditorToast(data.message || "🚀 Published Live! Changes saved to index.html and live for all viewers.", "🎉");
+        showEditorToast(data.message || "🚀 Saved to index.html! Changes live for all viewers.", "🎉");
         // Exit admin mode and return to normal mode as requested by user
         setTimeout(() => {
           closeEditorDock();
@@ -1718,17 +1764,17 @@
         showEditorToast(`Publish note: ${data.error || 'Saved locally'}`, "⚠️");
       }
     } catch (err) {
-      // Offline / static hosting fallback: Download updated HTML automatically
-      const cleanHtml = getCleanHtml();
-      downloadUpdatedHtml(cleanHtml);
-      showEditorToast("💾 Saved locally & downloaded index.html! Upload to repository for all viewers.", "📥");
-      setTimeout(() => {
-        closeEditorDock();
-      }, 600);
+      console.error('Publish error:', err);
+      // NEVER trigger download! Inform the user to connect to the server
+      showEditorToast("⚠️ Could not reach server at http://localhost:8080. Please ensure server is running!", "❌");
     } finally {
       if (publishBtn) {
         publishBtn.disabled = false;
-        publishBtn.innerHTML = `🚀 Publish Live`;
+        publishBtn.innerHTML = `💾 Save & Publish Live`;
+      }
+      if (badge) {
+        badge.className = 'editor-save-status is-saved';
+        badge.textContent = '✓ Live';
       }
     }
   }
