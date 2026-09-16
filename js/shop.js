@@ -82,6 +82,7 @@ const PRODUCTS_DATA = [
   {
     id: 'prod-straw-cheesecake',
     name: 'Wild Strawberry Cheesecake',
+    category: 'strawberry',
     price: 249,
     rating: 4.9,
     reviewsCount: 220,
@@ -91,6 +92,90 @@ const PRODUCTS_DATA = [
     description: 'Rich cultured cream cheese and mascarpone gelato laced with wild strawberry compote and buttery graham crumble.',
     dietary: ['Vegetarian'],
     nutrition: { calories: '255 kcal', fat: '14g', sugar: '20g', protein: '5g' }
+  },
+  {
+    id: 'waffle-liege-classic',
+    name: 'The Classic Belgian Liège',
+    category: 'waffle',
+    price: 279,
+    rating: 5.0,
+    reviewsCount: 388,
+    badge: '✨ Signature',
+    image: 'assets/images/waffle-liege.jpg',
+    tastingNotes: 'Caramelized pearl sugar · Yeasted brioche crumb · Vanilla clotted cream',
+    description: 'Authentic Liège waffle crafted with rich yeasted brioche dough and Belgian pearl sugar that caramelizes into a glass-like crunch on the cast iron. Served piping hot with clotted Tahitian vanilla cream and pure maple syrup.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '340 kcal', fat: '16g', sugar: '22g', protein: '6g' }
+  },
+  {
+    id: 'waffle-valrhona-ganache',
+    name: 'Valrhona Molten Ganache Waffle',
+    category: 'waffle',
+    price: 329,
+    rating: 5.0,
+    reviewsCount: 342,
+    badge: '🍫 Dark Truffle',
+    image: 'assets/images/waffle-chocolate.jpg',
+    tastingNotes: 'Deep Valrhona cocoa · Molten Belgian ganache · 70% dark chocolate curls',
+    description: 'An indulgent dark cocoa waffle drenched in steaming hot Belgian fudge, crowned with a generous scoop of 70% dark chocolate truffle gelato and cocoa dusted shavings.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '410 kcal', fat: '22g', sugar: '28g', protein: '8g' }
+  },
+  {
+    id: 'waffle-bubble-sunshine',
+    name: 'Alphonso Sunshine Bubble Waffle',
+    category: 'waffle',
+    price: 329,
+    rating: 4.9,
+    reviewsCount: 295,
+    badge: '🥭 Hong Kong Crisp',
+    image: 'assets/images/waffle-bubble.jpg',
+    tastingNotes: 'Crispy golden egg bubbles · Alphonso mango silk · Passionfruit coulis',
+    description: 'Crisp, airy Hong Kong egg bubble waffle folded warm into a handheld cone, loaded with Alphonso mango velvet gelato, wild berry compote, passionfruit drizzle, and fresh edible blooms.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '320 kcal', fat: '12g', sugar: '25g', protein: '7g' }
+  },
+  {
+    id: 'waffle-sicilian-pistachio',
+    name: 'Sicilian Pistachio Praline Waffle',
+    category: 'waffle',
+    price: 349,
+    rating: 5.0,
+    reviewsCount: 312,
+    badge: '⭐ Bronte Pistachio',
+    image: 'assets/images/waffle-liege.jpg',
+    tastingNotes: 'Roasted Bronte pistachios · White chocolate cream · Emerald praline crunch',
+    description: 'Warm caramelized Liège waffle smothered in silky roasted Bronte pistachio spread, crushed caramelized pistachios, white chocolate ganache drizzle, and Sicilian pistachio gelato.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '380 kcal', fat: '20g', sugar: '24g', protein: '9g' }
+  },
+  {
+    id: 'waffle-wild-strawberry',
+    name: 'Wild Strawberry Short-Waffle',
+    category: 'waffle',
+    price: 299,
+    rating: 4.9,
+    reviewsCount: 278,
+    badge: '🍓 Alpine Berries',
+    image: 'assets/images/waffle-bubble.jpg',
+    tastingNotes: 'Macerated wild strawberries · Whipped chantilly · Strawberry bliss scoop',
+    description: 'Crisp golden waffle layered with fresh macerated alpine strawberries, whipped Tahitian vanilla chantilly cream, pure berry coulis, and our Strawberry Bliss artisan gelato.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '310 kcal', fat: '14g', sugar: '23g', protein: '5g' }
+  },
+  {
+    id: 'waffle-butterscotch-toffee',
+    name: 'Salted Butterscotch Toffee Waffle',
+    category: 'waffle',
+    price: 319,
+    rating: 4.9,
+    reviewsCount: 264,
+    badge: '🔥 Fleur De Sel',
+    image: 'assets/images/waffle-chocolate.jpg',
+    tastingNotes: 'Kettle-cooked butterscotch · Smoked sea salt · Toasted Georgia pecans',
+    description: 'Hot caramelized waffle blanketed in copper kettle-cooked salted butterscotch, smoked sea salt flakes, toasted buttered pecans, and sweet Tahitian vanilla bean gelato.',
+    dietary: ['Vegetarian', 'Warm Baked'],
+    nutrition: { calories: '390 kcal', fat: '19g', sugar: '27g', protein: '6g' }
   }
 ];
 
@@ -174,6 +259,15 @@ class ShopManager {
 
   getFilteredAndSortedProducts() {
     let items = [...this.products];
+
+    if (this.activeFilter === 'waffle') {
+      items = items.filter(p => p.category === 'waffle');
+    } else if (this.activeFilter !== 'all') {
+      items = items.filter(p => p.category === this.activeFilter);
+    } else {
+      // By default in scoops bestsellers, show artisan scoops
+      items = items.filter(p => p.category !== 'waffle');
+    }
 
     // Sort items
     if (this.activeSort === 'price-asc') {
@@ -427,4 +521,86 @@ class ShopManager {
   }
 }
 
+// ============================================================================
+// CUSTOM WAFFLE PAIRING BUILDER
+// ============================================================================
+function initWaffleCustomizer() {
+  const baseRadios = document.querySelectorAll('input[name="waffleBase"]');
+  const scoopRadios = document.querySelectorAll('input[name="waffleScoop"]');
+  const drizzleRadios = document.querySelectorAll('input[name="waffleDrizzle"]');
+  const priceDisplay = document.getElementById('waffleCustomPrice');
+  const summaryDisplay = document.getElementById('waffleCustomSummary');
+  const addBtn = document.getElementById('addCustomWaffleBtn');
+
+  if (!baseRadios.length) return;
+
+  function calculateCustomWaffle() {
+    let basePrice = 249;
+    let baseName = 'Belgian Liège';
+    baseRadios.forEach(r => {
+      if (r.checked) {
+        basePrice = parseInt(r.dataset.price) || 249;
+        baseName = r.dataset.name || 'Belgian Liège';
+      }
+    });
+
+    let scoopPrice = 0;
+    let scoopName = 'Tahitian Vanilla Bean';
+    scoopRadios.forEach(r => {
+      if (r.checked) {
+        scoopPrice = parseInt(r.dataset.extra) || 0;
+        scoopName = r.dataset.name || 'Tahitian Vanilla Bean';
+      }
+    });
+
+    let drizzlePrice = 0;
+    let drizzleName = 'Molten Valrhona Fudge';
+    drizzleRadios.forEach(r => {
+      if (r.checked) {
+        drizzlePrice = parseInt(r.dataset.extra) || 0;
+        drizzleName = r.dataset.name || 'Molten Valrhona Fudge';
+      }
+    });
+
+    const total = basePrice + scoopPrice + drizzlePrice;
+    if (priceDisplay) priceDisplay.textContent = `₹${total}`;
+    if (summaryDisplay) {
+      summaryDisplay.textContent = `${baseName} Waffle + ${scoopName} Scoop + ${drizzleName}`;
+    }
+
+    return { total, baseName, scoopName, drizzleName };
+  }
+
+  [...baseRadios, ...scoopRadios, ...drizzleRadios].forEach(input => {
+    input.addEventListener('change', calculateCustomWaffle);
+  });
+
+  if (addBtn) {
+    addBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const config = calculateCustomWaffle();
+      if (window.Cart) {
+        window.Cart.addItem({
+          id: `custom-waffle-${Date.now()}`,
+          name: `Custom ${config.baseName} Waffle`,
+          price: config.total,
+          image: 'assets/images/waffle-liege.jpg',
+          category: 'Waffle House',
+          subtext: `${config.scoopName} Scoop & ${config.drizzleName}`
+        }, 1, addBtn);
+        if (window.showToast) {
+          window.showToast(`✨ Custom ${config.baseName} Waffle added to your cart! 🧇`);
+        }
+      }
+    });
+  }
+
+  calculateCustomWaffle();
+}
+
+window.initWaffleCustomizer = initWaffleCustomizer;
 window.ShopManager = ShopManager;
+
+document.addEventListener('DOMContentLoaded', () => {
+  initWaffleCustomizer();
+});

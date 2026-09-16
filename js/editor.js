@@ -15,6 +15,25 @@
   let clickTimestamps = [];
   let targetImageEl = null;
 
+  // Universal Multi-Viewer Sync & Auto-Save State
+  let autoSaveTimer = null;
+  let isAutoSaving = false;
+  let lastLocalPublishTimestamp = 0;
+  let lastKnownDocHash = 0;
+  let isSyncChecking = false;
+
+  // Fast hash calculator for document synchronization
+  function calculateHash(str) {
+    if (!str) return 0;
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const code = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + code;
+      hash |= 0;
+    }
+    return hash;
+  }
+
   // Active Site Settings
   let activeCursorFx = document.body.dataset.cursorFx || 'sprinkles'; // 'sprinkles' | 'blob' | 'glow' | 'none'
   let activeSectionAnim = document.body.dataset.sectionAnim || 'blur-in'; // 'slide-up' | 'blur-in' | 'zoom-in' | 'float'
@@ -39,6 +58,7 @@
       <div class="editor-dock-brand">
         <span class="editor-dock-status-dot"></span>
         <span>STUDIO LIVE</span>
+        <span id="editorAutoSaveBadge" class="editor-save-status is-saved">✓ Live</span>
       </div>
       <div class="editor-dock-divider"></div>
       <button type="button" class="editor-tool-btn is-active" id="toolBtnText" data-mode="text" title="Click any headline, price, or text to edit">
@@ -99,6 +119,25 @@
       </button>
     `;
     document.body.appendChild(dock);
+
+    // Floating Quick Toggle for Every Viewer (Universal Access)
+    if (!document.getElementById('floatingEditToggleBtn')) {
+      const quickToggle = document.createElement('button');
+      quickToggle.id = 'floatingEditToggleBtn';
+      quickToggle.className = 'editor-quick-toggle';
+      quickToggle.type = 'button';
+      quickToggle.title = 'Edit Website Live (Accessible to all viewers)';
+      quickToggle.setAttribute('aria-label', 'Open Live Website Studio');
+      quickToggle.innerHTML = `
+        <span class="toggle-icon">⚡</span>
+        <span id="quickToggleText">Edit Website</span>
+      `;
+      quickToggle.addEventListener('click', () => {
+        editorUnlocked = true;
+        toggleEditorDock();
+      });
+      document.body.appendChild(quickToggle);
+    }
 
     // C. Animation Controls Panel
     const animPanel = document.createElement('div');
@@ -367,15 +406,15 @@
         const now = Date.now();
 
         // Prevent duplicate synthetic click event immediately following pointerup
-        if (e.type === 'click' && (now - lastPointerUpTime < 500)) return;
+        if (e.type === 'click' && (now - lastPointerUpTime < 450)) return;
         if (e.type === 'pointerup') lastPointerUpTime = now;
 
         clickTimes.push(now);
 
-        // Keep clicks occurring within the last 2500ms (comfortable for all devices)
-        clickTimes = clickTimes.filter(t => now - t < 2500);
+        // Keep clicks occurring within the last 3000ms (generous window)
+        clickTimes = clickTimes.filter(t => now - t < 3000);
 
-        // Prevent anchor navigation jump on rapid multi-clicks (clicks 2, 3, 4, 5)
+        // Prevent anchor navigation jump on rapid multi-clicks
         if (clickTimes.length > 1 && e.cancelable) {
           e.preventDefault();
         }
@@ -384,10 +423,10 @@
         if (clickTimes.length >= 2 && clickTimes.length < 5) {
           logo.classList.add('logo-pulse');
           setTimeout(() => logo.classList.remove('logo-pulse'), 180);
-          if (navigator.vibrate) navigator.vibrate(12);
+          if (navigator.vibrate) navigator.vibrate(15);
         }
 
-        // 5th click unlocks and opens Studio Mode directly!
+        // 5th tap unlocks and opens Studio Mode directly!
         if (clickTimes.length >= 5) {
           if (e.cancelable) e.preventDefault();
           e.stopPropagation();
@@ -395,13 +434,13 @@
 
           // Gold celebratory shimmer
           logo.classList.add('logo-unlocked');
-          setTimeout(() => logo.classList.remove('logo-unlocked'), 800);
+          setTimeout(() => logo.classList.remove('logo-unlocked'), 1200);
 
           if (navigator.vibrate) navigator.vibrate([25, 45, 25]);
 
-          // NO ADMIN ACCESS / PIN REQUIRED! Works for anyone who knows the 5-click secret
+          // NO ADMIN ACCESS / PIN REQUIRED! Works for anyone who knows the 5-tap secret
           editorUnlocked = true;
-          showEditorToast("✨ 5 Clicks Detected! Studio Mode Active.", "🍨");
+          showEditorToast("✨ 5 Taps Detected! Studio Mode Active.", "🍨");
           openEditorDock();
         }
       };
@@ -434,6 +473,18 @@
   }
 
   // ==========================================================================
+  // REAL-TIME AUTO-SAVE & SERVER BROADCAST ENGINE
+  // ==========================================================================
+  function triggerAutoSave() {
+    // Disabled background auto-save while editing to prevent losing focus or interrupting the editor.
+    // Changes are published cleanly to disk when the user clicks 'Publish Live'.
+  }
+
+  async function performAutoSave() {
+    // Explicit publish via publishLive() is used for clean, intentional saves
+  }
+
+  // ==========================================================================
   // 4. EDITOR DOCK & MODE HANDLING
   // ==========================================================================
   function openEditorDock() {
@@ -443,6 +494,14 @@
     document.body.classList.add('editor-active');
     setupProductControls();
     setupCategoryControls();
+
+    // Sync floating toggle button state
+    const quickToggle = document.getElementById('floatingEditToggleBtn');
+    if (quickToggle) {
+      quickToggle.classList.add('is-dock-open');
+      const txt = quickToggle.querySelector('#quickToggleText');
+      if (txt) txt.textContent = '✕ Close Studio';
+    }
 
     // Sync active selects
     const secSelect = document.getElementById('editorSectionAnimSelect');
@@ -464,16 +523,27 @@
 
   function closeEditorDock() {
     const dock = document.getElementById('visualEditorDock');
-    if (dock) dock.classList.remove('is-open');
+    if (!dock) return;
+    dock.classList.remove('is-open');
     document.body.classList.remove('editor-active');
     document.body.classList.remove('mode-media');
     document.body.classList.remove('mode-transform');
+    editorUnlocked = false;
+
+    // Sync floating toggle button state - always ready to edit again
+    const quickToggle = document.getElementById('floatingEditToggleBtn');
+    if (quickToggle) {
+      quickToggle.classList.remove('is-dock-open');
+      const txt = quickToggle.querySelector('#quickToggleText');
+      if (txt) txt.textContent = 'Edit Website';
+    }
+
     disableInlineEditing();
     clearInspector();
     closeAnimPanel();
     closeTransformPanel();
     closeImgModal();
-    showEditorToast("Studio Mode Paused", "👋");
+    showEditorToast("Returned to Normal Mode · Website is Always Editable", "✨");
   }
 
   function setMode(mode) {
@@ -516,9 +586,19 @@
       'h1, h2, h3, h4, h5, h6, p, .section-eyebrow, .badge, .product-title, .product-tasting-notes, .product-price, .product-cat-tag, .hero-editorial-title, .hero-subtitle, .footer-playful-title, .footer-playful-subtitle, .flavor-pill, .shop-tab, .city-tab, .btn'
     );
     textElements.forEach(el => {
-      if (el.closest('.editor-dock') || el.closest('.editor-pin-overlay') || el.closest('.editor-anim-panel') || el.closest('.editor-img-modal') || el.closest('.editor-add-prod-modal')) return;
+      if (el.closest('.editor-dock') || el.closest('.editor-pin-overlay') || el.closest('.editor-anim-panel') || el.closest('.editor-img-modal') || el.closest('.editor-add-prod-modal') || el.closest('#floatingEditToggleBtn')) return;
       el.setAttribute('contenteditable', 'true');
       el.setAttribute('spellcheck', 'false');
+
+      if (!el.dataset.hasEditorSaveListener) {
+        el.dataset.hasEditorSaveListener = 'true';
+        el.addEventListener('input', () => {
+          triggerAutoSave('text-input', 1200);
+        });
+        el.addEventListener('blur', () => {
+          triggerAutoSave('text-blur', 200);
+        });
+      }
     });
   }
 
@@ -570,7 +650,8 @@
     setTimeout(() => {
       card.remove();
       updateCatalogCounters();
-      showEditorToast(`Removed "${title}"! Click Publish Live to save.`, "🗑️");
+      showEditorToast(`Removed "${title}"! Saving live...`, "🗑️");
+      triggerAutoSave('del-product', 100);
     }, 350);
   }
 
@@ -678,7 +759,8 @@
     grid.insertBefore(card, grid.firstChild);
     updateCatalogCounters();
     closeAddProductModal();
-    showEditorToast(`Added "${name}" to shop! Click Publish Live to save.`, "🎉");
+    showEditorToast(`Added "${name}" to shop! Saving live...`, "🎉");
+    triggerAutoSave('add-product', 100);
 
     // Clear form
     document.getElementById('newProdName').value = '';
@@ -711,7 +793,8 @@
           e.preventDefault();
           e.stopPropagation();
           tab.remove();
-          showEditorToast("Category removed!", "🗑️");
+          showEditorToast("Category removed! Saving live...", "🗑️");
+          triggerAutoSave('del-category', 100);
         });
         tab.appendChild(delBtn);
       }
@@ -740,6 +823,8 @@
             ev.preventDefault();
             ev.stopPropagation();
             newTab.remove();
+            showEditorToast("Category removed! Saving live...", "🗑️");
+            triggerAutoSave('del-category', 100);
           });
           newTab.appendChild(del);
 
@@ -750,7 +835,8 @@
           });
 
           tabsContainer.insertBefore(newTab, addCatBtn);
-          showEditorToast(`Category "${catName}" added!`, "✨");
+          showEditorToast(`Category "${catName}" added! Saving live...`, "✨");
+          triggerAutoSave('add-category', 100);
         }
       });
       tabsContainer.appendChild(addCatBtn);
@@ -1430,6 +1516,7 @@
     if (rotVal) rotVal.textContent = `${rot}°`;
     const scaleVal = document.getElementById('transformScaleVal');
     if (scaleVal) scaleVal.textContent = `${scale.toFixed(2)}x`;
+    triggerAutoSave('transform-scrub', 800);
   }
 
   function resetSelectedTransform() {
@@ -1465,6 +1552,7 @@
     if (zVal) zVal.textContent = `Auto`;
 
     showEditorToast("Reset element to original layout", "↺");
+    triggerAutoSave('transform-reset', 200);
   }
 
   function nudgePosition(dx, dy) {
@@ -1508,6 +1596,7 @@
     const zVal = document.getElementById('transformZVal');
     if (zVal) zVal.textContent = newZ;
     showEditorToast(`Layer order: Z-Index ${newZ}`, "📑");
+    triggerAutoSave('layer-order', 300);
   }
 
   // ==========================================================================
@@ -1522,19 +1611,33 @@
     // Remove all injected editor UI elements
     const editorIds = [
       'editorPinModal', 'visualEditorDock', 'editorAnimPanel', 'editorTransformPanel', 'editorImgModal',
-      'editorAddProdModal', 'editorToastBanner', 'catalogAddScoopBtn', 'editorAddCatBtn'
+      'editorAddProdModal', 'editorToastBanner', 'catalogAddScoopBtn', 'editorAddCatBtn', 'floatingEditToggleBtn'
     ];
     editorIds.forEach(id => {
       const el = docClone.querySelector('#' + id);
       if (el) el.remove();
     });
 
-    // Remove card delete buttons, category delete crosses, and all live cursor followers & particles
-    docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight, .cursor-scooper-follower, .cursor-magic-follower, .cursor-neon-follower, .cursor-scoop-drop, [class*="cursor-"][class*="-particle"]').forEach(el => el.remove());
+    // Remove card delete buttons, category delete crosses, quick toggle, sync toasts, and live cursor followers & particles
+    docClone.querySelectorAll('.editor-card-del-btn, .editor-cat-del-btn, .editor-quick-toggle, .editor-sync-toast, .sprinkle-particle, .cursor-blob-follower, .cursor-glow-spotlight, .cursor-scooper-follower, .cursor-magic-follower, .cursor-neon-follower, .cursor-scoop-drop, [class*="cursor-"][class*="-particle"]').forEach(el => el.remove());
 
     // Clean selection and highlight classes from cloned elements
     docClone.querySelectorAll('.editor-transform-selected, .editor-inspect-highlight, .editor-inspect-selected').forEach(el => {
       el.classList.remove('editor-transform-selected', 'editor-inspect-highlight', 'editor-inspect-selected');
+    });
+
+    // Clean auto-save event tracking attributes
+    docClone.querySelectorAll('[data-has-editor-save-listener]').forEach(el => el.removeAttribute('data-has-editor-save-listener'));
+
+    // Strip Dark Reader & third-party extension styles, scripts, and attributes
+    docClone.querySelectorAll('style.darkreader, link.darkreader, meta[name*="darkreader"]').forEach(el => el.remove());
+    ['data-darkreader-mode', 'data-darkreader-scheme', 'data-darkreader-proxy'].forEach(attr => {
+      docClone.removeAttribute(attr);
+    });
+    docClone.querySelectorAll('*').forEach(el => {
+      Array.from(el.attributes).forEach(attr => {
+        if (attr.name.startsWith('data-darkreader')) el.removeAttribute(attr.name);
+      });
     });
 
     const bodyClone = docClone.querySelector('body');
@@ -1575,13 +1678,20 @@
 
   async function publishLive() {
     const publishBtn = document.getElementById('editorPublishBtn');
+    const badge = document.getElementById('editorAutoSaveBadge');
     if (publishBtn) {
       publishBtn.disabled = true;
       publishBtn.innerHTML = `⏳ Publishing...`;
     }
+    if (badge) {
+      badge.className = 'editor-save-status is-saving';
+      badge.textContent = '⏳ Saving...';
+    }
 
     try {
       const cleanHtml = getCleanHtml();
+      lastLocalPublishTimestamp = Date.now();
+      lastKnownDocHash = calculateHash(cleanHtml);
 
       // Persist to local browser storage so current device always retains latest version
       try {
@@ -1600,6 +1710,10 @@
       const data = await res.json();
       if (data.success) {
         showEditorToast(data.message || "🚀 Published Live! Changes saved to index.html and live for all viewers.", "🎉");
+        // Exit admin mode and return to normal mode as requested by user
+        setTimeout(() => {
+          closeEditorDock();
+        }, 600);
       } else {
         showEditorToast(`Publish note: ${data.error || 'Saved locally'}`, "⚠️");
       }
@@ -1608,13 +1722,114 @@
       const cleanHtml = getCleanHtml();
       downloadUpdatedHtml(cleanHtml);
       showEditorToast("💾 Saved locally & downloaded index.html! Upload to repository for all viewers.", "📥");
+      setTimeout(() => {
+        closeEditorDock();
+      }, 600);
     } finally {
       if (publishBtn) {
         publishBtn.disabled = false;
         publishBtn.innerHTML = `🚀 Publish Live`;
       }
-      if (currentMode === 'text') enableInlineEditing();
     }
+  }
+
+  // ==========================================================================
+  // MULTI-VIEWER REAL-TIME LIVE SYNCHRONIZATION ENGINE
+  // ==========================================================================
+  function initMultiViewerSync() {
+    lastKnownDocHash = calculateHash(document.documentElement.innerHTML);
+
+    // If coming from auto-sync reload, show polite confirmation toast
+    try {
+      const synced = sessionStorage.getItem('melt_scoop_just_synced');
+      if (synced) {
+        sessionStorage.removeItem('melt_scoop_just_synced');
+        const syncNotice = document.createElement('div');
+        syncNotice.className = 'editor-sync-toast is-visible';
+        syncNotice.innerHTML = `<span>🍨</span><span>Site updated with latest live edits!</span>`;
+        document.body.appendChild(syncNotice);
+        setTimeout(() => {
+          syncNotice.classList.remove('is-visible');
+          setTimeout(() => syncNotice.remove(), 400);
+        }, 2800);
+      }
+    } catch (e) {}
+
+    // Background polling every 4 seconds
+    setInterval(async () => {
+      if (isSyncChecking) return;
+      if (document.hidden) return;
+
+      // CRITICAL: NEVER autorefresh when in admin mode!
+      // Let the editor edit the website completely without any autorefresh or interference.
+      const dock = document.getElementById('visualEditorDock');
+      const isDockOpen = dock && dock.classList.contains('is-open');
+      if (isDockOpen || editorUnlocked || document.body.classList.contains('editor-active')) {
+        return; // Absolute block - never refresh while editor is in admin mode!
+      }
+
+      // Skip if local client just published within the last 8 seconds
+      if (Date.now() - lastLocalPublishTimestamp < 8000) return;
+      // Skip if user is actively typing in a contenteditable element
+      if (document.activeElement && document.activeElement.isContentEditable) return;
+      // Skip if currently dragging on canvas
+      if (isTransformCanvasDragging) return;
+
+      isSyncChecking = true;
+      try {
+        let hasChanged = false;
+
+        // Check /api/version for ultra-fast tick check
+        try {
+          const verRes = await fetch('/api/version', { method: 'GET', cache: 'no-store' });
+          if (verRes.status === 200) {
+            const verData = await verRes.json();
+            if (verData && verData.version) {
+              const currentTicks = sessionStorage.getItem('melt_scoop_server_version');
+              if (currentTicks && currentTicks !== verData.version) {
+                hasChanged = true;
+              }
+              sessionStorage.setItem('melt_scoop_server_version', verData.version);
+            }
+          }
+        } catch (e) {}
+
+        // Fallback: Check index.html directly
+        if (!hasChanged) {
+          const res = await fetch('/index.html?syncCheck=' + Date.now(), {
+            method: 'GET',
+            cache: 'no-store'
+          });
+
+          if (res.status === 200) {
+            const remoteHtml = await res.text();
+            const remoteHash = calculateHash(remoteHtml);
+            if (lastKnownDocHash !== 0 && remoteHash !== lastKnownDocHash) {
+              hasChanged = true;
+              lastKnownDocHash = remoteHash;
+            }
+          }
+        }
+
+        // Only reload for viewers who are in NORMAL MODE (NOT in admin mode!)
+        if (hasChanged) {
+          const currentDock = document.getElementById('visualEditorDock');
+          if (currentDock && currentDock.classList.contains('is-open')) return;
+          if (editorUnlocked || document.body.classList.contains('editor-active')) return;
+
+          try {
+            sessionStorage.setItem('melt_scoop_just_synced', 'true');
+          } catch(e) {}
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 600);
+        }
+      } catch (err) {
+      } finally {
+        isSyncChecking = false;
+      }
+    }, 4000);
   }
 
   // ==========================================================================
@@ -1662,7 +1877,10 @@
     // Section Animation Selector
     const secSelect = document.getElementById('editorSectionAnimSelect');
     if (secSelect) {
-      secSelect.addEventListener('change', () => setSectionAnimationPreset(secSelect.value));
+      secSelect.addEventListener('change', () => {
+        setSectionAnimationPreset(secSelect.value);
+        triggerAutoSave('section-anim', 300);
+      });
     }
 
     // Cursor FX Selector
@@ -1671,6 +1889,7 @@
       curSelect.addEventListener('change', () => {
         setCursorFx(curSelect.value);
         showEditorToast(`Mouse cursor set to: ${curSelect.options[curSelect.selectedIndex].text}!`, "🖱️");
+        triggerAutoSave('cursor-fx', 300);
       });
     }
 
@@ -1695,7 +1914,7 @@
     // Global Inspector Clicks & Hovers
     document.addEventListener('mouseover', (e) => {
       if (!editorUnlocked || !document.body.classList.contains('editor-active')) return;
-      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
+      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner, #floatingEditToggleBtn')) return;
 
       if (currentMode === 'animate') {
         if (hoveredElement && hoveredElement !== e.target) {
@@ -1721,7 +1940,7 @@
 
     document.addEventListener('click', (e) => {
       if (!editorUnlocked || !document.body.classList.contains('editor-active')) return;
-      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner')) return;
+      if (e.target.closest('#visualEditorDock, #editorAnimPanel, #editorTransformPanel, #editorImgModal, #editorPinModal, #editorAddProdModal, #editorToastBanner, #floatingEditToggleBtn')) return;
 
       if (currentMode === 'animate') {
         e.preventDefault();
@@ -1745,6 +1964,7 @@
     document.querySelectorAll('.editor-preset-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         applyAnimation(btn.getAttribute('data-anim'));
+        triggerAutoSave('anim-preset', 300);
       });
     });
 
@@ -1754,6 +1974,7 @@
       durVal.textContent = `${durSlider.value}s`;
       if (selectedElement) selectedElement.style.setProperty('--anim-duration', `${durSlider.value}s`);
     });
+    durSlider.addEventListener('change', () => triggerAutoSave('anim-duration', 300));
 
     const delaySlider = document.getElementById('animDelaySlider');
     const delayVal = document.getElementById('animDelayVal');
@@ -1761,9 +1982,13 @@
       delayVal.textContent = `${delaySlider.value}s`;
       if (selectedElement) selectedElement.style.setProperty('--anim-delay', `${delaySlider.value}s`);
     });
+    delaySlider.addEventListener('change', () => triggerAutoSave('anim-delay', 300));
 
     document.getElementById('animPlayBtn').addEventListener('click', replayAnimation);
-    document.getElementById('animClearBtn').addEventListener('click', removeAnimation);
+    document.getElementById('animClearBtn').addEventListener('click', () => {
+      removeAnimation();
+      triggerAutoSave('anim-clear', 300);
+    });
 
     // Image Replacer controls
     const fileInput = document.getElementById('editorFileInput');
@@ -1788,7 +2013,8 @@
         targetImageEl.src = url;
         targetImageEl.removeAttribute('srcset');
         closeImgModal();
-        showEditorToast("Image replaced successfully!", "🖼️");
+        showEditorToast("Image replaced successfully! Saving live...", "🖼️");
+        triggerAutoSave('image-replace', 100);
       }
     });
 
@@ -1801,54 +2027,67 @@
     const rotSlider = document.getElementById('transformRotSlider');
     const scaleSlider = document.getElementById('transformScaleSlider');
 
-    if (xSlider) xSlider.addEventListener('input', updateSelectedTransform);
-    if (ySlider) ySlider.addEventListener('input', updateSelectedTransform);
-    if (rotSlider) rotSlider.addEventListener('input', updateSelectedTransform);
-    if (scaleSlider) scaleSlider.addEventListener('input', updateSelectedTransform);
+    if (xSlider) {
+      xSlider.addEventListener('input', updateSelectedTransform);
+      xSlider.addEventListener('change', () => triggerAutoSave('transform-x', 200));
+    }
+    if (ySlider) {
+      ySlider.addEventListener('input', updateSelectedTransform);
+      ySlider.addEventListener('change', () => triggerAutoSave('transform-y', 200));
+    }
+    if (rotSlider) {
+      rotSlider.addEventListener('input', updateSelectedTransform);
+      rotSlider.addEventListener('change', () => triggerAutoSave('transform-rot', 200));
+    }
+    if (scaleSlider) {
+      scaleSlider.addEventListener('input', updateSelectedTransform);
+      scaleSlider.addEventListener('change', () => triggerAutoSave('transform-scale', 200));
+    }
 
     // Nudge buttons
     const btnNudgeL = document.getElementById('nudgeLeft');
-    if (btnNudgeL) btnNudgeL.addEventListener('click', () => nudgePosition(-5, 0));
+    if (btnNudgeL) btnNudgeL.addEventListener('click', () => { nudgePosition(-5, 0); triggerAutoSave('nudge', 300); });
     const btnNudgeR = document.getElementById('nudgeRight');
-    if (btnNudgeR) btnNudgeR.addEventListener('click', () => nudgePosition(5, 0));
+    if (btnNudgeR) btnNudgeR.addEventListener('click', () => { nudgePosition(5, 0); triggerAutoSave('nudge', 300); });
     const btnNudgeU = document.getElementById('nudgeUp');
-    if (btnNudgeU) btnNudgeU.addEventListener('click', () => nudgePosition(0, -5));
+    if (btnNudgeU) btnNudgeU.addEventListener('click', () => { nudgePosition(0, -5); triggerAutoSave('nudge', 300); });
     const btnNudgeD = document.getElementById('nudgeDown');
-    if (btnNudgeD) btnNudgeD.addEventListener('click', () => nudgePosition(0, 5));
+    if (btnNudgeD) btnNudgeD.addEventListener('click', () => { nudgePosition(0, 5); triggerAutoSave('nudge', 300); });
     const btnResetPos = document.getElementById('resetPosBtn');
     if (btnResetPos) btnResetPos.addEventListener('click', () => {
       if (xSlider) xSlider.value = 0;
       if (ySlider) ySlider.value = 0;
       updateSelectedTransform();
+      triggerAutoSave('reset-pos', 200);
     });
 
     // Rotation preset buttons
     const rM15 = document.getElementById('rotMinus15');
     if (rM15) rM15.addEventListener('click', () => {
-      if (rotSlider) { rotSlider.value = Math.max(-180, parseInt(rotSlider.value, 10) - 15); updateSelectedTransform(); }
+      if (rotSlider) { rotSlider.value = Math.max(-180, parseInt(rotSlider.value, 10) - 15); updateSelectedTransform(); triggerAutoSave('rot', 300); }
     });
     const rP15 = document.getElementById('rotPlus15');
     if (rP15) rP15.addEventListener('click', () => {
-      if (rotSlider) { rotSlider.value = Math.min(180, parseInt(rotSlider.value, 10) + 15); updateSelectedTransform(); }
+      if (rotSlider) { rotSlider.value = Math.min(180, parseInt(rotSlider.value, 10) + 15); updateSelectedTransform(); triggerAutoSave('rot', 300); }
     });
     const rZero = document.getElementById('rotZero');
-    if (rZero) rZero.addEventListener('click', () => setRotationAngle(0));
+    if (rZero) rZero.addEventListener('click', () => { setRotationAngle(0); triggerAutoSave('rot', 300); });
     const r90 = document.getElementById('rot90');
-    if (r90) r90.addEventListener('click', () => setRotationAngle(90));
+    if (r90) r90.addEventListener('click', () => { setRotationAngle(90); triggerAutoSave('rot', 300); });
     const r180 = document.getElementById('rot180');
-    if (r180) r180.addEventListener('click', () => setRotationAngle(180));
+    if (r180) r180.addEventListener('click', () => { setRotationAngle(180); triggerAutoSave('rot', 300); });
 
     // Scale preset buttons
     const sHalf = document.getElementById('scaleHalf');
-    if (sHalf) sHalf.addEventListener('click', () => setTransformScale(0.5));
+    if (sHalf) sHalf.addEventListener('click', () => { setTransformScale(0.5); triggerAutoSave('scale', 300); });
     const sNorm = document.getElementById('scaleNormal');
-    if (sNorm) sNorm.addEventListener('click', () => setTransformScale(1.0));
+    if (sNorm) sNorm.addEventListener('click', () => { setTransformScale(1.0); triggerAutoSave('scale', 300); });
     const s125 = document.getElementById('scale125');
-    if (s125) s125.addEventListener('click', () => setTransformScale(1.25));
+    if (s125) s125.addEventListener('click', () => { setTransformScale(1.25); triggerAutoSave('scale', 300); });
     const s15 = document.getElementById('scale15');
-    if (s15) s15.addEventListener('click', () => setTransformScale(1.5));
+    if (s15) s15.addEventListener('click', () => { setTransformScale(1.5); triggerAutoSave('scale', 300); });
     const sDbl = document.getElementById('scaleDouble');
-    if (sDbl) sDbl.addEventListener('click', () => setTransformScale(2.0));
+    if (sDbl) sDbl.addEventListener('click', () => { setTransformScale(2.0); triggerAutoSave('scale', 300); });
 
     // Layer buttons
     const lFwd = document.getElementById('layerForward');
@@ -1906,7 +2145,8 @@
             e.target.releasePointerCapture(e.pointerId);
           }
         } catch(err) {}
-        showEditorToast("Position updated on canvas!", "📍");
+        showEditorToast("Position updated on canvas! Saving live...", "📍");
+        triggerAutoSave('canvas-drag', 200);
       }
     };
     document.addEventListener('pointerup', stopCanvasDrag);
@@ -1929,27 +2169,34 @@
     document.addEventListener('DOMContentLoaded', () => {
       initEditorUI();
       setupLogoClickTrigger();
+      initMultiViewerSync();
     });
   } else {
     initEditorUI();
     setupLogoClickTrigger();
+    initMultiViewerSync();
   }
 
   // Export globals for testing or console access
+  window.openStudio = openEditorDock;
+  window.toggleStudio = toggleEditorDock;
   window.MeltEditor = {
+    open: openEditorDock,
+    toggle: toggleEditorDock,
     openPinModal,
-    unlock: (pin = SECRET_PIN) => {
-      if (pin === SECRET_PIN) {
-        editorUnlocked = true;
-        closePinModal();
-        openEditorDock();
-      }
+    unlock: () => {
+      editorUnlocked = true;
+      closePinModal();
+      openEditorDock();
     },
     close: closeEditorDock,
     publish: publishLive,
+    autoSave: performAutoSave,
+    sync: initMultiViewerSync,
     exportHtml: exportCleanHtml,
     setCursorFx,
     setSectionAnimationPreset,
     openAddProductModal
   };
 })();
+

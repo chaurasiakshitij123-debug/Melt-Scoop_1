@@ -290,4 +290,90 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     revealElements.forEach(el => el.classList.add('is-revealed'));
   }
+
+  // 8. Store Image Gallery Filter Tabs & Lightbox
+  const galleryFilterBtns = document.querySelectorAll('[data-gallery-filter]');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightboxModal = document.getElementById('galleryLightboxModal');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxDesc = document.getElementById('lightboxDesc');
+  const closeLightboxBtn = document.getElementById('closeGalleryLightboxBtn');
+
+  galleryFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-gallery-filter');
+      galleryFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      galleryItems.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          item.style.display = 'block';
+          item.style.opacity = '1';
+          item.style.transform = 'scale(1)';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  window.openGalleryLightbox = function(imgSrc, title, desc) {
+    if (!lightboxModal) return;
+    if (lightboxImg) lightboxImg.src = imgSrc;
+    if (lightboxTitle) lightboxTitle.textContent = title;
+    if (lightboxDesc) lightboxDesc.textContent = desc;
+    lightboxModal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeGalleryLightbox = function() {
+    if (!lightboxModal) return;
+    lightboxModal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+
+  if (closeLightboxBtn) {
+    closeLightboxBtn.addEventListener('click', window.closeGalleryLightbox);
+  }
+
+  if (lightboxModal) {
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) {
+        window.closeGalleryLightbox();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeGalleryLightbox();
+    }
+  });
+
+  // 9. Active Navigation Link Scrollspy
+  const sectionsToSpy = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.header-nav-link');
+  window.addEventListener('scroll', () => {
+    let currentId = '';
+    const scrollPosition = window.scrollY + 120;
+    sectionsToSpy.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollPosition >= top && scrollPosition < top + height) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    if (currentId) {
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${currentId}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  }, { passive: true });
 });

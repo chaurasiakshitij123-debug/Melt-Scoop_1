@@ -47,6 +47,23 @@ try {
 
             $rawPath = $request.Url.LocalPath.ToLower()
 
+            # API: /api/version (Lightweight version check for multi-viewer real-time sync)
+            if ($request.HttpMethod -eq "GET" -and $rawPath -eq "/api/version") {
+                $indexPath = Join-Path $PSScriptRoot "index.html"
+                $ticks = "0"
+                if (Test-Path $indexPath) {
+                    $ticks = (Get-Item $indexPath).LastWriteTimeUtc.Ticks.ToString()
+                }
+                $resObj = @{ version = $ticks; timestamp = (Get-Date).ToString("o") }
+                $resBytes = [System.Text.Encoding]::UTF8.GetBytes(($resObj | ConvertTo-Json))
+                $response.StatusCode = 200
+                $response.ContentType = "application/json; charset=utf-8"
+                $response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+                $response.OutputStream.Write($resBytes, 0, $resBytes.Length)
+                $response.Close()
+                continue
+            }
+
             # API: /api/publish
             if ($request.HttpMethod -eq "POST" -and $rawPath -eq "/api/publish") {
                 $reader = New-Object System.IO.StreamReader($request.InputStream, [System.Text.Encoding]::UTF8)
@@ -106,14 +123,7 @@ try {
                 $bodyStr = $reader.ReadToEnd()
                 $json = $bodyStr | ConvertFrom-Json
 
-                if ($json.pin -ne $SECRET_PIN) {
-                    $response.StatusCode = 403
-                    $errBytes = [System.Text.Encoding]::UTF8.GetBytes('{"error":"Invalid PIN"}')
-                    $response.ContentType = "application/json; charset=utf-8"
-                    $response.OutputStream.Write($errBytes, 0, $errBytes.Length)
-                    $response.Close()
-                    continue
-                }
+                # Admin PIN check removed - passwordless live visual studio
 
                 if (![string]::IsNullOrEmpty($json.data)) {
                     $rawImgData = [string]$json.data

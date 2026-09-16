@@ -1,21 +1,353 @@
-<!DOCTYPE html>
-<html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en" data-darkreader-mode="dynamic" data-darkreader-scheme="dark"><head><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--user-agent" media="screen">@layer {
+html {
+    background-color: var(--darkreader-background-ffffff, #181a1b) !important;
+}
+html {
+    color-scheme: dark !important;
+}
+iframe {
+    color-scheme: dark !important;
+}
+html, body {
+    background-color: var(--darkreader-background-ffffff, #181a1b);
+}
+html, body {
+    border-color: var(--darkreader-border-4c4c4c, #736b5e);
+    color: var(--darkreader-text-000000, #e8e6e3);
+}
+a {
+    color: var(--darkreader-text-0040ff, #3391ff);
+}
+table {
+    border-color: var(--darkreader-border-808080, #545b5e);
+}
+mark {
+    color: var(--darkreader-text-000000, #e8e6e3);
+}
+::placeholder {
+    color: var(--darkreader-text-a9a9a9, #b2aba1);
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: var(--darkreader-background-faffbd, #404400) !important;
+    color: var(--darkreader-text-000000, #e8e6e3) !important;
+}
+::selection {
+    background-color: var(--darkreader-background-0060d4, #004daa) !important;
+    color: var(--darkreader-text-ffffff, #e8e6e3) !important;
+}
+::-moz-selection {
+    background-color: var(--darkreader-background-0060d4, #004daa) !important;
+    color: var(--darkreader-text-ffffff, #e8e6e3) !important;
+}
+}</style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">c-wiz div > svg > circle, .jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, img.Wirisformula, a[data-testid="headerMediumLogo"]>svg, .d2l-navigation-link-image-container, .d2l-iframe-loading-container, div.mc-ip-hide[style*="background: rgb(255, 255, 255) !important"], [style*="color: rgb(0, 0, 1) !important;"] {
+    filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}
+[data-darkreader-inline-stopcolor] {
+  stop-color: var(--darkreader-inline-stopcolor) !important;
+}
+[data-darkreader-inline-bg] {
+  background: var(--darkreader-inline-bg) !important;
+}
+[data-darkreader-inline-border-short] {
+  border: var(--darkreader-inline-border-short) !important;
+}
+[data-darkreader-inline-border-bottom-short] {
+  border-bottom: var(--darkreader-inline-border-bottom-short) !important;
+}
+[data-darkreader-inline-border-left-short] {
+  border-left: var(--darkreader-inline-border-left-short) !important;
+}
+[data-darkreader-inline-border-right-short] {
+  border-right: var(--darkreader-inline-border-right-short) !important;
+}
+[data-darkreader-inline-border-top-short] {
+  border-top: var(--darkreader-inline-border-top-short) !important;
+}
+[data-darkreader-inline-invert] {
+    filter: invert(100%) hue-rotate(180deg);
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: var(--darkreader-background-ffffff, #181a1b);
+   --darkreader-neutral-text: var(--darkreader-text-000000, #e8e6e3);
+   --darkreader-selection-background: var(--darkreader-background-0060d4, #004daa);
+   --darkreader-selection-text: var(--darkreader-text-ffffff, #e8e6e3);
+}</style><style class="darkreader darkreader--root-vars" media="screen"></style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MELT &amp; SCOOP™ — Luxury Artisanal Creamery, Waffle House &amp; Live Studio</title>
   <meta name="description" content="Luxury artisanal creamery and fresh waffle house. Handcrafted slow-churned grass-fed ice cream, authentic Belgian pearl-sugar waffles, parlor discovery, and secret Live Visual Studio CMS.">
   <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🍦&lt;/text&gt;&lt;/svg&gt;">
-  <link rel="stylesheet" href="css/main.css?v=m1">
-  <link rel="stylesheet" href="css/components.css?v=m1">
-  <link rel="stylesheet" href="css/animations.css?v=m1">
-  <link rel="stylesheet" href="css/editor.css?v=adminfix1">
-</head>
+  <link rel="stylesheet" href="css/main.css?v=m1"><style class="darkreader darkreader--sync" media="screen"></style>
+  <link rel="stylesheet" href="css/components.css?v=m1"><style class="darkreader darkreader--sync" media="screen"></style>
+  <link rel="stylesheet" href="css/animations.css?v=m1"><style class="darkreader darkreader--sync" media="screen"></style>
+  <link rel="stylesheet" href="css/editor.css?v=dockfix"><style class="darkreader darkreader--sync" media="screen"></style>
+<meta name="darkreader" content="368f05e463604fab9515f348fb7ca950"><style class="darkreader darkreader--override" media="screen">c-wiz div {
+    --action-items-action-item-background-color: var(--darkreader-neutral-background) !important;
+}
+.jfk-bubble.gtx-bubble {
+    background-color: white !important;
+}
+.vimvixen-hint {
+    background-color: var(--darkreader-background-ffd76e, #684b00) !important;
+    border-color: var(--darkreader-background-c59d00, #9e7e00) !important;
+    color: var(--darkreader-text-302505, #d7d4cf) !important;
+}
+#vimvixen-console-frame {
+    color-scheme: light !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+#edge-translate-panel-body,
+.MuiTypography-body1,
+.nfe-quote-text {
+    color: var(--darkreader-neutral-text) !important;
+}
+gr-main-header {
+    background-color: var(--darkreader-background-add8e6, #1b4958) !important;
+}
+.tou-z65h9k,
+.tou-mignzq,
+.tou-1b6i2ox,
+.tou-lnqlqk {
+    background-color: var(--darkreader-neutral-background) !important;
+}
+.tou-75mvi {
+    background-color: var(--darkreader-background-cfecf5, #0f3a47) !important;
+}
+.tou-ta9e87,
+.tou-1w3fhi0,
+.tou-1b8t2us,
+.tou-py7lfi,
+.tou-1lpmd9d,
+.tou-1frrtv8,
+.tou-17ezmgn {
+    background-color: var(--darkreader-background-f5f5f5, #1e2021) !important;
+}
+.tou-uknfeu {
+    background-color: var(--darkreader-background-faedda, #432c09) !important;
+}
+.tou-6i3zyv {
+    background-color: var(--darkreader-background-85c3d8, #245d70) !important;
+}
+div.mermaid-viewer-control-panel .btn {
+    background-color: var(--darkreader-neutral-background);
+    fill: var(--darkreader-neutral-text);
+}
+svg g rect.er {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.entityBox {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.attributeBoxOdd {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.er.attributeBoxEven {
+    fill: var(--darkreader-selection-background);
+    fill-opacity: 0.8 !important;
+}
+svg rect.er.relationshipLabelBox {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g g.nodes rect,
+svg g g.nodes polygon {
+    fill: var(--darkreader-neutral-background) !important;
+}
+svg g rect.task {
+    fill: var(--darkreader-selection-background) !important;
+}
+svg line.messageLine0,
+svg line.messageLine1 {
+    stroke: var(--darkreader-neutral-text) !important;
+}
+div.mermaid .actor {
+    fill: var(--darkreader-neutral-background) !important;
+}
+mitid-authenticators-code-app > .code-app-container {
+    background-color: white !important;
+    padding-top: 1rem;
+}
+iframe#unpaywall[src$="unpaywall.html"] {
+    color-scheme: light !important;
+}
+select {
+    --darkreader-bg--form-control-background-color: rgba(22, 22, 22, 0) !important;
+}
+body#tumblr {
+    --darkreader-bg--secondary-accent: 31, 32, 34 !important;
+    --darkreader-bg--white: 23, 23, 23 !important;
+    --darkreader-text--black: 228, 224, 218 !important;
+}
+:host {
+    --d2l-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+    --d2l-button-icon-background-color-hover: var(--darkreader-bg--d2l-color-gypsum) !important;
+    --d2l-color-ferrite: var(--darkreader-neutral-text) !important;
+    --d2l-color-sylvite: var(--darkreader-bg--d2l-color-sylvite) !important;
+    --d2l-dropdown-background-color: var(--darkreader-neutral-background) !important;
+    --d2l-dropdown-border-color: var(--darkreader-border--d2l-color-mica) !important;
+    --d2l-input-backgroud-color: var(--darkreader-neutral-background) !important;
+    --d2l-menu-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+    --d2l-tooltip-background-color: var(--darkreader-neutral-background) !important;
+    --d2l-tooltip-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+}
+:host([_floating]) .d2l-floating-buttons-container {
+    background-color: var(--darkreader-neutral-background) !important;
+    border-top-color: var(--darkreader-border--d2l-color-mica) !important;
+    opacity: 0.88 !important;
+}
+d2l-card {
+    background: var(--darkreader-neutral-background) !important;
+    border-color: var(--darkreader-border--d2l-color-gypsum) !important;
+}
+d2l-dropdown-content > div,
+d2l-menu-item {
+    background-color: var(--darkreader-neutral-background) !important;
+    border-radius: 10px !important;
+}
+d2l-empty-state-simple {
+    border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+}
+.d2l-button-filter > ul > li > a.vui-button {
+    border-color: var(--darkreader-border--d2l-color-mica) !important;
+}
+.d2l-label-text:has(.d2l-button-subtle-content):hover,
+.d2l-label-text:has(.d2l-button-subtle-content):focus,
+.d2l-label-text:has(.d2l-button-subtle-content):active {
+    background-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+}
+.d2l-navigation-centerer {
+    color: inherit !important;
+}
+.d2l-tabs-layout {
+    border-color: var(--darkreader-border--d2l-color-gypsum) !important;
+}
+.d2l-input,
+.d2l-calendar-date,
+.d2l-htmleditor-container {
+    background-color: var(--darkreader-neutral-background) !important;
+}
+.d2l-collapsible-panel {
+    border: 1px solid var(--darkreader-border--d2l-color-mica) !important;
+    border-radius: 0.4rem !important;
+}
+.d2l-collapsible-panel-divider {
+    border-bottom: 1px solid var(--darkreader-border--d2l-color-mica) !important;
+}
+.d2l-w2d-flex {
+    border-bottom: 2px solid var(--darkreader-border--d2l-color-mica) !important;
+}
+.d2l-collapsible-panel scrolled,
+.d2l-collapsible-panel-header,
+.d2l-w2d-collection-fixed {
+    background-color: var(--darkreader-neutral-background) !important;
+}
+.d2l-loading-spinner-bg {
+    fill: var(--darkreader-bg--d2l-color-gypsum) !important;
+}
+.d2l-loading-spinner-bg-stroke {
+    stroke: var(--darkreader-border--d2l-color-mica) !important;
+}
+.d2l-loading-spinner-wrapper svg path,
+.d2l-loading-spinner-wrapper svg circle {
+    fill: var(--darkreader-neutral-background) !important;
+}
+.d2l-twopanelselector-side.d2l-twopanelselector-side-sep {
+    background: var(--darkreader-bg--d2l-color-mica) !important;
+}
+.d2l-le-TreeAccordionItem-anchor::before {
+    background: var(--darkreader-bg--d2l-color-corundum) !important;
+}
+table[class|="moz-header"] {
+    background: none;
+}
+*[style*="color: rgba(0,0,0,"]:not([style*="color: rgba(0,0,0,0)"]),
+*[style*="color: rgba(0, 0, 0,"]:not([style*="color: rgba(0, 0, 0, 0)"]),
+*[style*="color:#000"]:not(.cell-input > span),
+*[style*="color:black"]:not(.cell-input > span),
+*[style*="color:#282828"]:not(.cell-input > span),
+*[style*="color:#444"]:not(.cell-input > span),
+*[style*="color: #222222"]:not(.cell-input > span) {
+    color: var(--darkreader-neutral-text) !important;
+}
+*[style*="background:#fff"],
+*[style*="background-color:#fff"],
+*[style*="background: #fff"],
+*[style*="background: rgb(255, 255, 255)"] {
+    background: var(--darkreader-neutral-background) !important;
+}
+*[bgcolor="#F5F5F5"],
+*[style*="background-color: #F5F5F5"] {
+    background: var(--darkreader-background-f5f5f5, #1e2021) !important;
+}
+*[style*="background: #e6e6e6"] {
+    background: var(--darkreader-background-e6e6e6, #26292b) !important;
+}
+body[style*="background: rgb(255, 255, 255) !important"] *:not(a),
+.body[style*="background-color: rgb(254, 254, 254) !important"] *:not(a) {
+    background-color: var(--darkreader-neutral-background) !important;
+}
+div[style*="www.gstatic.com/android/"] {
+    background: none !important;
+}
+*[style*="background:#f9f9f9"] {
+    background: var(--darkreader-background-f9f9f9, #1b1e1f) !important;
+}
+body.mediawiki.skin-vector #mw-page-base {
+    background-image: none !important;
+}
+.overflow-hidden .spinning-bg,
+.overflow-hidden .solid-bg {
+    background: transparent !important;
+}
+*[style*="color: rgb(0,0,0) !imoprtant"][style*="--darkreader-inline-color"],
+*[style*="color: rgb(0, 0, 0) !important"][style*="--darkreader-inline-color"] {
+    -webkit-text-fill-color: var(--darkreader-inline-color) !important;
+}
+embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }</style></head>
 <body class="" style="" data-cursor-fx="sprinkles" data-section-anim="slide-up">
 
   <!-- ========================================================================
        01 — HEADER / NAVIGATION
        ======================================================================== -->
-  <header class="site-header is-compact" id="siteHeader">
+  <header class="site-header" id="siteHeader">
     <div class="header-container">
       <!-- Left: Geometric Modern Brand Logo -->
       <a href="#heroSection" class="header-left-logo" aria-label="MELT &amp; SCOOP Home" style="touch-action: manipulation; user-select: none; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s, color 0.3s; transform: translateY(0px); cursor: pointer;">
@@ -42,12 +374,12 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="header-social-circle" aria-label="Instagram">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke=""><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
           </a>
         </div>
 
         <button class="header-search-btn" id="headerSearchBtn" title="Search Scoops" aria-label="Search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke=""><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
 
         <button class="header-cart-pill open-cart-btn cart-btn" id="headerCartBtn" aria-label="Shopping Cart">
@@ -127,17 +459,17 @@
   <!-- ========================================================================
        02 — HERO — IMMERSIVE STRAWBERRY ICE CREAM EXPERIENCE
        ======================================================================== -->
-  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(250, 243, 240);">
+  <section class="hero-section sec-animate-ready sec-animated anim-sec-slide-up" id="heroSection" style="background-color: rgb(250, 243, 240); --darkreader-inline-bgcolor: var(--darkreader-background-faf3f0, #2f1910);" data-darkreader-inline-bgcolor="">
     <!-- Smooth Crossfading Background Layers -->
-    <div class="hero-bg-layer is-active" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
-    <div class="hero-bg-layer" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%);"></div>
+    <div class="hero-bg-layer is-active" id="heroBgLayer1" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%); --darkreader-inline-bgcolor: var(--darkreader-background-00000000, rgba(0, 0, 0, 0)); --darkreader-inline-bgimage: radial-gradient(circle at 50% 45%, var(--darkreader-background-faf3f0, #2f1910) 0%, var(--darkreader-background-fff9f2, #3b2000) 75%);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage=""></div>
+    <div class="hero-bg-layer" id="heroBgLayer2" style="background: radial-gradient(circle at 50% 45%, rgb(250, 243, 240) 0%, rgb(255, 249, 242) 75%); --darkreader-inline-bgcolor: var(--darkreader-background-00000000, rgba(0, 0, 0, 0)); --darkreader-inline-bgimage: radial-gradient(circle at 50% 45%, var(--darkreader-background-faf3f0, #2f1910) 0%, var(--darkreader-background-fff9f2, #3b2000) 75%);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage=""></div>
 
     <!-- Sprinkles Interactive Canvas -->
-    <canvas id="sprinklesCanvas" width="3420" height="1305"></canvas>
+    <canvas id="sprinklesCanvas" width="3424" height="1376"></canvas>
 
     <!-- Dynamic Radial Ambient Glow (Smooth Crossfade Layers) -->
-    <div class="hero-ambient-glow is-active" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
-    <div class="hero-ambient-glow" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%);"></div>
+    <div class="hero-ambient-glow is-active" id="heroAmbientGlow1" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%); --darkreader-inline-bgcolor: var(--darkreader-background-00000000, rgba(0, 0, 0, 0)); --darkreader-inline-bgimage: radial-gradient(circle, var(--darkreader-background-48271f42, rgba(58, 31, 25, 0.26)) 0%, var(--darkreader-background-fff0f400, rgba(60, 0, 16, 0)) 70%);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage=""></div>
+    <div class="hero-ambient-glow" id="heroAmbientGlow2" style="background: radial-gradient(circle, rgba(72, 39, 31, 0.26) 0%, rgba(255, 240, 244, 0) 70%); --darkreader-inline-bgcolor: var(--darkreader-background-00000000, rgba(0, 0, 0, 0)); --darkreader-inline-bgimage: radial-gradient(circle, var(--darkreader-background-48271f42, rgba(58, 31, 25, 0.26)) 0%, var(--darkreader-background-fff0f400, rgba(60, 0, 16, 0)) 70%);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage=""></div>
 
     <div class="container hero-container" style="">
       <!-- Tier 1: Purple Container (Badge, Editorial Heading & Subtitle) -->
@@ -148,7 +480,7 @@
         <h1 class="hero-editorial-title">
           <span class="title-word">SCOOPS</span>
           <span class="title-word">OF</span>
-          <span class="title-word title-highlight">HAPPINESS.</span>
+          <span class="title-word title-highlight">HAPPI.</span>
         </h1>
         <p class="hero-subtitle">
           Creamy, dreamy ice cream made for your happiest cravings. Handcrafted daily in micro-batches with pure grass-fed dairy and uncompromised ingredients.
@@ -180,7 +512,7 @@
         <div class="hero-center-stage">
           <!-- Left Arrow Button to Change Flavor -->
           <button class="hero-arrow-btn hero-arrow-prev" id="heroPrevFlavorBtn" aria-label="Previous Flavor" title="Previous Flavor (←)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
               <path d="M15 18l-6-6 6-6"></path>
             </svg>
           </button>
@@ -188,14 +520,14 @@
           <!-- Central Zoomed-In Isolated Ice Cream Cone -->
           <div class="hero-stage">
             <div class="hero-halo-ring" id="heroHaloRing"></div>
-            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.71deg) rotateY(5.2deg);">
-              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-left" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.8px 35px); --anim-duration: 0.8s; --anim-delay: 0s; position: relative; transform: translate(0px, 0px) rotate(0deg) scale(2.05); transform-origin: center center;" data-transform-x="0" data-transform-y="0" data-transform-rot="0" data-transform-scale="2.05">
+            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.59deg) rotateY(4.73deg);">
+              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-left" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 25px 35px); --anim-duration: 0.8s; --anim-delay: 0s; position: relative; transform: translate(0px) rotate(0deg) scale(2.05); transform-origin: center center 0px;" data-transform-x="0" data-transform-y="0" data-transform-rot="0" data-transform-scale="2.05">
             </div>
           </div>
 
           <!-- Right Arrow Button to Change Flavor -->
           <button class="hero-arrow-btn hero-arrow-next" id="heroNextFlavorBtn" aria-label="Next Flavor" title="Next Flavor (→)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
               <path d="M9 18l6-6-6-6"></path>
             </svg>
           </button>
@@ -269,7 +601,7 @@
       </div>
 
       <div class="products-grid" id="bestsellersGrid">
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-truffle">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-truffle">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-truffle', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -306,7 +638,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-van-tahitian">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-van-tahitian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-tahitian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -343,7 +675,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-pist-sicilian">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-pist-sicilian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-sicilian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -380,7 +712,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-4" id="card-prod-straw-bliss">
+        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-straw-bliss">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-bliss', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -417,7 +749,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-caramel">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-caramel">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-caramel', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -454,7 +786,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-mango-velvet">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-mango-velvet">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-velvet', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -491,7 +823,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-straw-cheesecake">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-straw-cheesecake">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-cheesecake', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -538,10 +870,10 @@
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed" style="text-align: center; max-width: 760px; margin: 0 auto 20px;">
         <span class="badge badge-pink" style="margin-bottom: 12px; display: inline-block;">✨ 100% ARTISANAL WAFFLE HOUSE</span>
-        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px;">
+        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px; --darkreader-inline-color: var(--darkreader-text--brand-brown, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           GOLDEN, CRISP &amp; WARM FROM THE IRON.
         </h2>
-        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6;">
+        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           Yeasted brioche dough infused with Belgian pearl sugar that caramelizes to a glassy crunch on 220°C seasoned cast iron — paired hot with slow-churned gelato scoops.
         </p>
       </div>
@@ -722,10 +1054,10 @@
         <div class="waffle-customizer-grid">
           <div class="waffle-builder-steps">
             <div class="badge badge-pink" style="align-self: flex-start;">🎨 LIVE PAIRING BAR</div>
-            <h3 style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--brand-brown); margin: 0;">
+            <h3 style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--brand-brown); margin: 0px; --darkreader-inline-color: var(--darkreader-text--brand-brown, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
               CREATE YOUR CUSTOM WAFFLE PAIRING
             </h3>
-            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 8px;">
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 8px; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
               Pick your warm waffle base, pair it with any small-batch churned gelato scoop, and crown it with your favorite artisanal sauce.
             </p>
 
@@ -734,7 +1066,7 @@
               <div class="waffle-step-title"><span>1. Choose Warm Waffle Base</span></div>
               <div class="waffle-choice-pills">
                 <label>
-                  <input type="radio" name="waffleBase" value="liege" data-name="Belgian Liège" data-price="249" checked>
+                  <input type="radio" name="waffleBase" value="liege" data-name="Belgian Liège" data-price="249" checked="">
                   <span class="waffle-pill-btn">🧇 Belgian Liège (Caramelized Pearl Sugar) · ₹249</span>
                 </label>
                 <label>
@@ -753,7 +1085,7 @@
               <div class="waffle-step-title"><span>2. Choose Gelato Scoop Pairing</span></div>
               <div class="waffle-choice-pills">
                 <label>
-                  <input type="radio" name="waffleScoop" value="vanilla" data-name="Tahitian Vanilla" data-extra="0" checked>
+                  <input type="radio" name="waffleScoop" value="vanilla" data-name="Tahitian Vanilla" data-extra="0" checked="">
                   <span class="waffle-pill-btn">🍨 Tahitian Vanilla (+₹0)</span>
                 </label>
                 <label>
@@ -780,7 +1112,7 @@
               <div class="waffle-step-title"><span>3. Choose Luxury Drizzle</span></div>
               <div class="waffle-choice-pills">
                 <label>
-                  <input type="radio" name="waffleDrizzle" value="fudge" data-name="Molten Valrhona Fudge" data-extra="0" checked>
+                  <input type="radio" name="waffleDrizzle" value="fudge" data-name="Molten Valrhona Fudge" data-extra="0" checked="">
                   <span class="waffle-pill-btn">🍫 Molten Fudge (+₹0)</span>
                 </label>
                 <label>
@@ -805,13 +1137,11 @@
               <img src="assets/images/waffle-liege.jpg" alt="Custom Waffle Creation" id="waffleCustomImg">
             </div>
             <div class="waffle-preview-price" id="waffleCustomPrice">₹249</div>
-            <div class="waffle-preview-summary" id="waffleCustomSummary">
-              Belgian Liège Waffle + Tahitian Vanilla Scoop + Molten Valrhona Fudge
-            </div>
+            <div class="waffle-preview-summary" id="waffleCustomSummary">Belgian Liège Waffle + Tahitian Vanilla Scoop + Molten Valrhona Fudge</div>
             <button class="btn btn-primary" id="addCustomWaffleBtn" style="width: 100%; padding: 16px; font-size: 0.95rem;">
               ADD CUSTOM WAFFLE TO CART 🧇
             </button>
-            <span style="font-size: 0.76rem; color: var(--text-muted); margin-top: 10px;">
+            <span style="font-size: 0.76rem; color: var(--text-muted); margin-top: 10px; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
               🔥 Baked hot &amp; delivered in sub-zero thermally insulated boxes
             </span>
           </div>
@@ -987,8 +1317,8 @@
         <div class="flavor-palette-grid" id="flavorPaletteGrid">
         <div class="flavor-pick-card " id="flavor-card-box-straw">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#FF5E7E15">🍓</span>
-            <span class="flavor-pick-badge" style="background:#FF5E7E20; color:#FF5E7E">Bestseller</span>
+            <span class="flavor-pick-emoji" style="background: rgba(255, 94, 126, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-ff5e7e15, rgba(148, 0, 29, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍓</span>
+            <span class="flavor-pick-badge" style="background: rgba(255, 94, 126, 0.125); color: rgb(255, 94, 126); --darkreader-inline-bgcolor: var(--darkreader-background-ff5e7e20, rgba(148, 0, 29, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-ff5e7e, #ff5b7c);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Bestseller</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Strawberry Bliss</h4>
@@ -1006,8 +1336,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-choc">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#48271F15">🍫</span>
-            <span class="flavor-pick-badge" style="background:#48271F20; color:#48271F">Must Try</span>
+            <span class="flavor-pick-emoji" style="background: rgba(72, 39, 31, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-48271f15, rgba(58, 31, 25, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍫</span>
+            <span class="flavor-pick-badge" style="background: rgba(72, 39, 31, 0.125); color: rgb(72, 39, 31); --darkreader-inline-bgcolor: var(--darkreader-background-48271f20, rgba(58, 31, 25, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-48271f, #dab3a9);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Must Try</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Belgian Dark Truffle</h4>
@@ -1025,8 +1355,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-van">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#E5A82315">🍦</span>
-            <span class="flavor-pick-badge" style="background:#E5A82320; color:#B45309">Classic</span>
+            <span class="flavor-pick-emoji" style="background: rgba(229, 168, 35, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-e5a82315, rgba(133, 96, 16, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍦</span>
+            <span class="flavor-pick-badge" style="background: rgba(229, 168, 35, 0.125); color: rgb(180, 83, 9); --darkreader-inline-bgcolor: var(--darkreader-background-e5a82320, rgba(133, 96, 16, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-b45309, #f69850);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Classic</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Madagascar Vanilla Bean</h4>
@@ -1044,8 +1374,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-pist">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#6E9E5315">🌰</span>
-            <span class="flavor-pick-badge" style="background:#6E9E5320; color:#6E9E53">Chef's Pick</span>
+            <span class="flavor-pick-emoji" style="background: rgba(110, 158, 83, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-6e9e5315, rgba(88, 126, 66, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🌰</span>
+            <span class="flavor-pick-badge" style="background: rgba(110, 158, 83, 0.125); color: rgb(110, 158, 83); --darkreader-inline-bgcolor: var(--darkreader-background-6e9e5320, rgba(88, 126, 66, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-6e9e53, #88b36f);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Chef's Pick</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Sicilian Pistachio Cream</h4>
@@ -1063,8 +1393,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-mang">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#F59E0B15">🥭</span>
-            <span class="flavor-pick-badge" style="background:#F59E0B20; color:#F59E0B">Seasonal</span>
+            <span class="flavor-pick-emoji" style="background: rgba(245, 158, 11, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-f59e0b15, rgba(195, 126, 8, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🥭</span>
+            <span class="flavor-pick-badge" style="background: rgba(245, 158, 11, 0.125); color: rgb(245, 158, 11); --darkreader-inline-bgcolor: var(--darkreader-background-f59e0b20, rgba(195, 126, 8, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-f59e0b, #f6a823);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Seasonal</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Alphonso Golden Mango</h4>
@@ -1082,8 +1412,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-coff">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#764A3815">☕</span>
-            <span class="flavor-pick-badge" style="background:#764A3820; color:#764A38">Rich</span>
+            <span class="flavor-pick-emoji" style="background: rgba(118, 74, 56, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-764a3815, rgba(94, 59, 45, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">☕</span>
+            <span class="flavor-pick-badge" style="background: rgba(118, 74, 56, 0.125); color: rgb(118, 74, 56); --darkreader-inline-bgcolor: var(--darkreader-background-764a3820, rgba(94, 59, 45, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-764a38, #c79c8a);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Rich</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Hazelnut Espresso Mocha</h4>
@@ -1101,8 +1431,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-cherry">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#B91C1C15">🍒</span>
-            <span class="flavor-pick-badge" style="background:#B91C1C20; color:#B91C1C">Artisanal</span>
+            <span class="flavor-pick-emoji" style="background: rgba(185, 28, 28, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-b91c1c15, rgba(148, 22, 22, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍒</span>
+            <span class="flavor-pick-badge" style="background: rgba(185, 28, 28, 0.125); color: rgb(185, 28, 28); --darkreader-inline-bgcolor: var(--darkreader-background-b91c1c20, rgba(148, 22, 22, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-b91c1c, #e55151);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Artisanal</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Wild Amarena Cherry</h4>
@@ -1120,8 +1450,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-caramel">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#D9770615">🍮</span>
-            <span class="flavor-pick-badge" style="background:#D9770620; color:#D97706">Popular</span>
+            <span class="flavor-pick-emoji" style="background: rgba(217, 119, 6, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-d9770615, rgba(174, 95, 5, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍮</span>
+            <span class="flavor-pick-badge" style="background: rgba(217, 119, 6, 0.125); color: rgb(217, 119, 6); --darkreader-inline-bgcolor: var(--darkreader-background-d9770620, rgba(174, 95, 5, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-d97706, #f99e35);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Popular</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Salted Butter Caramel</h4>
@@ -1139,8 +1469,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-cookies">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#47556915">🍪</span>
-            <span class="flavor-pick-badge" style="background:#47556920; color:#475569">Fan Fav</span>
+            <span class="flavor-pick-emoji" style="background: rgba(71, 85, 105, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-47556915, rgba(57, 68, 84, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍪</span>
+            <span class="flavor-pick-badge" style="background: rgba(71, 85, 105, 0.125); color: rgb(71, 85, 105); --darkreader-inline-bgcolor: var(--darkreader-background-47556920, rgba(57, 68, 84, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-475569, #b0aa9f);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Fan Fav</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Cookies &amp; Sweet Cream</h4>
@@ -1158,8 +1488,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-berry">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#6366F115">🫐</span>
-            <span class="flavor-pick-badge" style="background:#6366F120; color:#6366F1">Floral</span>
+            <span class="flavor-pick-emoji" style="background: rgba(99, 102, 241, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-6366f115, rgba(13, 15, 140, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🫐</span>
+            <span class="flavor-pick-badge" style="background: rgba(99, 102, 241, 0.125); color: rgb(99, 102, 241); --darkreader-inline-bgcolor: var(--darkreader-background-6366f120, rgba(13, 15, 140, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-6366f1, #6398f1);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Floral</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Wild Blueberry Lavender</h4>
@@ -1177,8 +1507,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-coconut">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#78716C15">🥥</span>
-            <span class="flavor-pick-badge" style="background:#78716C20; color:#78716C">Vegan</span>
+            <span class="flavor-pick-emoji" style="background: rgba(120, 113, 108, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-78716c15, rgba(86, 93, 97, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🥥</span>
+            <span class="flavor-pick-badge" style="background: rgba(120, 113, 108, 0.125); color: rgb(120, 113, 108); --darkreader-inline-bgcolor: var(--darkreader-background-78716c20, rgba(86, 93, 97, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-78716c, #a0988b);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Vegan</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Toasted Coconut Malai</h4>
@@ -1196,8 +1526,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-mint">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#10B98115">🌿</span>
-            <span class="flavor-pick-badge" style="background:#10B98120; color:#10B981">Crisp</span>
+            <span class="flavor-pick-emoji" style="background: rgba(16, 185, 129, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-10b98115, rgba(13, 148, 103, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🌿</span>
+            <span class="flavor-pick-badge" style="background: rgba(16, 185, 129, 0.125); color: rgb(16, 185, 129); --darkreader-inline-bgcolor: var(--darkreader-background-10b98120, rgba(13, 148, 103, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-10b981, #4ff0ba);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Crisp</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Fresh Mint Dark Choc Chip</h4>
@@ -1215,8 +1545,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-honey">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#FBBF2415">🍯</span>
-            <span class="flavor-pick-badge" style="background:#FBBF2420; color:#FBBF24">Crunchy</span>
+            <span class="flavor-pick-emoji" style="background: rgba(251, 191, 36, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-fbbf2415, rgba(136, 99, 2, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍯</span>
+            <span class="flavor-pick-badge" style="background: rgba(251, 191, 36, 0.125); color: rgb(251, 191, 36); --darkreader-inline-bgcolor: var(--darkreader-background-fbbf2420, rgba(136, 99, 2, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-fbbf24, #fbc434);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Crunchy</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Honeycomb Almond Crunch</h4>
@@ -1234,8 +1564,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-matcha">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#4D7C0F15">🍵</span>
-            <span class="flavor-pick-badge" style="background:#4D7C0F20; color:#4D7C0F">Imported</span>
+            <span class="flavor-pick-emoji" style="background: rgba(77, 124, 15, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-4d7c0f15, rgba(62, 99, 12, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍵</span>
+            <span class="flavor-pick-badge" style="background: rgba(77, 124, 15, 0.125); color: rgb(77, 124, 15); --darkreader-inline-bgcolor: var(--darkreader-background-4d7c0f20, rgba(62, 99, 12, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-4d7c0f, #bdef7b);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Imported</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Kyoto Ceremonial Matcha</h4>
@@ -1253,8 +1583,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-lemon">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#EAB30815">🍋</span>
-            <span class="flavor-pick-badge" style="background:#EAB30820; color:#EAB308">Sorbet</span>
+            <span class="flavor-pick-emoji" style="background: rgba(234, 179, 8, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-eab30815, rgba(187, 143, 6, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🍋</span>
+            <span class="flavor-pick-badge" style="background: rgba(234, 179, 8, 0.125); color: rgb(234, 179, 8); --darkreader-inline-bgcolor: var(--darkreader-background-eab30820, rgba(187, 143, 6, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-eab308, #f8c62a);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Sorbet</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Amalfi Lemon Basil Sorbet</h4>
@@ -1272,8 +1602,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-rose">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#E11D4815">🌹</span>
-            <span class="flavor-pick-badge" style="background:#E11D4820; color:#E11D48">Heritage</span>
+            <span class="flavor-pick-emoji" style="background: rgba(225, 29, 72, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-e11d4815, rgba(180, 23, 58, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🌹</span>
+            <span class="flavor-pick-badge" style="background: rgba(225, 29, 72, 0.125); color: rgb(225, 29, 72); --darkreader-inline-bgcolor: var(--darkreader-background-e11d4820, rgba(180, 23, 58, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-e11d48, #e5345b);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Heritage</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Kashmiri Shahi Gulab</h4>
@@ -1291,8 +1621,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-pb">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#92400E15">🥜</span>
-            <span class="flavor-pick-badge" style="background:#92400E20; color:#92400E">Decadent</span>
+            <span class="flavor-pick-emoji" style="background: rgba(146, 64, 14, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-92400e15, rgba(117, 51, 11, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🥜</span>
+            <span class="flavor-pick-badge" style="background: rgba(146, 64, 14, 0.125); color: rgb(146, 64, 14); --darkreader-inline-bgcolor: var(--darkreader-background-92400e20, rgba(117, 51, 11, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-92400e, #f19d6a);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Decadent</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Peanut Butter Fudge Swirl</h4>
@@ -1310,8 +1640,8 @@
       
         <div class="flavor-pick-card " id="flavor-card-box-brownie">
           <div class="flavor-pick-top">
-            <span class="flavor-pick-emoji" style="background:#3E272315">🧁</span>
-            <span class="flavor-pick-badge" style="background:#3E272320; color:#3E2723">Indulgent</span>
+            <span class="flavor-pick-emoji" style="background: rgba(62, 39, 35, 0.082); --darkreader-inline-bgcolor: var(--darkreader-background-3e272315, rgba(50, 31, 28, 0.08)); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">🧁</span>
+            <span class="flavor-pick-badge" style="background: rgba(62, 39, 35, 0.125); color: rgb(62, 39, 35); --darkreader-inline-bgcolor: var(--darkreader-background-3e272320, rgba(50, 31, 28, 0.13)); --darkreader-inline-bgimage: none; --darkreader-inline-color: var(--darkreader-text-3e2723, #c9c5be);" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-color="">Indulgent</span>
           </div>
           <div class="flavor-pick-details">
             <h4 class="flavor-pick-name">Fudge Brownie Batter</h4>
@@ -1333,7 +1663,7 @@
           <div class="box-summary-left">
             <div>
               <div class="box-summary-title" id="boxSummaryTitle">6 Scoops Party Box</div>
-              <div class="box-summary-status" id="boxSummaryStatus" style="color: rgba(255, 255, 255, 0.82);"><strong>0 of 6</strong> scoops chosen (6 more to go)</div>
+              <div class="box-summary-status" id="boxSummaryStatus" style="color: rgba(255, 255, 255, 0.82); --darkreader-inline-color: var(--darkreader-text-ffffffd1, rgba(232, 230, 227, 0.82));" data-darkreader-inline-color=""><strong>0 of 6</strong> scoops chosen (6 more to go)</div>
             </div>
             <div class="box-summary-price" id="boxSummaryPrice">₹799</div>
           </div>
@@ -1361,7 +1691,7 @@
         <div class="circular-stamp" title="Artisanal Quality Stamp">
           <svg viewBox="0 0 100 100" class="">
             <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"></path>
-            <text font-size="9.5" font-weight="800" fill="#FFFFFF" letter-spacing="2.2px">
+            <text font-size="9.5" font-weight="800" fill="#FFFFFF" letter-spacing="2.2px" style="--darkreader-inline-fill: var(--darkreader-text-ffffff, #e8e6e3);" data-darkreader-inline-fill="">
               <textPath href="#circlePath">
                 • ARTISANAL CHURNED • FRESH DAILY • 100% REAL MILK •
               </textPath>
@@ -1574,10 +1904,10 @@
     <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <div class="section-header reveal-slide-up is-revealed" style="text-align: center; max-width: 760px; margin: 0 auto;">
         <span class="badge badge-pink" style="margin-bottom: 12px; display: inline-block;">📸 VISUAL ARCHIVES</span>
-        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px;">
+        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px; --darkreader-inline-color: var(--darkreader-text--brand-brown, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           STEP INSIDE OUR PARLORS.
         </h2>
-        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6;">
+        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           Glimpses into our Carrara marble tasting counters, steaming cast-iron waffle irons, authentic copper churners, and late-night sweet memories.
         </p>
       </div>
@@ -1649,10 +1979,7 @@
       </div>
     </div>
   </section>
-
-  <!-- ========================================================================
-       11 — SWEET SALVATION CTA
-       ======================================================================== -->
+       ======================================================================== --&gt;
   <section class="final-cta-section" id="finalCtaSection">
     <div class="final-cta-container reveal-slide-up is-revealed anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
       <span class="section-eyebrow">Sweet Salvation</span>
@@ -1738,7 +2065,7 @@
         <!-- Secondary Information -->
         <div class="footer-secondary-info">
           <div>
-            <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-pink); margin-bottom: 4px;">
+            <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-pink); margin-bottom: 4px; --darkreader-inline-color: var(--darkreader-text--brand-pink, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
               Sweet Help &amp; Direct Line
             </div>
             <a href="mailto:hello@meltandscoop.com" class="footer-contact-email">
@@ -1794,15 +2121,15 @@
     <div class="free-shipping-progress">
       <div id="freeShippingText">Add ₹699 for FREE Sub-Zero Delivery!</div>
       <div class="progress-track">
-        <div class="progress-fill" id="freeShippingFill" style="width: 0%; background-color: rgb(16, 185, 129);"></div>
+        <div class="progress-fill" id="freeShippingFill" style="width: 0%; background-color: rgb(16, 185, 129); --darkreader-inline-bgcolor: var(--darkreader-background-10b981, #0d9467);" data-darkreader-inline-bgcolor=""></div>
       </div>
     </div>
 
     <!-- Items List -->
     <div class="cart-items-list" id="cartItemsList">
-        <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+        <div style="text-align: center; padding: 60px 20px; color: var(--text-muted); --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           <div style="font-size: 3.5rem; margin-bottom: 16px;">🍦</div>
-          <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main);">Your Cart is Empty</h3>
+          <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main); --darkreader-inline-color: var(--darkreader-text--text-main, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">Your Cart is Empty</h3>
           <p style="font-size: 0.9rem; margin-bottom: 24px;">Your cart deserves something sweet and creamy.</p>
           <a href="#shopFlavors" class="btn btn-primary" onclick="window.Cart.closeCart()">Shop Flavors →</a>
         </div>
@@ -1819,7 +2146,7 @@
         <span>Subtotal</span>
         <span id="cartSubtotal">₹0</span>
       </div>
-      <div class="cart-summary-line" id="cartDiscountRow" style="display:none; color:#10B981; font-weight:700;">
+      <div class="cart-summary-line" id="cartDiscountRow" style="display: none; color: rgb(16, 185, 129); font-weight: 700; --darkreader-inline-color: var(--darkreader-text-10b981, #4ff0ba);" data-darkreader-inline-color="">
         <span>Promo Discount</span>
         <span id="cartDiscountVal">-₹0</span>
       </div>
@@ -1850,7 +2177,7 @@
         <div style="text-align: center; margin-bottom: 24px;">
           <span style="font-size: 2.5rem;">🍨</span>
           <h2 style="font-size: 1.8rem; margin-top: 8px;">Fast Chilled Checkout</h2>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Total to pay: <strong id="checkoutSummaryTotal" style="color:var(--brand-pink);">₹0</strong></p>
+          <p style="font-size: 0.9rem; color: var(--text-muted); --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">Total to pay: <strong id="checkoutSummaryTotal" style="color: var(--brand-pink); --darkreader-inline-color: var(--darkreader-text--brand-pink, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">₹0</strong></p>
         </div>
 
         <form id="checkoutForm">
@@ -1873,7 +2200,7 @@
           <div class="checkout-grid-city-pin">
             <div>
               <label class="checkout-label">City</label>
-              <select class="checkout-input" style="background: #fff;">
+              <select class="checkout-input" style="background: rgb(255, 255, 255); --darkreader-inline-bgcolor: var(--darkreader-background-ffffff, #181a1b); --darkreader-inline-bgimage: none;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="">
                 <option>Ahmedabad</option>
                 <option>Mumbai</option>
                 <option>Delhi NCR</option>
@@ -1910,11 +2237,11 @@
       <!-- Checkout Success View -->
       <div id="checkoutSuccessView" style="display:none; text-align:center; padding: 20px 10px;">
         <div style="font-size: 4rem; margin-bottom: 12px;">🎉</div>
-        <h2 style="font-size: 2rem; margin-bottom: 8px; color: var(--text-main);">Craving Confirmed!</h2>
-        <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 20px;">
-          Your order <strong id="orderConfirmationId" style="color:var(--brand-pink);">#MS-829104</strong> is freshly churned and packed into our sub-zero dry ice box.
+        <h2 style="font-size: 2rem; margin-bottom: 8px; color: var(--text-main); --darkreader-inline-color: var(--darkreader-text--text-main, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">Craving Confirmed!</h2>
+        <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 20px; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
+          Your order <strong id="orderConfirmationId" style="color: var(--brand-pink); --darkreader-inline-color: var(--darkreader-text--brand-pink, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">#MS-829104</strong> is freshly churned and packed into our sub-zero dry ice box.
         </p>
-        <div style="background:var(--bg-cream-soft); padding:16px; border-radius:var(--radius-md); margin-bottom:24px; font-size:0.9rem;">
+        <div style="background: var(--bg-cream-soft); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px; font-size: 0.9rem; --darkreader-inline-bg: var(--darkreader-bg--bg-cream-soft);" data-darkreader-inline-bg="">
           ⏱️ <strong>Estimated Arrival:</strong> Within 35 - 45 minutes frozen solid.
         </div>
         <button class="btn btn-primary" onclick="document.getElementById('checkoutModal').classList.remove('open'); document.getElementById('checkoutSuccessView').style.display='none'; document.getElementById('checkoutFormView').style.display='block';">
@@ -1939,9 +2266,9 @@
             <div class="badge badge-pink" style="margin-bottom:10px;">Strawberry</div>
             <h2 class="quick-view-title">Strawberry Bliss</h2>
             <div class="quick-view-rating-row">
-              <span style="color:#F59E0B;">★★★★★</span>
+              <span style="color: rgb(245, 158, 11); --darkreader-inline-color: var(--darkreader-text-f59e0b, #f6a823);" data-darkreader-inline-color="">★★★★★</span>
               <span>5</span>
-              <span style="color:var(--text-muted);">(280 customer reviews)</span>
+              <span style="color: var(--text-muted); --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">(280 customer reviews)</span>
             </div>
             <p class="quick-view-desc">Bursting with hand-picked alpine strawberries folded into freshly churned whole cream, with sweet glazed berry chunks in every spoonful.</p>
             
@@ -1976,11 +2303,11 @@
       <button class="modal-close-btn" id="closeSearchBtn">✕</button>
       <div style="margin-bottom: 20px;">
         <h3 style="font-size: 1.4rem; margin-bottom: 6px;">Find Your Scoop</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Search flavors, notes, or dietary tags</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">Search flavors, notes, or dietary tags</p>
       </div>
-      <input type="text" id="searchInput" placeholder="Search e.g. Pistachio, Chocolate, Sorbet..." style="width: 100%; padding: 14px 18px; border-radius: var(--radius-pill); border: 2px solid var(--border-medium); font-size: 1rem; outline: none; margin-bottom: 20px;">
+      <input type="text" id="searchInput" placeholder="Search e.g. Pistachio, Chocolate, Sorbet..." style="width: 100%; padding: 14px 18px; border-radius: var(--radius-pill); border: 2px solid var(--border-medium); font-size: 1rem; outline: none; margin-bottom: 20px; --darkreader-inline-border-short: 2px solid var(--darkreader-border--border-medium); --darkreader-inline-outline: currentcolor;" data-darkreader-inline-border-short="" data-darkreader-inline-outline="">
       <div id="searchResults" style="max-height: 320px; overflow-y: auto;">
-        <p style="color:var(--text-muted); text-align:center; padding: 20px;">Type a flavor name to see live recommendations...</p>
+        <p style="color: var(--text-muted); text-align: center; padding: 20px; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">Type a flavor name to see live recommendations...</p>
       </div>
     </div>
   </div>
@@ -1996,13 +2323,13 @@
       </div>
       <div class="gallery-lightbox-body">
         <span class="badge badge-pink" style="align-self:flex-start; margin-bottom:12px;">MELT &amp; SCOOP ARCHIVES</span>
-        <h3 id="lightboxTitle" style="font-family:var(--font-display); font-size:1.8rem; font-weight:800; color:var(--brand-brown); margin-bottom:12px; line-height:1.2;">
+        <h3 id="lightboxTitle" style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--brand-brown); margin-bottom: 12px; line-height: 1.2; --darkreader-inline-color: var(--darkreader-text--brand-brown, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           The Carrara Tasting Room
         </h3>
-        <p id="lightboxDesc" style="font-size:0.95rem; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
+        <p id="lightboxDesc" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; --darkreader-inline-color: var(--darkreader-text--text-muted, var(--darkreader-text-000000, #e8e6e3));" data-darkreader-inline-color="">
           Flagship Parlor · Curved Italian marble, brass dairy taps &amp; plush velvet seating.
         </p>
-        <div style="font-size:0.82rem; color:var(--brand-brown); font-weight:700; background:var(--bg-cream-soft); padding:10px 16px; border-radius:12px; border:1px solid rgba(50,29,23,0.08);">
+        <div style="font-size: 0.82rem; color: var(--brand-brown); font-weight: 700; background: var(--bg-cream-soft); padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(50, 29, 23, 0.08); --darkreader-inline-color: var(--darkreader-text--brand-brown, var(--darkreader-text-000000, #e8e6e3)); --darkreader-inline-border-top: var(--darkreader-border-321d1714, rgba(128, 119, 105, 0.08)); --darkreader-inline-border-right: var(--darkreader-border-321d1714, rgba(128, 119, 105, 0.08)); --darkreader-inline-border-bottom: var(--darkreader-border-321d1714, rgba(128, 119, 105, 0.08)); --darkreader-inline-border-left: var(--darkreader-border-321d1714, rgba(128, 119, 105, 0.08)); --darkreader-inline-bg: var(--darkreader-bg--bg-cream-soft);" data-darkreader-inline-color="" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bg="">
           📍 Available for private tasting bookings &amp; bespoke dessert catering
         </div>
       </div>
@@ -2016,7 +2343,7 @@
   <script src="js/box-builder.js"></script>
   <script src="js/shop.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/editor.js?v=adminfix1"></script>
+  <script src="js/editor.js?v=dockfix"></script>
 
 
 <div id="toastContainer" class="toast-container"></div></body></html>

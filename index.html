@@ -2,13 +2,13 @@
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MELT &amp; SCOOP™ — Artisanal Creamery &amp; Sweet Cravings</title>
-  <meta name="description" content="Artisanal, ultra-creamy, small-batch ice cream crafted with grass-fed dairy, single-origin vanilla, and hand-picked fruits. Delivered frozen to your doorstep in sub-zero dry ice.">
+  <title>MELT &amp; SCOOP™ — Luxury Artisanal Creamery, Waffle House &amp; Live Studio</title>
+  <meta name="description" content="Luxury artisanal creamery and fresh waffle house. Handcrafted slow-churned grass-fed ice cream, authentic Belgian pearl-sugar waffles, parlor discovery, and secret Live Visual Studio CMS.">
   <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🍦&lt;/text&gt;&lt;/svg&gt;">
   <link rel="stylesheet" href="css/main.css?v=m1">
   <link rel="stylesheet" href="css/components.css?v=m1">
   <link rel="stylesheet" href="css/animations.css?v=m1">
-  <link rel="stylesheet" href="css/editor.css?v=dockfix">
+  <link rel="stylesheet" href="css/editor.css?v=adminfix1">
 </head>
 <body class="" style="" data-cursor-fx="sprinkles" data-section-anim="slide-up">
 
@@ -26,8 +26,9 @@
       <nav class="header-center-nav" aria-label="Main Navigation">
         <a href="#heroSection" class="header-nav-link active">Home</a>
         <a href="#bestsellersSection" class="header-nav-link">Shop</a>
+        <a href="#wafflesSection" class="header-nav-link">Waffles</a>
         <a href="#boxBuilderSection" class="header-nav-link">Build A Box</a>
-        <a href="#storySection" class="header-nav-link">About Us</a>
+        <a href="#storySection" class="header-nav-link">Our Story</a>
         <a href="#storeSection" class="header-nav-link">Locations</a>
         <a href="#footerContact" class="header-nav-link">Contact</a>
       </nav>
@@ -80,7 +81,11 @@
       </a>
       <a href="#bestsellersSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
         <span class="mobile-nav-icon">🍨</span>
-        <span>Shop 20 Scoops</span>
+        <span>Shop</span>
+      </a>
+      <a href="#wafflesSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
+        <span class="mobile-nav-icon">🧇</span>
+        <span>Waffles</span>
       </a>
       <a href="#boxBuilderSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
         <span class="mobile-nav-icon">📦</span>
@@ -92,11 +97,11 @@
       </a>
       <a href="#storeSection" class="mobile-nav-link" onclick="window.closeMobileMenu()">
         <span class="mobile-nav-icon">📍</span>
-        <span>Parlor Locations</span>
+        <span>Locations</span>
       </a>
       <a href="#footerContact" class="mobile-nav-link" onclick="window.closeMobileMenu()">
         <span class="mobile-nav-icon">💌</span>
-        <span>Contact &amp; Hours</span>
+        <span>Contact</span>
       </a>
     </nav>
     <div class="mobile-drawer-footer">
@@ -183,8 +188,8 @@
           <!-- Central Zoomed-In Isolated Ice Cream Cone -->
           <div class="hero-stage">
             <div class="hero-halo-ring" id="heroHaloRing"></div>
-            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.71deg) rotateY(5.2deg);">
-              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-left" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.8px 35px); --anim-duration: 0.8s; --anim-delay: 0s; position: relative; transform: translate(0px, 0px) rotate(0deg) scale(2.05); transform-origin: center center;" data-transform-x="0" data-transform-y="0" data-transform-rot="0" data-transform-scale="2.05">
+            <div class="icecream-display-frame" id="heroDisplayFrame" style="transform: perspective(1000px) rotateX(-12.03deg) rotateY(-3.62deg);">
+              <img src="assets/images/mango.png" alt="Artisanal Belgian Dark Truffle Ice Cream" class="icecream-hero-img anim-float-up slide-in-left" id="heroIcecreamImg" style="filter: drop-shadow(rgba(50, 29, 23, 0.18) 0px 40.82px 35px); --anim-duration: 0.8s; --anim-delay: 0s; position: relative; transform: translate(0px, 0px) rotate(0deg) scale(2.05); transform-origin: center center;" data-transform-x="0" data-transform-y="0" data-transform-rot="0" data-transform-scale="2.05">
             </div>
           </div>
 
@@ -239,7 +244,7 @@
     <div class="container">
       <div class="section-header reveal-slide-up is-revealed anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
         <span class="section-eyebrow">Artisanal Scoop Collection</span>
-        <h2 class="section-title">THE SIGNATURE 7-SCOOP COLLECTION</h2>
+        <h2 class="section-title">THE SIGNATURE 7 SCOOP COLLECTION</h2>
         <p class="section-subtitle">Freshly slow-churned daily with 100% grass-fed dairy and uncompromised ingredients. Handcrafted to pure perfection.</p>
       </div>
 
@@ -264,7 +269,7 @@
       </div>
 
       <div class="products-grid" id="bestsellersGrid">
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-truffle">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-truffle">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-truffle', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -301,7 +306,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-van-tahitian">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-van-tahitian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-van-tahitian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -338,7 +343,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-pist-sicilian">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-pist-sicilian">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-pist-sicilian', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -375,7 +380,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-4" id="card-prod-straw-bliss">
+        <div class="product-card reveal-slide-up stagger-4 is-revealed" id="card-prod-straw-bliss">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-bliss', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -412,7 +417,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-1" id="card-prod-choc-caramel">
+        <div class="product-card reveal-slide-up stagger-1 is-revealed" id="card-prod-choc-caramel">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-choc-caramel', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -449,7 +454,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-2" id="card-prod-mango-velvet">
+        <div class="product-card reveal-slide-up stagger-2 is-revealed" id="card-prod-mango-velvet">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-mango-velvet', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -486,7 +491,7 @@
           </div>
         </div>
       
-        <div class="product-card reveal-slide-up stagger-3" id="card-prod-straw-cheesecake">
+        <div class="product-card reveal-slide-up stagger-3 is-revealed" id="card-prod-straw-cheesecake">
           <button class="product-wishlist-btn " onclick="window.ShopInstance.toggleWishlist('prod-straw-cheesecake', this)" title="Save to favorites" aria-label="Save to favorites">
             ♡
           </button>
@@ -520,6 +525,293 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       05 — FRESH WAFFLE HOUSE COLLECTION
+       ======================================================================== -->
+  <section class="section-pad waffles-section sec-animate-ready sec-animated anim-sec-slide-up" id="wafflesSection">
+    <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
+      <div class="section-header reveal-slide-up is-revealed" style="text-align: center; max-width: 760px; margin: 0 auto 20px;">
+        <span class="badge badge-pink" style="margin-bottom: 12px; display: inline-block;">✨ 100% ARTISANAL WAFFLE HOUSE</span>
+        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px;">
+          GOLDEN, CRISP &amp; WARM FROM THE IRON.
+        </h2>
+        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6;">
+          Yeasted brioche dough infused with Belgian pearl sugar that caramelizes to a glassy crunch on 220°C seasoned cast iron — paired hot with slow-churned gelato scoops.
+        </p>
+      </div>
+
+      <!-- 6 Signature Waffle Creations Grid -->
+      <div class="waffles-grid">
+        <!-- Waffle 1: The Classic Belgian Liège -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-liege-classic">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-liege-classic')">
+            <span class="waffle-badge-pill">✨ Signature Caramelized</span>
+            <img src="assets/images/waffle-liege.jpg" alt="The Classic Belgian Liège Waffle" class="waffle-card-img" id="img-waffle-liege-classic">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-liege-classic')" style="cursor:pointer;">The Classic Belgian Liège</h3>
+              <span class="waffle-price">₹279</span>
+            </div>
+            <p class="waffle-desc">Yeasted brioche dough with caramelized pearl sugar crust, clotted Tahitian vanilla cream &amp; pure Canadian amber maple drizzle.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Tahitian Vanilla Bean Scoop</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-liege-classic', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-liege-classic">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-liege-classic', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-liege-classic')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waffle 2: Valrhona Molten Ganache Waffle -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-valrhona-ganache">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-valrhona-ganache')">
+            <span class="waffle-badge-pill">🍫 Dark Truffle Fudge</span>
+            <img src="assets/images/waffle-chocolate.jpg" alt="Valrhona Molten Ganache Waffle" class="waffle-card-img" id="img-waffle-valrhona-ganache">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-valrhona-ganache')" style="cursor:pointer;">Valrhona Molten Ganache</h3>
+              <span class="waffle-price">₹329</span>
+            </div>
+            <p class="waffle-desc">Dark cocoa waffle drenched in hot Belgian chocolate ganache, 70% dark cocoa curls, and molten fudge pools.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Belgian Dark Truffle Scoop</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-valrhona-ganache', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-valrhona-ganache">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-valrhona-ganache', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-valrhona-ganache')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waffle 3: Alphonso Sunshine Bubble Waffle -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-bubble-sunshine">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-bubble-sunshine')">
+            <span class="waffle-badge-pill">🥭 Hong Kong Crisp</span>
+            <img src="assets/images/waffle-bubble.jpg" alt="Alphonso Sunshine Bubble Waffle" class="waffle-card-img" id="img-waffle-bubble-sunshine">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-bubble-sunshine')" style="cursor:pointer;">Alphonso Sunshine Bubble</h3>
+              <span class="waffle-price">₹329</span>
+            </div>
+            <p class="waffle-desc">Golden crisp egg bubble waffle folded warm into a handheld cone, stuffed with pure Alphonso mango velvet sorbet, berries &amp; mint.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Alphonso Mango Silk Gelato</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-bubble-sunshine', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-bubble-sunshine">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-bubble-sunshine', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-bubble-sunshine')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waffle 4: Sicilian Pistachio Praline Waffle -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-sicilian-pistachio">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-sicilian-pistachio')">
+            <span class="waffle-badge-pill">⭐ Bronte Pistachio</span>
+            <img src="assets/images/waffle-liege.jpg" alt="Sicilian Pistachio Praline Waffle" class="waffle-card-img" id="img-waffle-sicilian-pistachio">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-sicilian-pistachio')" style="cursor:pointer;">Sicilian Pistachio Praline</h3>
+              <span class="waffle-price">₹349</span>
+            </div>
+            <p class="waffle-desc">Warm caramelized Liège waffle smothered in silky roasted Bronte pistachio cream, crushed emerald pralines &amp; white chocolate glaze.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Sicilian Pistachio Gelato</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-sicilian-pistachio', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-sicilian-pistachio">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-sicilian-pistachio', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-sicilian-pistachio')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waffle 5: Wild Strawberry Short-Waffle -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-wild-strawberry">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-wild-strawberry')">
+            <span class="waffle-badge-pill">🍓 Alpine Berries</span>
+            <img src="assets/images/waffle-bubble.jpg" alt="Wild Strawberry Short-Waffle" class="waffle-card-img" id="img-waffle-wild-strawberry">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-wild-strawberry')" style="cursor:pointer;">Wild Strawberry Short-Waffle</h3>
+              <span class="waffle-price">₹299</span>
+            </div>
+            <p class="waffle-desc">Crisp golden waffle layered with fresh macerated alpine strawberries, whipped Tahitian vanilla chantilly &amp; glazed berry ribbons.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Strawberry Bliss Gelato</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-wild-strawberry', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-wild-strawberry">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-wild-strawberry', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-wild-strawberry')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waffle 6: Salted Butterscotch Toffee Waffle -->
+        <div class="waffle-card reveal-slide-up is-revealed" id="card-waffle-butterscotch-toffee">
+          <div class="waffle-card-img-wrap" onclick="window.ShopInstance.openQuickView('waffle-butterscotch-toffee')">
+            <span class="waffle-badge-pill">🔥 Fleur De Sel</span>
+            <img src="assets/images/waffle-chocolate.jpg" alt="Salted Butterscotch Toffee Waffle" class="waffle-card-img" id="img-waffle-butterscotch-toffee">
+          </div>
+          <div class="waffle-card-content">
+            <div class="waffle-card-header">
+              <h3 class="waffle-title" onclick="window.ShopInstance.openQuickView('waffle-butterscotch-toffee')" style="cursor:pointer;">Salted Butterscotch Toffee</h3>
+              <span class="waffle-price">₹319</span>
+            </div>
+            <p class="waffle-desc">Hot caramelized waffle blanketed in copper kettle-cooked salted butterscotch, smoked fleur de sel, and toasted Georgia pecans.</p>
+            <div class="waffle-pairing-tag">
+              <span>🍨 Paired with:</span> <strong>Tahitian Vanilla Bean Gelato</strong>
+            </div>
+            <div class="waffle-card-footer">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-butterscotch-toffee', -1)">−</button>
+                <span class="qty-number" id="qty-val-waffle-butterscotch-toffee">1</span>
+                <button class="qty-btn" onclick="window.ShopInstance.stepCardQty('waffle-butterscotch-toffee', 1)">+</button>
+              </div>
+              <button class="btn btn-primary" onclick="window.ShopInstance.addCardToCart('waffle-butterscotch-toffee')">
+                ADD TO CART 🧇
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Waffle Customizer Card -->
+      <div class="waffle-customizer-box reveal-slide-up is-revealed">
+        <div class="waffle-customizer-grid">
+          <div class="waffle-builder-steps">
+            <div class="badge badge-pink" style="align-self: flex-start;">🎨 LIVE PAIRING BAR</div>
+            <h3 style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--brand-brown); margin: 0;">
+              CREATE YOUR CUSTOM WAFFLE PAIRING
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 8px;">
+              Pick your warm waffle base, pair it with any small-batch churned gelato scoop, and crown it with your favorite artisanal sauce.
+            </p>
+
+            <!-- Step 1: Base -->
+            <div>
+              <div class="waffle-step-title"><span>1. Choose Warm Waffle Base</span></div>
+              <div class="waffle-choice-pills">
+                <label>
+                  <input type="radio" name="waffleBase" value="liege" data-name="Belgian Liège" data-price="249" checked="">
+                  <span class="waffle-pill-btn">🧇 Belgian Liège (Caramelized Pearl Sugar) · ₹249</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleBase" value="brussels" data-name="Brussels Crisp" data-price="239">
+                  <span class="waffle-pill-btn">🧇 Brussels Crisp (Light &amp; Airy) · ₹239</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleBase" value="bubble" data-name="Hong Kong Bubble" data-price="259">
+                  <span class="waffle-pill-btn">🧇 Hong Kong Bubble (Puffy Spheres) · ₹259</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 2: Gelato Scoop -->
+            <div>
+              <div class="waffle-step-title"><span>2. Choose Gelato Scoop Pairing</span></div>
+              <div class="waffle-choice-pills">
+                <label>
+                  <input type="radio" name="waffleScoop" value="vanilla" data-name="Tahitian Vanilla" data-extra="0" checked="">
+                  <span class="waffle-pill-btn">🍨 Tahitian Vanilla (+₹0)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleScoop" value="strawberry" data-name="Strawberry Bliss" data-extra="10">
+                  <span class="waffle-pill-btn">🍓 Strawberry Bliss (+₹10)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleScoop" value="chocolate" data-name="Belgian Dark Truffle" data-extra="20">
+                  <span class="waffle-pill-btn">🍫 Dark Truffle (+₹20)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleScoop" value="pistachio" data-name="Sicilian Pistachio" data-extra="30">
+                  <span class="waffle-pill-btn">🌰 Sicilian Pistachio (+₹30)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleScoop" value="mango" data-name="Alphonso Mango" data-extra="15">
+                  <span class="waffle-pill-btn">🥭 Alphonso Mango (+₹15)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 3: Luxury Drizzle -->
+            <div>
+              <div class="waffle-step-title"><span>3. Choose Luxury Drizzle</span></div>
+              <div class="waffle-choice-pills">
+                <label>
+                  <input type="radio" name="waffleDrizzle" value="fudge" data-name="Molten Valrhona Fudge" data-extra="0" checked="">
+                  <span class="waffle-pill-btn">🍫 Molten Fudge (+₹0)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleDrizzle" value="caramel" data-name="Salted Butterscotch" data-extra="15">
+                  <span class="waffle-pill-btn">🍯 Salted Butterscotch (+₹15)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleDrizzle" value="pistachio" data-name="Pistachio Glaze" data-extra="25">
+                  <span class="waffle-pill-btn">🌰 Pistachio Glaze (+₹25)</span>
+                </label>
+                <label>
+                  <input type="radio" name="waffleDrizzle" value="berry" data-name="Alpine Berry Coulis" data-extra="10">
+                  <span class="waffle-pill-btn">🍓 Alpine Berry Coulis (+₹10)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview & Add to Cart -->
+          <div class="waffle-preview-card">
+            <div class="waffle-preview-img-wrap">
+              <img src="assets/images/waffle-liege.jpg" alt="Custom Waffle Creation" id="waffleCustomImg">
+            </div>
+            <div class="waffle-preview-price" id="waffleCustomPrice">₹249</div>
+            <div class="waffle-preview-summary" id="waffleCustomSummary">Belgian Liège Waffle + Tahitian Vanilla Scoop + Molten Valrhona Fudge</div>
+            <button class="btn btn-primary" id="addCustomWaffleBtn" style="width: 100%; padding: 16px; font-size: 0.95rem;">
+              ADD CUSTOM WAFFLE TO CART 🧇
+            </button>
+            <span style="font-size: 0.76rem; color: var(--text-muted); margin-top: 10px;">
+              🔥 Baked hot &amp; delivered in sub-zero thermally insulated boxes
+            </span>
           </div>
         </div>
       </div>
@@ -1274,7 +1566,90 @@
   </section>
 
   <!-- ========================================================================
-       11 — FINAL CTA (Boundary Overlapping Section)
+       10B — IMMERSIVE STORE IMAGE GALLERY & PARLOR ATMOSPHERE
+       ======================================================================== -->
+  <section class="section-pad store-gallery-section sec-animate-ready sec-animated anim-sec-slide-up" id="storeGallerySection">
+    <div class="container anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
+      <div class="section-header reveal-slide-up is-revealed" style="text-align: center; max-width: 760px; margin: 0 auto;">
+        <span class="badge badge-pink" style="margin-bottom: 12px; display: inline-block;">📸 VISUAL ARCHIVES</span>
+        <h2 class="section-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-brown); line-height: 1.15; margin-bottom: 14px;">
+          STEP INSIDE OUR PARLORS.
+        </h2>
+        <p class="section-subtitle" style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6;">
+          Glimpses into our Carrara marble tasting counters, steaming cast-iron waffle irons, authentic copper churners, and late-night sweet memories.
+        </p>
+      </div>
+
+      <!-- Gallery Filter Bar -->
+      <div class="gallery-filter-bar">
+        <button class="gallery-filter-btn active" data-gallery-filter="all">All Moments</button>
+        <button class="gallery-filter-btn" data-gallery-filter="interior">Parlor Architecture</button>
+        <button class="gallery-filter-btn" data-gallery-filter="craft">Behind The Churn</button>
+        <button class="gallery-filter-btn" data-gallery-filter="waffle">The Waffle Iron</button>
+        <button class="gallery-filter-btn" data-gallery-filter="night">Night Atmosphere</button>
+      </div>
+
+      <!-- Gallery Grid (6 Visual Stories) -->
+      <div class="store-gallery-grid" id="storeGalleryGrid">
+        <!-- Photo 1: Interior Architecture -->
+        <div class="gallery-item" data-category="interior" onclick="window.openGalleryLightbox('assets/images/gallery-interior.jpg', 'The Carrara Tasting Room', 'Flagship Parlor · Curved Italian marble, brass dairy taps &amp; plush velvet seating.')">
+          <img src="assets/images/gallery-interior.jpg" alt="The Carrara Tasting Room" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">Interior Architecture</span>
+            <h3 class="gallery-item-title">The Carrara Tasting Room</h3>
+          </div>
+        </div>
+
+        <!-- Photo 2: Waffle Iron Press -->
+        <div class="gallery-item" data-category="waffle" onclick="window.openGalleryLightbox('assets/images/gallery-press.jpg', 'The 220°C Cast-Iron Waffle Press', 'Craft Kitchen · Caramelizing Belgian pearl sugar brioche dough fresh to order.')">
+          <img src="assets/images/gallery-press.jpg" alt="The 220°C Cast-Iron Waffle Press" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">The Waffle Iron</span>
+            <h3 class="gallery-item-title">The 220°C Cast-Iron Press</h3>
+          </div>
+        </div>
+
+        <!-- Photo 3: Night Atmosphere -->
+        <div class="gallery-item" data-category="night" onclick="window.openGalleryLightbox('assets/images/gallery-night.jpg', 'Midnight on Cobblestones', 'Boutique Terrace · Warm glowing neon, intimate bistro marble tables, and late-night cravings.')">
+          <img src="assets/images/gallery-night.jpg" alt="Midnight on Cobblestones" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">Night Atmosphere</span>
+            <h3 class="gallery-item-title">Midnight on Cobblestones</h3>
+          </div>
+        </div>
+
+        <!-- Photo 4: Heritage Storefront -->
+        <div class="gallery-item" data-category="interior" onclick="window.openGalleryLightbox('assets/images/storefront.jpg', 'The Heritage Facade', 'Street Presence · Grand Parisian archways, bespoke gold-leaf script &amp; warm amber entrance.')">
+          <img src="assets/images/storefront.jpg" alt="The Heritage Facade" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">Parlor Architecture</span>
+            <h3 class="gallery-item-title">The Heritage Facade</h3>
+          </div>
+        </div>
+
+        <!-- Photo 5: Slow Churn Craft -->
+        <div class="gallery-item" data-category="craft" onclick="window.openGalleryLightbox('assets/images/story-craft.jpg', 'Copper Batch Churning', 'Slow Craft · Small-batch churned unpasteurized organic sweet cream folded by hand daily.')">
+          <img src="assets/images/story-craft.jpg" alt="Copper Batch Churning" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">Behind The Churn</span>
+            <h3 class="gallery-item-title">Copper Batch Churning</h3>
+          </div>
+        </div>
+
+        <!-- Photo 6: Editorial Scoop Texture -->
+        <div class="gallery-item" data-category="craft" onclick="window.openGalleryLightbox('assets/images/editorial-scoop.jpg', 'The Perfect Velvet Scoop', 'Sensory Texture · 14% butterfat density with silk-smooth scoop ribbons and zero ice crystals.')">
+          <img src="assets/images/editorial-scoop.jpg" alt="The Perfect Velvet Scoop" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-tag">Behind The Churn</span>
+            <h3 class="gallery-item-title">The Perfect Velvet Scoop</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       11 — SWEET SALVATION CTA
        ======================================================================== -->
   <section class="final-cta-section" id="finalCtaSection">
     <div class="final-cta-container reveal-slide-up is-revealed anim-float-up" style="--anim-duration: 0.8s; --anim-delay: 0s;">
@@ -1608,6 +1983,30 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       GALLERY LIGHTBOX MODAL
+       ======================================================================== -->
+  <div class="gallery-lightbox-modal" id="galleryLightboxModal" role="dialog" aria-modal="true" aria-label="Parlor Image Gallery Lightbox">
+    <div class="gallery-lightbox-card">
+      <button type="button" class="gallery-lightbox-close" id="closeGalleryLightboxBtn" aria-label="Close Lightbox">✕</button>
+      <div class="gallery-lightbox-img-wrap">
+        <img src="assets/images/gallery-interior.jpg" alt="Parlor Lightbox Image" id="lightboxImg">
+      </div>
+      <div class="gallery-lightbox-body">
+        <span class="badge badge-pink" style="align-self:flex-start; margin-bottom:12px;">MELT &amp; SCOOP ARCHIVES</span>
+        <h3 id="lightboxTitle" style="font-family:var(--font-display); font-size:1.8rem; font-weight:800; color:var(--brand-brown); margin-bottom:12px; line-height:1.2;">
+          The Carrara Tasting Room
+        </h3>
+        <p id="lightboxDesc" style="font-size:0.95rem; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
+          Flagship Parlor · Curved Italian marble, brass dairy taps &amp; plush velvet seating.
+        </p>
+        <div style="font-size:0.82rem; color:var(--brand-brown); font-weight:700; background:var(--bg-cream-soft); padding:10px 16px; border-radius:12px; border:1px solid rgba(50,29,23,0.08);">
+          📍 Available for private tasting bookings &amp; bespoke dessert catering
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/particles.js"></script>
   <script src="js/cart.js"></script>
@@ -1615,7 +2014,7 @@
   <script src="js/box-builder.js"></script>
   <script src="js/shop.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/editor.js?v=dockfix"></script>
+  <script src="js/editor.js?v=adminfix1"></script>
 
 
 <div id="toastContainer" class="toast-container"></div></body></html>
