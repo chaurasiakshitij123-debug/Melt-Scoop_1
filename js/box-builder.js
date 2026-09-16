@@ -53,8 +53,30 @@ class BoxBuilder {
     this.init();
   }
 
+  syncFlavorsFromDom() {
+    if (!this.paletteContainer) return;
+    const cards = this.paletteContainer.querySelectorAll('.flavor-pick-card');
+    if (!cards || cards.length === 0) return;
+    cards.forEach(card => {
+      const id = card.id ? card.id.replace('flavor-card-', '') : '';
+      const name = card.querySelector('.flavor-pick-name')?.textContent?.trim();
+      const note = card.querySelector('.flavor-pick-note')?.textContent?.trim();
+      const badge = card.querySelector('.flavor-pick-badge')?.textContent?.trim();
+      if (id && name) {
+        const f = BOX_FLAVORS.find(item => item.id === id);
+        if (f) {
+          f.name = name;
+          if (note) f.note = note;
+          if (badge) f.badge = badge;
+        }
+      }
+    });
+  }
+
   init() {
     if (!this.slotsContainer) return;
+
+    this.syncFlavorsFromDom();
 
     // Attach Tier selection (4, 6, 8)
     this.tierButtons.forEach(btn => {

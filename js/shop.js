@@ -194,8 +194,52 @@ class ShopManager {
     this.init();
   }
 
+  syncProductsFromDom() {
+    if (!this.bestsellersGrid) return;
+    const cards = this.bestsellersGrid.querySelectorAll('.product-card');
+    if (!cards || cards.length === 0) return;
+
+    const domProducts = [];
+    cards.forEach(card => {
+      const id = card.id ? card.id.replace('card-', '') : ('prod-' + Math.random().toString(36).substr(2, 6));
+      const name = card.querySelector('.product-title')?.textContent?.trim() || 'Artisanal Scoop';
+      const priceText = card.querySelector('.product-price')?.textContent || '219';
+      const price = parseInt(priceText.replace(/[^0-9]/g, ''), 10) || 219;
+      const img = card.querySelector('.product-image');
+      const image = img ? (img.getAttribute('src') || img.src) : 'assets/images/vanilla.png';
+      const tastingNotes = card.querySelector('.product-tasting-notes')?.textContent?.trim() || '';
+      const badge = card.querySelector('.badge-signature-tag, .product-cat-tag, .badge')?.textContent?.trim() || '✨ Artisanal';
+      const category = card.getAttribute('data-category') || 'all';
+
+      const existing = this.products.find(p => p.id === id);
+      domProducts.push({
+        id,
+        name,
+        price,
+        rating: existing ? existing.rating : 5.0,
+        reviewsCount: existing ? existing.reviewsCount : 250,
+        badge,
+        image,
+        tastingNotes,
+        description: existing ? existing.description : (tastingNotes || name),
+        category: existing ? existing.category : category,
+        dietary: existing ? existing.dietary : ['Vegetarian'],
+        nutrition: existing ? existing.nutrition : { calories: '220 kcal', fat: '12g', sugar: '18g', protein: '4g' }
+      });
+    });
+
+    if (domProducts.length > 0) {
+      const waffles = this.products.filter(p => p.category === 'waffle');
+      this.products = [...domProducts, ...waffles.filter(w => !domProducts.some(d => d.id === w.id))];
+    }
+  }
+
   init() {
-    this.renderBestsellers();
+    this.syncProductsFromDom();
+    // Do not wipe out bestsellersGrid if it already has products from index.html!
+    if (!this.bestsellersGrid || this.bestsellersGrid.children.length === 0) {
+      this.renderBestsellers();
+    }
     this.attachFilterTabs();
     this.attachSortEvents();
     this.attachFlavorBubbleLinks();

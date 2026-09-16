@@ -2218,35 +2218,19 @@
     });
   }
 
-  // Restore saved edits on load if available
-  function restoreSavedEditsOnLoad() {
-    try {
-      const savedHtml = localStorage.getItem('melt_scoop_published_html');
-      if (!savedHtml || savedHtml.length < 500) return;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(savedHtml, 'text/html');
-      if (!doc || !doc.body) return;
-
-      const savedMain = doc.querySelector('main');
-      const curMain = document.querySelector('main');
-      if (savedMain && curMain) {
-        curMain.innerHTML = savedMain.innerHTML;
-      }
-    } catch(e) {
-      console.warn('Could not restore cached edits:', e);
-    }
-  }
+  // Ensure no stale cache overrides index.html
+  try {
+    localStorage.removeItem('melt_scoop_published_html');
+  } catch(e) {}
 
   // Self-initialize on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      restoreSavedEditsOnLoad();
       initEditorUI();
       setupLogoClickTrigger();
       initMultiViewerSync();
     });
   } else {
-    restoreSavedEditsOnLoad();
     initEditorUI();
     setupLogoClickTrigger();
     initMultiViewerSync();
